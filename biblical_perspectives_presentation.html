@@ -4,255 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblical Perspectives - Lesson 1: Ultimate Authority</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: #333;
-            overflow: hidden;
-        }
-
-        .presentation-container {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .slide {
-            display: none;
-            background: white;
-            margin: 20px;
-            padding: 60px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            height: calc(100vh - 120px);
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .slide.active {
-            display: block;
-            animation: slideIn 0.5s ease-in-out;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .slide h1 {
-            color: #1f4e79;
-            font-size: 3em;
-            margin-bottom: 30px;
-            border-bottom: 4px solid #d49c3d;
-            padding-bottom: 15px;
-        }
-
-        .slide h2 {
-            color: #1f4e79;
-            font-size: 2.2em;
-            margin-bottom: 25px;
-        }
-
-        .slide h3 {
-            color: #2c5aa0;
-            font-size: 1.6em;
-            margin-bottom: 20px;
-            margin-top: 30px;
-        }
-
-        .slide p {
-            font-size: 1.3em;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .slide ul {
-            font-size: 1.2em;
-            line-height: 1.8;
-            margin-left: 30px;
-            margin-bottom: 25px;
-        }
-
-        .slide li {
-            margin-bottom: 12px;
-            padding-left: 10px;
-        }
-
-        .central-quote {
-            font-size: 2.5em;
-            text-align: center;
-            color: #d49c3d;
-            font-style: italic;
-            margin: 60px 0;
-            padding: 40px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 6px solid #d49c3d;
-        }
-
-        .large-text {
-            font-size: 4em;
-            text-align: center;
-            color: #1f4e79;
-            font-weight: bold;
-            margin: 80px 0;
-        }
-
-        .quote-box {
-            background: #f8f9fa;
-            padding: 25px;
-            border-left: 5px solid #d49c3d;
-            margin: 25px 0;
-            font-style: italic;
-            font-size: 1.1em;
-        }
-
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin: 30px 0;
-        }
-
-        .highlight-box {
-            background: #e8f4f8;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border-left: 4px solid #2c5aa0;
-        }
-
-        .problem-reality {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 25px 0;
-        }
-
-        .problem {
-            background: #ffe6e6;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #e74c3c;
-        }
-
-        .reality {
-            background: #e6f7e6;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #27ae60;
-        }
-
-        .example {
-            background: #fff3cd;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #ffc107;
-            margin-top: 20px;
-        }
-
-        .controls {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 15px;
-            z-index: 1000;
-        }
-
-        .controls button {
-            background: #1f4e79;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s ease;
-        }
-
-        .controls button:hover {
-            background: #2c5aa0;
-            transform: translateY(-2px);
-        }
-
-        .controls button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .slide-counter {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            background: #1f4e79;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9em;
-        }
-
-        .section-header {
-            background: linear-gradient(135deg, #1f4e79, #2c5aa0);
-            color: white;
-            text-align: center;
-            padding: 100px 0;
-            margin: -60px -60px 60px -60px;
-            border-radius: 15px 15px 0 0;
-        }
-
-        .section-header h1 {
-            color: white;
-            border: none;
-            margin-bottom: 20px;
-        }
-
-        .section-header h2 {
-            color: #d49c3d;
-            font-size: 1.8em;
-        }
-
-        .do-dont {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 30px 0;
-        }
-
-        .dont {
-            background: #ffe6e6;
-            padding: 25px;
-            border-radius: 8px;
-        }
-
-        .do {
-            background: #e6f7e6;
-            padding: 25px;
-            border-radius: 8px;
-        }
-
-        .characteristic {
-            background: #f8f9fa;
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 8px;
-            border-left: 4px solid #d49c3d;
-        }
-
-        .characteristic h4 {
-            color: #1f4e79;
-            margin-bottom: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="presentation-styles.css">
 </head>
 <body>
     <div class="presentation-container">
@@ -284,16 +36,18 @@
         </div>
 
         <!-- Slide 3: Central Question -->
-        <div class="slide">
+        <div class="slide title-slide">
             <h1>Our Fundamental Question</h1>
-            <p style="text-align: center; font-size: 1.5em; margin-bottom: 40px;">Throughout This Course</p>
+            <p style="font-size: 1.5em; margin-bottom: 40px; color: #cbd5e1;">Throughout This Course</p>
             <div class="large-text">"By What Standard?"</div>
-            <ul>
-                <li>Every argument appeals to some ultimate standard</li>
-                <li>Every claim to knowledge has an ultimate authority behind it</li>
-                <li>Every moral judgment assumes a final court of appeal</li>
-                <li>The question isn't WHETHER we have one, but WHICH one we choose</li>
-            </ul>
+            <div style="margin-top: 40px; text-align: left; max-width: 800px;">
+                <ul style="color: #cbd5e1; font-size: 1.2rem; line-height: 1.8;">
+                    <li>Every argument appeals to some ultimate standard</li>
+                    <li>Every claim to knowledge has an ultimate authority behind it</li>
+                    <li>Every moral judgment assumes a final court of appeal</li>
+                    <li>The question isn't WHETHER we have one, but WHICH one we choose</li>
+                </ul>
+            </div>
         </div>
 
         <!-- Slide 4: Section Header -->
@@ -436,17 +190,17 @@
             
             <div class="problem-reality">
                 <div class="problem">
-                    <h4>❌ Problem:</h4>
+                    <h4>Problem:</h4>
                     <p>Facts don't interpret themselves</p>
                 </div>
                 <div class="reality">
-                    <h4>✓ Reality:</h4>
+                    <h4>Reality:</h4>
                     <p>Everyone brings an interpretive framework to the facts</p>
                 </div>
             </div>
             
             <div class="example">
-                <h4>📖 Example:</h4>
+                <h4>Example:</h4>
                 <p>The same archaeological evidence gets interpreted differently by Christian and secular historians</p>
             </div>
         </div>
@@ -457,17 +211,17 @@
             
             <div class="problem-reality">
                 <div class="problem">
-                    <h4>❌ Problem:</h4>
+                    <h4>Problem:</h4>
                     <p>Why trust logic and reason? On what basis?</p>
                 </div>
                 <div class="reality">
-                    <h4>✓ Reality:</h4>
+                    <h4>Reality:</h4>
                     <p>Even confidence in logic requires an ultimate commitment</p>
                 </div>
             </div>
             
             <div class="example">
-                <h4>🤔 Question:</h4>
+                <h4>Question:</h4>
                 <p>How do you prove logic is reliable without using logic? (That's circular reasoning!)</p>
             </div>
         </div>
@@ -478,11 +232,11 @@
             
             <div class="problem-reality">
                 <div class="problem">
-                    <h4>❌ Problem:</h4>
+                    <h4>Problem:</h4>
                     <p>Science itself operates on unprovable assumptions</p>
                 </div>
                 <div class="reality">
-                    <h4>✓ Reality:</h4>
+                    <h4>Reality:</h4>
                     <p>Science requires faith in:</p>
                     <ul>
                         <li>Uniformity of nature</li>
@@ -493,7 +247,7 @@
             </div>
             
             <div class="example">
-                <h4>📖 Example:</h4>
+                <h4>Example:</h4>
                 <p>Science assumes the future will resemble the past, but cannot prove this scientifically</p>
             </div>
         </div>
@@ -522,37 +276,39 @@
                 <div class="dont">
                     <h3>What We DON'T Do:</h3>
                     <ul>
-                        <li>❌ Seek secular philosophy's permission to believe Scripture</li>
-                        <li>❌ Start with "neutral" human reason and work our way up to God</li>
+                        <li>Seek secular philosophy's permission to believe Scripture</li>
+                        <li>Start with "neutral" human reason and work our way up to God</li>
                     </ul>
                 </div>
                 <div class="do">
                     <h3>What We DO:</h3>
                     <ul>
-                        <li>✓ Start with God's revelation and think His thoughts after Him</li>
-                        <li>✓ Acknowledge our Christian starting point openly</li>
-                        <li>✓ Challenge others to examine their ultimate commitments</li>
+                        <li>Start with God's revelation and think His thoughts after Him</li>
+                        <li>Acknowledge our Christian starting point openly</li>
+                        <li>Challenge others to examine their ultimate commitments</li>
                     </ul>
                 </div>
             </div>
         </div>
 
         <!-- Slide 16: Circular Reasoning -->
-        <div class="slide">
+        <div class="slide title-slide">
             <h1>"But That's Circular Reasoning!"</h1>
             
-            <div class="highlight-box">
-                <h4>The Accusation:</h4>
-                <p style="font-style: italic;">"You're just reasoning in circles - using the Bible to prove the Bible!"</p>
+            <div style="background: rgba(255,255,255,0.1); padding: 24px; border-radius: 12px; margin: 32px 0; border-left: 4px solid #cbd5e1;">
+                <h4 style="color: #cbd5e1; margin-bottom: 12px;">The Accusation:</h4>
+                <p style="font-style: italic; color: #94a3b8; font-size: 1.2rem;">"You're just reasoning in circles - using the Bible to prove the Bible!"</p>
             </div>
             
-            <h3>The Response:</h3>
-            <ul>
-                <li>Everyone's ultimate authority is circular - that's what makes it ultimate</li>
-                <li>The question isn't whether you reason in circles, but whether your circle is large enough to account for all of reality</li>
-            </ul>
+            <h3 style="color: #cbd5e1; margin: 32px 0 24px 0;">The Response:</h3>
+            <div style="text-align: left; max-width: 900px;">
+                <ul style="color: #cbd5e1; font-size: 1.2rem; line-height: 1.8;">
+                    <li>Everyone's ultimate authority is circular - that's what makes it ultimate</li>
+                    <li>The question isn't whether you reason in circles, but whether your circle is large enough to account for all of reality</li>
+                </ul>
+            </div>
             
-            <div class="quote-box">
+            <div style="background: rgba(255,255,255,0.1); padding: 24px; border-radius: 12px; margin: 32px 0; border-left: 4px solid #cbd5e1; font-style: italic; color: #94a3b8; font-size: 1.2rem;">
                 Even the person making this accusation has to use reason to defend reason!
             </div>
         </div>
@@ -573,18 +329,18 @@
                 <div class="dont">
                     <h3>Don't:</h3>
                     <ul>
-                        <li>❌ Pretend to be neutral</li>
-                        <li>❌ Seek "common ground" on ultimate issues</li>
-                        <li>❌ Try to win through "neutral" reasoning</li>
+                        <li>Pretend to be neutral</li>
+                        <li>Seek "common ground" on ultimate issues</li>
+                        <li>Try to win through "neutral" reasoning</li>
                     </ul>
                 </div>
                 <div class="do">
                     <h3>Do:</h3>
                     <ul>
-                        <li>✓ Acknowledge your Christian starting point</li>
-                        <li>✓ Expose false neutrality in others</li>
-                        <li>✓ Show where different ultimate authorities lead</li>
-                        <li>✓ Challenge inconsistency in non-Christian thinking</li>
+                        <li>Acknowledge your Christian starting point</li>
+                        <li>Expose false neutrality in others</li>
+                        <li>Show where different ultimate authorities lead</li>
+                        <li>Challenge inconsistency in non-Christian thinking</li>
                     </ul>
                 </div>
             </div>
@@ -727,16 +483,16 @@
         </div>
 
         <!-- Slide 25: Closing -->
-        <div class="slide">
+        <div class="slide title-slide">
             <h1>Remember This</h1>
             
-            <div class="central-quote">
+            <div style="font-size: 2.5rem; text-align: center; color: #cbd5e1; font-style: italic; font-weight: 500; margin: 48px 0; padding: 32px; background: rgba(255,255,255,0.1); border-radius: 12px; border-left: 4px solid #cbd5e1; max-width: 900px;">
                 "The Christian cannot, indeed must not, take an unattached or neutral stance with respect to his faith"
             </div>
             
-            <div style="text-align: center; margin-top: 60px;">
-                <h3>Next Week:</h3>
-                <p style="font-size: 1.3em;">How this applies to specific areas of knowledge and ethics</p>
+            <div style="margin-top: 60px;">
+                <h3 style="color: #cbd5e1; margin-bottom: 16px;">Next Week:</h3>
+                <p style="font-size: 1.5em; color: #94a3b8;">How this applies to specific areas of knowledge and ethics</p>
             </div>
         </div>
     </div>
