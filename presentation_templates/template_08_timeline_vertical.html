@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline Vertical Presentation Template</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; background: #f0f4f8; color: #2d3748; line-height: 1.6; overflow: hidden; }
+        .presentation-container { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+        .slide { width: 90%; max-width: 1000px; height: 90%; max-height: 600px; padding: 50px; display: none; flex-direction: column; justify-content: center; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; }
+        .slide.active { display: flex; }
+        .slide-number { position: absolute; top: 25px; right: 25px; font-size: 0.85rem; color: #718096; font-weight: 500; }
+        .timeline-container { position: relative; padding-left: 60px; }
+        .timeline-line { position: absolute; left: 20px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, #4299e1, #63b3ed); }
+        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-dot { position: absolute; left: -52px; top: 10px; width: 16px; height: 16px; background: #4299e1; border: 4px solid white; border-radius: 50%; box-shadow: 0 2px 8px rgba(66,153,225,0.3); }
+        .timeline-number { position: absolute; left: -58px; top: -5px; width: 28px; height: 28px; background: #4299e1; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; }
+        .slide h1 { font-size: 2.8rem; font-weight: 700; margin-bottom: 30px; color: #2d3748; text-align: center; }
+        .slide h2 { font-size: 2.2rem; font-weight: 600; margin-bottom: 25px; color: #2d3748; text-align: center; }
+        .slide h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 15px; color: #4a5568; }
+        .slide p { font-size: 1.1rem; font-weight: 400; line-height: 1.7; margin-bottom: 15px; color: #4a5568; }
+        .highlight { color: #4299e1; font-weight: 600; }
+        .accent { color: #e53e3e; font-weight: 600; }
+        .quote { font-style: italic; font-size: 1.3rem; color: #4a5568; text-align: center; margin: 30px auto; max-width: 600px; background: #f7fafc; padding: 25px; border-radius: 10px; border-left: 4px solid #4299e1; }
+        .verse { font-style: italic; color: #4299e1; font-size: 1rem; margin-top: 15px; font-weight: 500; text-align: center; }
+        .navigation { position: fixed; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 1000; }
+        .nav-btn { padding: 12px 20px; background: #4299e1; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: all 0.3s ease; font-weight: 500; }
+        .nav-btn:hover { background: #3182ce; transform: translateY(-2px); }
+        .progress-bar { position: fixed; bottom: 0; left: 0; height: 4px; background: #4299e1; transition: width 0.3s ease; z-index: 1000; }
+        .center-content { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; }
+        .step-box { background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #4299e1; margin: 10px 0; }
+        @media (max-width: 768px) { .slide { padding: 40px 30px; width: 95%; height: 95%; } .timeline-container { padding-left: 40px; } .timeline-line { left: 15px; } .timeline-dot, .timeline-number { left: -47px; } .slide h1 { font-size: 2.2rem; } .slide h2 { font-size: 1.8rem; } }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slide active">
+            <div class="slide-number">Step 1 of 6</div>
+            <div class="center-content">
+                <h1>Biblical <span class="highlight">Perspectives</span></h1>
+                <h3>A Journey Through Ultimate Authority</h3>
+                <div class="step-box">
+                    <p style="margin: 0; font-weight: 500;">Following the path of presuppositional apologetics and worldview formation</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-number">Step 2 of 6</div>
+            <h2>The <span class="highlight">Foundation</span> Journey</h2>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <div class="timeline-item">
+                    <div class="timeline-number">1</div>
+                    <h3>The Question Emerges</h3>
+                    <p>What serves as your ultimate authority for truth and knowledge?</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">2</div>
+                    <h3>The Choice Forms</h3>
+                    <p>This foundational decision shapes our interpretation of all reality.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">3</div>
+                    <h3>The Impact Spreads</h3>
+                    <p>Our choice influences every aspect of thinking and living.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-number">Step 3 of 6</div>
+            <h2>Essential <span class="highlight">Questions</span> to Explore</h2>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <div class="timeline-item">
+                    <div class="timeline-number">A</div>
+                    <h3>Truth Determination</h3>
+                    <p>How do we establish what is absolutely true?</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">B</div>
+                    <h3>Knowledge Acquisition</h3>
+                    <p>What methods lead to genuine understanding?</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">C</div>
+                    <h3>Moral Foundation</h3>
+                    <p>What establishes reliable ethical standards?</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">D</div>
+                    <h3>Ultimate Meaning</h3>
+                    <p>What provides genuine purpose in existence?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-number">Step 4 of 6</div>
+            <h2>Two <span class="highlight">Paths</span> Diverge</h2>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <div class="timeline-item">
+                    <div class="timeline-dot" style="background: #e53e3e;"></div>
+                    <h3 style="color: #e53e3e;">Path of Human Autonomy</h3>
+                    <div class="step-box" style="border-left-color: #e53e3e; background: #fed7d7;">
+                        <p style="margin: 0;">Reason as ultimate judge • Self-determined standards • Individual meaning</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <h3 style="color: #4299e1;">Path of Divine Authority</h3>
+                    <div class="step-box">
+                        <p style="margin: 0;">Scripture as foundation • God's moral law • Divine purpose</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">?</div>
+                    <h3>The Choice Point</h3>
+                    <p>Which path will you choose as your foundation?</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-number">Step 5 of 6</div>
+            <div class="center-content">
+                <h2>The <span class="highlight">Scripture</span> Declares</h2>
+                <div class="quote">
+                    "The fear of the Lord is the beginning of knowledge; fools despise wisdom and instruction."
+                </div>
+                <div class="verse">— Proverbs 1:7</div>
+                <div class="timeline-container" style="margin-top: 30px;">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">✓</div>
+                        <p style="margin: 0;">True knowledge begins with acknowledging God's authority over all reality.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-number">Step 6 of 6</div>
+            <h2>Living the <span class="highlight">Biblical Path</span></h2>
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <div class="timeline-item">
+                    <div class="timeline-number">1</div>
+                    <h3>Solid Foundation</h3>
+                    <p>Reliable basis for understanding truth and reality</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">2</div>
+                    <h3>Clear Guidance</h3>
+                    <p>Biblical principles for moral and ethical decisions</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">3</div>
+                    <h3>Meaningful Purpose</h3>
+                    <p>God-given direction and significance in life</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">4</div>
+                    <h3>Confident Hope</h3>
+                    <p>Stability and assurance during uncertain times</p>
+                </div>
+            </div>
+            <div class="step-box" style="margin-top: 20px; text-align: center;">
+                <p style="margin: 0; font-weight: 600; color: #4299e1;">How will this journey transform your daily walk?</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            updateProgress();
+        }
+
+        function nextSlide() { showSlide(currentSlide + 1); }
+        function previousSlide() { showSlide(currentSlide - 1); }
+
+        function updateProgress() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            else if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        updateProgress();
+    </script>
+</body>
+</html>

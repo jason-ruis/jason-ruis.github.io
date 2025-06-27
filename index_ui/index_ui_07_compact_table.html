@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblical Studies Teaching Hub - Compact Table</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #007bff;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            color: #6c757d;
+            font-size: 1rem;
+        }
+        
+        .stats-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .actions-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .actions-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #212529;
+        }
+        
+        .actions-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .action-btn:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+        }
+        
+        .courses-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .courses-header {
+            padding: 20px;
+            border-bottom: 1px solid #dee2e6;
+            background: #f8f9fa;
+        }
+        
+        .courses-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #212529;
+        }
+        
+        .courses-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .courses-table th {
+            padding: 12px 20px;
+            text-align: left;
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .courses-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f1f3f4;
+            vertical-align: top;
+        }
+        
+        .courses-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .course-name {
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 4px;
+        }
+        
+        .course-description {
+            font-size: 0.875rem;
+            color: #6c757d;
+            line-height: 1.4;
+        }
+        
+        .course-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-planning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-considering {
+            background: #e2e3e5;
+            color: #41464b;
+        }
+        
+        .lesson-count {
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .lesson-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .lesson-btn {
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #6c757d;
+            border: 1px solid #dee2e6;
+        }
+        
+        .btn-outline:hover {
+            background: #f8f9fa;
+            color: #495057;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #007bff;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.875rem;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .actions-row {
+                flex-direction: column;
+            }
+            
+            .courses-table {
+                font-size: 0.875rem;
+            }
+            
+            .courses-table th,
+            .courses-table td {
+                padding: 8px 12px;
+            }
+            
+            .lesson-actions {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .courses-table,
+            .courses-table thead,
+            .courses-table tbody,
+            .courses-table th,
+            .courses-table td,
+            .courses-table tr {
+                display: block;
+            }
+            
+            .courses-table thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+            
+            .courses-table tr {
+                border: 1px solid #dee2e6;
+                border-radius: 8px;
+                margin-bottom: 10px;
+                padding: 10px;
+            }
+            
+            .courses-table td {
+                border: none;
+                position: relative;
+                padding: 8px 0;
+            }
+            
+            .courses-table td:before {
+                content: attr(data-label) ": ";
+                font-weight: 600;
+                margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Biblical Studies Teaching Hub</h1>
+            <p>Comprehensive course management and lesson tracking system</p>
+        </div>
+
+        <div class="stats-container">
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Total Courses</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">28</div>
+                    <div class="stat-label">Total Lessons</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">280</div>
+                    <div class="stat-label">Total Slides</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Active Courses</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions-container">
+            <div class="actions-title">Quick Actions</div>
+            <div class="actions-row">
+                <button class="action-btn">Create New Lesson</button>
+                <button class="action-btn">Manage Courses</button>
+                <button class="action-btn">Export All Data</button>
+                <button class="action-btn">View Analytics</button>
+                <button class="action-btn">Settings</button>
+            </div>
+        </div>
+
+        <div class="courses-container">
+            <div class="courses-header">
+                <div class="courses-title">Course Overview</div>
+            </div>
+            <table class="courses-table">
+                <thead>
+                    <tr>
+                        <th>Course</th>
+                        <th>Status</th>
+                        <th>Progress</th>
+                        <th>Lessons</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Course">
+                            <div class="course-name">Biblical Perspectives</div>
+                            <div class="course-description">
+                                An exploration of presuppositional apologetics and biblical worldview thinking.
+                            </div>
+                        </td>
+                        <td data-label="Status">
+                            <span class="course-status status-active">Active</span>
+                        </td>
+                        <td data-label="Progress">
+                            6 of 12 complete
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 50%"></div>
+                            </div>
+                        </td>
+                        <td data-label="Lessons">
+                            <div class="lesson-count">12 lessons</div>
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-top: 4px;">
+                                ~6 hours total
+                            </div>
+                        </td>
+                        <td data-label="Actions">
+                            <div class="lesson-actions">
+                                <a href="biblical_perspectives_presentation.html" class="lesson-btn btn-primary">Open</a>
+                                <a href="#" class="lesson-btn btn-secondary">Edit</a>
+                                <a href="#" class="lesson-btn btn-outline">Preview</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="Course">
+                            <div class="course-name">Old Testament Survey</div>
+                            <div class="course-description">
+                                A comprehensive overview of the Old Testament, covering major themes and context.
+                            </div>
+                        </td>
+                        <td data-label="Status">
+                            <span class="course-status status-planning">Planning</span>
+                        </td>
+                        <td data-label="Progress">
+                            0 of 16 complete
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </td>
+                        <td data-label="Lessons">
+                            <div class="lesson-count">16 lessons</div>
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-top: 4px;">
+                                ~8 hours planned
+                            </div>
+                        </td>
+                        <td data-label="Actions">
+                            <div class="lesson-actions">
+                                <a href="#" class="lesson-btn btn-outline">Draft</a>
+                                <a href="#" class="lesson-btn btn-outline">Plan</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="Course">
+                            <div class="course-name">New Testament Survey</div>
+                            <div class="course-description">
+                                An in-depth study of the New Testament books, exploring Christ and early church.
+                            </div>
+                        </td>
+                        <td data-label="Status">
+                            <span class="course-status status-planning">Planning</span>
+                        </td>
+                        <td data-label="Progress">
+                            0 of 14 complete
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </td>
+                        <td data-label="Lessons">
+                            <div class="lesson-count">14 lessons</div>
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-top: 4px;">
+                                ~7 hours planned
+                            </div>
+                        </td>
+                        <td data-label="Actions">
+                            <div class="lesson-actions">
+                                <a href="#" class="lesson-btn btn-outline">Draft</a>
+                                <a href="#" class="lesson-btn btn-outline">Plan</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td data-label="Course">
+                            <div class="course-name">Christian Issues</div>
+                            <div class="course-description">
+                                Contemporary issues facing Christians today, examined through biblical theology.
+                            </div>
+                        </td>
+                        <td data-label="Status">
+                            <span class="course-status status-considering">Considering</span>
+                        </td>
+                        <td data-label="Progress">
+                            0 of 10 complete
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                        </td>
+                        <td data-label="Lessons">
+                            <div class="lesson-count">10 topics</div>
+                            <div style="font-size: 0.75rem; color: #6c757d; margin-top: 4px;">
+                                ~5 hours estimated
+                            </div>
+                        </td>
+                        <td data-label="Actions">
+                            <div class="lesson-actions">
+                                <a href="#" class="lesson-btn btn-outline">Research</a>
+                                <a href="#" class="lesson-btn btn-outline">Outline</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>"All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness" - 2 Timothy 3:16</p>
+        </div>
+    </div>
+</body>
+</html>

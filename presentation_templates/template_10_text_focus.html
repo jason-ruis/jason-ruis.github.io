@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Focus Presentation Template</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Georgia', 'Times New Roman', serif; background: #ffffff; color: #333333; line-height: 1.8; overflow: hidden; }
+        .presentation-container { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+        .slide { width: 80%; max-width: 800px; height: 80%; max-height: 500px; padding: 80px 60px; display: none; flex-direction: column; justify-content: center; text-align: center; background: white; position: relative; }
+        .slide.active { display: flex; }
+        .slide-number { position: absolute; top: 40px; right: 40px; font-size: 0.75rem; color: #999; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; }
+        .slide h1 { font-size: 2.2rem; font-weight: 400; margin-bottom: 40px; color: #333; line-height: 1.3; letter-spacing: 1px; }
+        .slide h2 { font-size: 1.8rem; font-weight: 400; margin-bottom: 35px; color: #333; line-height: 1.4; }
+        .slide h3 { font-size: 1.4rem; font-weight: 500; margin-bottom: 25px; color: #555; }
+        .slide p { font-size: 1.1rem; font-weight: 400; line-height: 1.8; margin-bottom: 25px; color: #444; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .slide ul { text-align: left; max-width: 500px; margin: 0 auto 30px; }
+        .slide li { font-size: 1rem; margin-bottom: 18px; color: #444; padding-left: 0; list-style: none; position: relative; }
+        .slide li::before { content: '—'; position: absolute; left: -25px; color: #999; }
+        .highlight { color: #2c5aa0; font-weight: 500; font-style: italic; }
+        .accent { color: #8b4513; font-weight: 500; }
+        .quote { font-style: italic; font-size: 1.4rem; color: #555; margin: 50px auto; max-width: 550px; position: relative; line-height: 1.6; }
+        .quote::before { content: '"'; font-size: 5rem; color: #eee; position: absolute; top: -30px; left: -40px; font-family: serif; }
+        .verse { font-style: normal; color: #2c5aa0; font-size: 0.9rem; margin-top: 30px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+        .navigation { position: fixed; bottom: 40px; right: 40px; display: flex; gap: 20px; z-index: 1000; }
+        .nav-btn { padding: 8px 16px; background: transparent; color: #666; border: 1px solid #ddd; cursor: pointer; font-size: 0.8rem; transition: all 0.3s ease; font-family: inherit; letter-spacing: 1px; text-transform: uppercase; }
+        .nav-btn:hover { background: #f5f5f5; border-color: #999; color: #333; }
+        .progress-bar { position: fixed; bottom: 0; left: 0; height: 1px; background: #2c5aa0; transition: width 0.3s ease; z-index: 1000; }
+        .center-content { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; }
+        .divider { width: 80px; height: 1px; background: #ddd; margin: 40px auto; }
+        .emphasis { background: #f9f9f9; padding: 30px; margin: 30px 0; border-left: 2px solid #2c5aa0; font-style: italic; }
+        .large-text { font-size: 1.3rem; line-height: 1.7; }
+        .small-text { font-size: 0.9rem; color: #666; }
+        @media (max-width: 768px) { .slide { padding: 60px 40px; width: 90%; height: 85%; } .slide h1 { font-size: 1.8rem; } .slide h2 { font-size: 1.5rem; } .slide p { font-size: 1rem; } }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slide active">
+            <div class="slide-number">Chapter One</div>
+            <div class="center-content">
+                <h1>Biblical <span class="highlight">Perspectives</span></h1>
+                <div class="divider"></div>
+                <h3>An Inquiry into Ultimate Authority</h3>
+                <p class="small-text" style="margin-top: 50px;">A study in presuppositional apologetics and the formation of Christian worldview</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-number">Chapter Two</div>
+            <div class="center-content">
+                <h2>The Question of <span class="highlight">Authority</span></h2>
+                <div class="divider"></div>
+                <p class="large-text">What serves as your ultimate standard for determining truth, establishing morality, and discovering meaning in existence?</p>
+                <div class="emphasis">
+                    <p style="margin: 0;">This fundamental choice becomes the lens through which we interpret all of reality, shaping our understanding of knowledge, ethics, and purpose.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-number">Chapter Three</div>
+            <h2>Essential <span class="highlight">Inquiries</span></h2>
+            <div class="divider"></div>
+            <ul>
+                <li>How do we determine what is ultimately true and reliable?</li>
+                <li>What methods lead to genuine knowledge and understanding?</li>
+                <li>Where do moral standards find their foundation and authority?</li>
+                <li>What provides authentic meaning and purpose in life?</li>
+                <li>How do we evaluate competing claims about reality?</li>
+            </ul>
+            <p style="margin-top: 40px;">These questions reveal our fundamental <span class="accent">presuppositions</span> about the nature of reality itself.</p>
+        </div>
+
+        <div class="slide">
+            <div class="slide-number">Chapter Four</div>
+            <h2>Two <span class="highlight">Philosophical</span> Approaches</h2>
+            <div class="divider"></div>
+            <div class="emphasis" style="background: #f5f2f2; border-left-color: #8b4513;">
+                <h3 style="color: #8b4513; text-align: center; margin-bottom: 20px;">The Path of Autonomous Reason</h3>
+                <p style="margin: 0; text-align: center;">Human intellect serves as the final arbiter of truth. Knowledge derives primarily from empirical observation and rational analysis. Moral standards emerge from human consensus or individual preference. Meaning is constructed through personal choice and cultural agreement.</p>
+            </div>
+            <div class="emphasis">
+                <h3 style="color: #2c5aa0; text-align: center; margin-bottom: 20px;">The Path of Divine Revelation</h3>
+                <p style="margin: 0; text-align: center;">Scripture serves as the ultimate authority for truth and knowledge. Divine revelation provides the foundation for understanding reality. God's moral law establishes absolute ethical standards. Meaning flows from divinely ordained purpose and calling.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-number">Chapter Five</div>
+            <div class="center-content">
+                <div class="quote">
+                    The fear of the Lord is the beginning of knowledge; fools despise wisdom and instruction.
+                </div>
+                <div class="verse">Proverbs 1:7</div>
+                <div class="divider"></div>
+                <p style="margin-top: 30px;">True knowledge and genuine wisdom discover their starting point in the acknowledgment of God's sovereign authority over all dimensions of reality and thought.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-number">Chapter Six</div>
+            <div class="center-content">
+                <h2>Living Under <span class="highlight">Biblical Authority</span></h2>
+                <div class="divider"></div>
+                <p class="large-text">When Scripture serves as our ultimate foundation, we discover:</p>
+                <ul style="margin-top: 40px; text-align: center; list-style: none;">
+                    <li style="padding-left: 0; margin-bottom: 25px;">A reliable and consistent foundation for truth</li>
+                    <li style="padding-left: 0; margin-bottom: 25px;">Clear guidance for moral and ethical decision-making</li>
+                    <li style="padding-left: 0; margin-bottom: 25px;">Genuine meaning and purpose that transcends circumstances</li>
+                    <li style="padding-left: 0; margin-bottom: 25px;">Hope and stability during seasons of uncertainty</li>
+                </ul>
+                <div class="emphasis" style="margin-top: 40px;">
+                    <p style="margin: 0; text-align: center; color: #2c5aa0; font-weight: 500;">How will these principles transform your approach to the challenges and opportunities before you?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">Previous</button>
+        <button class="nav-btn" onclick="nextSlide()">Next</button>
+    </div>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            updateProgress();
+        }
+
+        function nextSlide() { showSlide(currentSlide + 1); }
+        function previousSlide() { showSlide(currentSlide - 1); }
+
+        function updateProgress() {
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            else if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        updateProgress();
+    </script>
+</body>
+</html>

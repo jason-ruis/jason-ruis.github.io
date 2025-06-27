@@ -3,14 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblical Studies Teaching Hub</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Biblical Studies Hub - Simple Focus</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; background: white; color: #333; line-height: 1.6; }
+        .container { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+        .header { text-align: center; margin-bottom: 60px; }
+        .header h1 { font-size: 2.5rem; font-weight: 300; color: #333; margin-bottom: 20px; }
+        .header p { font-size: 1.1rem; color: #666; max-width: 500px; margin: 0 auto; }
+        .stats { display: flex; justify-content: center; gap: 60px; margin-bottom: 60px; padding: 40px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 2.5rem; font-weight: 300; color: #333; margin-bottom: 8px; }
+        .stat-label { font-size: 0.9rem; color: #999; text-transform: uppercase; letter-spacing: 2px; }
+        .courses { margin-bottom: 60px; }
+        .course { margin-bottom: 50px; padding-bottom: 40px; border-bottom: 1px solid #f0f0f0; }
+        .course:last-child { border-bottom: none; }
+        .course-header { margin-bottom: 20px; }
+        .course-title { font-size: 1.8rem; font-weight: 400; color: #333; margin-bottom: 8px; }
+        .course-status { display: inline-block; padding: 4px 12px; background: #f8f9fa; color: #666; border-radius: 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .status-active { background: #e8f5e8; color: #2d5a2d; }
+        .status-planning { background: #fff3e0; color: #8b4513; }
+        .course-description { color: #666; margin-bottom: 25px; font-size: 1rem; max-width: 600px; }
+        .course-meta { color: #999; font-size: 0.9rem; margin-bottom: 25px; }
+        .lessons { margin-left: 20px; }
+        .lesson { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
+        .lesson:last-child { border-bottom: none; }
+        .lesson-name { color: #555; }
+        .lesson-link { color: #007cba; text-decoration: none; font-weight: 500; padding: 6px 12px; border: 1px solid #007cba; border-radius: 4px; font-size: 0.85rem; transition: all 0.3s ease; }
+        .lesson-link:hover { background: #007cba; color: white; }
+        .coming-soon { color: #999; border-color: #ddd; }
+        .coming-soon:hover { background: #f5f5f5; color: #999; }
+        .actions { text-align: center; margin-bottom: 60px; }
+        .actions h3 { font-size: 1.3rem; font-weight: 400; margin-bottom: 30px; color: #333; }
+        .action-buttons { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .action-btn { padding: 12px 24px; background: white; color: #333; text-decoration: none; border: 2px solid #333; border-radius: 4px; font-weight: 500; transition: all 0.3s ease; }
+        .action-btn:hover { background: #333; color: white; }
+        .footer { text-align: center; padding: 40px 20px; border-top: 1px solid #eee; margin-top: 40px; }
+        .footer p { color: #666; font-style: italic; line-height: 1.8; max-width: 600px; margin: 0 auto; }
+        @media (max-width: 768px) { .header h1 { font-size: 2rem; } .stats { flex-direction: column; gap: 30px; } .action-buttons { flex-direction: column; align-items: center; } .lesson { flex-direction: column; align-items: flex-start; gap: 10px; } }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>Biblical Studies Teaching Hub</h1>
-            <div class="divider"></div>
+            <p>A focused, distraction-free environment for managing your biblical education resources and course materials.</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Courses</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">28</div>
+                <div class="stat-label">Lessons</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">280</div>
+                <div class="stat-label">Slides</div>
+            </div>
         </div>
 
         <div class="courses">
@@ -26,7 +78,7 @@
                 <div class="lessons">
                     <div class="lesson">
                         <span class="lesson-name">1. What is Ultimate Authority?</span>
-                        <a href="biblical_perspectives_lesson1.html" class="lesson-link" target="_blank">View Lesson</a>
+                        <a href="biblical_perspectives_presentation.html" class="lesson-link">View Lesson</a>
                     </div>
                     <div class="lesson">
                         <span class="lesson-name">2. The Problem of Knowledge</span>
@@ -111,45 +163,19 @@
             </div>
         </div>
 
+        <div class="actions">
+            <h3>Quick Actions</h3>
+            <div class="action-buttons">
+                <a href="#" class="action-btn">Create New Lesson</a>
+                <a href="#" class="action-btn">Manage Courses</a>
+                <a href="#" class="action-btn">Export Data</a>
+                <a href="#" class="action-btn">View Analytics</a>
+            </div>
+        </div>
+
         <div class="footer">
             <p>"All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness, that the man of God may be complete, equipped for every good work." — 2 Timothy 3:16-17</p>
         </div>
     </div>
-
-    <script>
-        // Set last updated date
-        document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString();
-
-        // Placeholder functions for admin actions
-        function createNewLesson() {
-            alert('Feature coming soon: Create New Lesson');
-        }
-
-        function manageCourses() {
-            alert('Feature coming soon: Manage Courses');
-        }
-
-        function exportData() {
-            alert('Feature coming soon: Export Data');
-        }
-
-        function viewAnalytics() {
-            alert('Feature coming soon: View Analytics');
-        }
-
-        // Update stats dynamically
-        function updateStats() {
-            const courses = document.querySelectorAll('.course').length;
-            const lessons = document.querySelectorAll('.lesson').length;
-            const activeCourses = document.querySelectorAll('.status-active').length;
-            
-            document.getElementById('totalCourses').textContent = courses;
-            document.getElementById('totalLessons').textContent = lessons;
-            document.getElementById('activeCourses').textContent = activeCourses;
-        }
-
-        // Initialize
-        updateStats();
-    </script>
 </body>
 </html>

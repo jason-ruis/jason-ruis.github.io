@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblical Studies Teaching Hub - Minimal Cards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            font-weight: 300;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            border: 1px solid #ecf0f1;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .courses-section {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+            border: 1px solid #ecf0f1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+        }
+        
+        .course-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .course-status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-left: 10px;
+        }
+        
+        .status-active {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+        
+        .status-planning {
+            background: #ffeaa7;
+            color: #e17055;
+        }
+        
+        .course-description {
+            color: #7f8c8d;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+        
+        .lesson-count {
+            font-size: 0.9rem;
+            color: #3498db;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .lesson-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .lesson-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .lesson-item:last-child {
+            border-bottom: none;
+        }
+        
+        .lesson-name {
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+        
+        .lesson-link {
+            padding: 5px 15px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        
+        .lesson-link:hover {
+            background: #2980b9;
+        }
+        
+        .coming-soon {
+            background: #bdc3c7;
+            color: white;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+        
+        .footer p {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Biblical Studies Teaching Hub</h1>
+            <p>Central access point for all course presentations and materials</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Courses</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">28</div>
+                <div class="stat-label">Lessons</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">280</div>
+                <div class="stat-label">Total Slides</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Active</div>
+            </div>
+        </div>
+
+        <div class="courses-section">
+            <h2 class="section-title">Available Courses</h2>
+            <div class="course-grid">
+                <div class="course-card">
+                    <div class="course-title">
+                        Biblical Perspectives
+                        <span class="course-status status-active">Active</span>
+                    </div>
+                    <div class="course-description">
+                        An exploration of presuppositional apologetics and biblical worldview thinking. Students learn to approach all of life from a distinctly Christian perspective.
+                    </div>
+                    <div class="lesson-count">12 Lessons Available</div>
+                    <div class="lesson-preview">
+                        <div class="lesson-item">
+                            <span class="lesson-name">1. What is Ultimate Authority?</span>
+                            <a href="biblical_perspectives_presentation.html" class="lesson-link">View</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">2. The Problem of Knowledge</span>
+                            <a href="#" class="lesson-link coming-soon">Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">3. Scripture as Foundation</span>
+                            <a href="#" class="lesson-link coming-soon">Soon</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-title">
+                        Old Testament Survey
+                        <span class="course-status status-planning">Planning</span>
+                    </div>
+                    <div class="course-description">
+                        A comprehensive overview of the Old Testament, covering major themes, historical context, and theological significance of each book.
+                    </div>
+                    <div class="lesson-count">16 Lessons Planned</div>
+                    <div class="lesson-preview">
+                        <div class="lesson-item">
+                            <span class="lesson-name">1. Introduction & Overview</span>
+                            <a href="#" class="lesson-link coming-soon">Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">2. Genesis: Beginnings</span>
+                            <a href="#" class="lesson-link coming-soon">Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">3. Exodus: Deliverance</span>
+                            <a href="#" class="lesson-link coming-soon">Soon</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-title">
+                        New Testament Survey
+                        <span class="course-status status-planning">Planning</span>
+                    </div>
+                    <div class="course-description">
+                        An in-depth study of the New Testament books, exploring the life of Christ, early church history, and apostolic teachings.
+                    </div>
+                    <div class="lesson-count">14 Lessons Planned</div>
+                    <div class="lesson-preview">
+                        <div class="lesson-item">
+                            <span class="lesson-name">1. Introduction & Context</span>
+                            <a href="#" class="lesson-link coming-soon">Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">2. Matthew: The King</span>
+                            <a href="#" class="lesson-link coming-soon">Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">3. Mark: The Servant</span>
+                            <a href="#" class="lesson-link coming-soon">Soon</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-card">
+                    <div class="course-title">
+                        Christian Issues
+                        <span class="course-status status-planning">Considering</span>
+                    </div>
+                    <div class="course-description">
+                        Contemporary issues facing Christians today, examined through the lens of biblical theology and practical application.
+                    </div>
+                    <div class="lesson-count">10 Topics Planned</div>
+                    <div class="lesson-preview">
+                        <div class="lesson-item">
+                            <span class="lesson-name">1. Christianity & Culture</span>
+                            <a href="#" class="lesson-link coming-soon">Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">2. Technology & Faith</span>
+                            <a href="#" class="lesson-link coming-soon">Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">3. Biblical Social Justice</span>
+                            <a href="#" class="lesson-link coming-soon">Soon</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>"All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness" - 2 Timothy 3:16</p>
+        </div>
+    </div>
+</body>
+</html>

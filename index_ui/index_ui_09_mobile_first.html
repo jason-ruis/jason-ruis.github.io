@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblical Studies Hub - Mobile First</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.5;
+            padding: 16px;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 24px 16px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            font-size: 1rem;
+            color: #86868b;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #007aff;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #86868b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .actions-container {
+            margin-bottom: 24px;
+        }
+        
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 16px;
+            background: white;
+            border-radius: 16px;
+            text-decoration: none;
+            color: #1d1d1f;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+        
+        .action-btn:active {
+            transform: scale(0.96);
+            background: #f5f5f7;
+        }
+        
+        .action-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .action-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .course-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .course-card:active {
+            transform: scale(0.98);
+        }
+        
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .course-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin-bottom: 4px;
+        }
+        
+        .course-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-active {
+            background: #d1f2eb;
+            color: #00695c;
+        }
+        
+        .status-planning {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        
+        .status-considering {
+            background: #f3e5f5;
+            color: #4a148c;
+        }
+        
+        .course-description {
+            color: #86868b;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        
+        .course-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            font-size: 0.8rem;
+            color: #86868b;
+        }
+        
+        .lessons-section {
+            border-top: 1px solid #f5f5f7;
+            padding-top: 16px;
+        }
+        
+        .lessons-header {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #007aff;
+            margin-bottom: 12px;
+        }
+        
+        .lesson-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f5f5f7;
+        }
+        
+        .lesson-item:last-child {
+            border-bottom: none;
+        }
+        
+        .lesson-name {
+            font-size: 0.9rem;
+            color: #1d1d1f;
+            flex: 1;
+        }
+        
+        .lesson-link {
+            padding: 6px 12px;
+            background: #007aff;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .lesson-link:active {
+            transform: scale(0.95);
+            background: #0056b3;
+        }
+        
+        .coming-soon {
+            background: #86868b;
+        }
+        
+        .footer {
+            margin-top: 32px;
+            padding: 24px 16px;
+            background: white;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        
+        .footer p {
+            color: #86868b;
+            font-size: 0.85rem;
+            font-style: italic;
+            line-height: 1.4;
+        }
+        
+        /* Tablet and larger screens */
+        @media (min-width: 768px) {
+            body {
+                padding: 24px;
+            }
+            
+            .container {
+                max-width: 800px;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .actions-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .course-list {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+        }
+        
+        /* Desktop screens */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1200px;
+            }
+            
+            .course-list {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Biblical Studies Hub</h1>
+            <p>Mobile learning platform</p>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Courses</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">28</div>
+                <div class="stat-label">Lessons</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">280</div>
+                <div class="stat-label">Slides</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Active</div>
+            </div>
+        </div>
+
+        <div class="actions-container">
+            <div class="actions-grid">
+                <a href="#" class="action-btn">
+                    <div class="action-icon">📝</div>
+                    <div class="action-text">New Lesson</div>
+                </a>
+                <a href="#" class="action-btn">
+                    <div class="action-icon">📚</div>
+                    <div class="action-text">Manage</div>
+                </a>
+                <a href="#" class="action-btn">
+                    <div class="action-icon">📤</div>
+                    <div class="action-text">Export</div>
+                </a>
+                <a href="#" class="action-btn">
+                    <div class="action-icon">📊</div>
+                    <div class="action-text">Analytics</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="course-list">
+            <div class="course-card">
+                <div class="course-header">
+                    <div>
+                        <div class="course-title">Biblical Perspectives</div>
+                        <span class="course-status status-active">Active</span>
+                    </div>
+                </div>
+                <div class="course-description">
+                    Explore presuppositional apologetics and biblical worldview thinking through comprehensive lessons.
+                </div>
+                <div class="course-meta">
+                    <span>📚 12 Lessons</span>
+                    <span>⏱️ 6 Hours</span>
+                </div>
+                <div class="lessons-section">
+                    <div class="lessons-header">Recent Lessons</div>
+                    <div class="lesson-item">
+                        <span class="lesson-name">1. Ultimate Authority</span>
+                        <a href="biblical_perspectives_presentation.html" class="lesson-link">View</a>
+                    </div>
+                    <div class="lesson-item">
+                        <span class="lesson-name">2. Problem of Knowledge</span>
+                        <a href="#" class="lesson-link coming-soon">Soon</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div>
+                        <div class="course-title">Old Testament Survey</div>
+                        <span class="course-status status-planning">Planning</span>
+                    </div>
+                </div>
+                <div class="course-description">
+                    Comprehensive overview of Old Testament books, themes, and historical context.
+                </div>
+                <div class="course-meta">
+                    <span>📚 16 Lessons</span>
+                    <span>⏱️ 8 Hours</span>
+                </div>
+                <div class="lessons-section">
+                    <div class="lessons-header">Planned Content</div>
+                    <div class="lesson-item">
+                        <span class="lesson-name">1. Introduction</span>
+                        <a href="#" class="lesson-link coming-soon">Soon</a>
+                    </div>
+                    <div class="lesson-item">
+                        <span class="lesson-name">2. Genesis</span>
+                        <a href="#" class="lesson-link coming-soon">Soon</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div>
+                        <div class="course-title">New Testament Survey</div>
+                        <span class="course-status status-planning">Planning</span>
+                    </div>
+                </div>
+                <div class="course-description">
+                    In-depth study of New Testament books, Christ's life, and early church history.
+                </div>
+                <div class="course-meta">
+                    <span>📚 14 Lessons</span>
+                    <span>⏱️ 7 Hours</span>
+                </div>
+                <div class="lessons-section">
+                    <div class="lessons-header">Coming Soon</div>
+                    <div class="lesson-item">
+                        <span class="lesson-name">1. NT Context</span>
+                        <a href="#" class="lesson-link coming-soon">Soon</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-header">
+                    <div>
+                        <div class="course-title">Christian Issues</div>
+                        <span class="course-status status-considering">Considering</span>
+                    </div>
+                </div>
+                <div class="course-description">
+                    Contemporary issues examined through biblical theology and practical application.
+                </div>
+                <div class="course-meta">
+                    <span>📚 10 Topics</span>
+                    <span>⏱️ 5 Hours</span>
+                </div>
+                <div class="lessons-section">
+                    <div class="lessons-header">Ideas</div>
+                    <div class="lesson-item">
+                        <span class="lesson-name">1. Culture & Faith</span>
+                        <a href="#" class="lesson-link coming-soon">Soon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>"All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness" - 2 Timothy 3:16</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblical Studies Teaching Hub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Georgia', 'Times New Roman', serif; background: #fefefe; color: #2d3748; line-height: 1.7; overflow-x: hidden; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 6vh 5vw; }
+        
+        /* Header Section */
+        .header { text-align: center; margin-bottom: 8vh; }
+        .header h1 { 
+            font-size: clamp(2.5rem, 6vw, 4rem); 
+            font-weight: 400; 
+            color: #2d3748; 
+            letter-spacing: 0.5px; 
+            line-height: 1.2; 
+            margin-bottom: 20px; 
+        }
+        .header p { 
+            font-size: clamp(1rem, 2.5vw, 1.4rem); 
+            color: #4a5568; 
+            font-weight: 400; 
+            max-width: 600px; 
+            margin: 0 auto; 
+        }
+        .divider { 
+            width: clamp(60px, 10vw, 120px); 
+            height: 1px; 
+            background: #cbd5e0; 
+            margin: 40px auto; 
+        }
+        
+        /* Stats Section */
+        .stats-section { 
+            background: #f7fafc; 
+            padding: clamp(30px, 5vw, 50px); 
+            border-radius: 12px; 
+            border-left: 3px solid #2b6cb0; 
+            margin-bottom: 6vh; 
+        }
+        .stats-header { 
+            text-align: center; 
+            margin-bottom: 30px; 
+        }
+        .stats-header h2 { 
+            font-size: clamp(1.5rem, 4vw, 2rem); 
+            font-weight: 500; 
+            color: #2d3748; 
+            margin-bottom: 10px; 
+        }
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+            gap: clamp(20px, 4vw, 40px); 
+            margin-top: 30px; 
+        }
+        .stat-item { 
+            text-align: center; 
+            padding: 20px; 
+            background: white; 
+            border-radius: 8px; 
+            border-left: 3px solid #2b6cb0; 
+            transition: all 0.3s ease; 
+        }
+        .stat-item:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 20px rgba(43, 108, 176, 0.1); 
+        }
+        .stat-number { 
+            font-size: clamp(2rem, 5vw, 3rem); 
+            font-weight: 400; 
+            color: #2b6cb0; 
+            line-height: 1; 
+        }
+        .stat-label { 
+            font-size: clamp(0.9rem, 2vw, 1.1rem); 
+            color: #4a5568; 
+            margin-top: 8px; 
+            font-weight: 500; 
+        }
+        
+        /* Quick Actions */
+        .actions-section { 
+            margin-bottom: 6vh; 
+        }
+        .actions-header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+        }
+        .actions-header h2 { 
+            font-size: clamp(1.5rem, 4vw, 2rem); 
+            font-weight: 500; 
+            color: #2d3748; 
+        }
+        .actions-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: clamp(20px, 4vw, 30px); 
+        }
+        .action-btn { 
+            display: block; 
+            padding: clamp(15px, 3vw, 25px); 
+            background: transparent; 
+            color: #4a5568; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 8px; 
+            text-decoration: none; 
+            font-family: inherit; 
+            font-size: clamp(0.9rem, 2vw, 1.1rem); 
+            font-weight: 500; 
+            text-align: center; 
+            transition: all 0.3s ease; 
+            cursor: pointer; 
+        }
+        .action-btn:hover { 
+            background: #f7fafc; 
+            border-color: #cbd5e0; 
+            color: #2d3748; 
+            transform: translateY(-2px); 
+        }
+        
+        /* Courses Section */
+        .courses-section { 
+            margin-bottom: 6vh; 
+        }
+        .courses-header { 
+            text-align: center; 
+            margin-bottom: 50px; 
+        }
+        .courses-header h2 { 
+            font-size: clamp(1.8rem, 5vw, 2.5rem); 
+            font-weight: 400; 
+            color: #2d3748; 
+            margin-bottom: 15px; 
+        }
+        .courses-header p { 
+            font-size: clamp(1rem, 2.5vw, 1.3rem); 
+            color: #4a5568; 
+            max-width: 700px; 
+            margin: 0 auto; 
+        }
+        
+        .courses-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: clamp(30px, 5vw, 50px); 
+        }
+        
+        .course-card { 
+            background: #f7fafc; 
+            padding: clamp(25px, 4vw, 40px); 
+            border-radius: 12px; 
+            border-left: 3px solid #2b6cb0; 
+            transition: all 0.3s ease; 
+        }
+        .course-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 8px 30px rgba(43, 108, 176, 0.15); 
+        }
+        
+        .course-header { 
+            margin-bottom: 25px; 
+        }
+        .course-title { 
+            font-size: clamp(1.3rem, 3vw, 1.6rem); 
+            font-weight: 500; 
+            color: #2d3748; 
+            margin-bottom: 10px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            flex-wrap: wrap; 
+            gap: 10px; 
+        }
+        
+        .course-status { 
+            font-size: clamp(0.7rem, 1.5vw, 0.85rem); 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            font-weight: 500; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
+        .status-active { 
+            background: #c6f6d5; 
+            color: #22543d; 
+        }
+        .status-planning { 
+            background: #bee3f8; 
+            color: #2a4365; 
+        }
+        .status-considering { 
+            background: #fed7d7; 
+            color: #742a2a; 
+        }
+        
+        .course-description { 
+            font-size: clamp(0.95rem, 2vw, 1.1rem); 
+            color: #4a5568; 
+            line-height: 1.6; 
+            margin-bottom: 30px; 
+        }
+        
+        .lessons-header { 
+            font-size: clamp(1rem, 2.2vw, 1.2rem); 
+            font-weight: 500; 
+            color: #2d3748; 
+            margin-bottom: 20px; 
+            padding-bottom: 10px; 
+            border-bottom: 1px solid #e2e8f0; 
+        }
+        
+        .lesson-list { 
+            space-y: 15px; 
+        }
+        .lesson-item { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 12px 0; 
+            border-bottom: 1px solid #f1f5f9; 
+            transition: all 0.3s ease; 
+        }
+        .lesson-item:hover { 
+            transform: translateX(5px); 
+        }
+        .lesson-item:last-child { 
+            border-bottom: none; 
+        }
+        
+        .lesson-name { 
+            font-size: clamp(0.85rem, 1.8vw, 1rem); 
+            color: #4a5568; 
+            flex: 1; 
+        }
+        
+        .lesson-link { 
+            font-size: clamp(0.8rem, 1.6vw, 0.9rem); 
+            font-weight: 500; 
+            color: #2b6cb0; 
+            text-decoration: none; 
+            padding: 6px 12px; 
+            border: 1px solid #2b6cb0; 
+            border-radius: 6px; 
+            transition: all 0.3s ease; 
+        }
+        .lesson-link:hover { 
+            background: #2b6cb0; 
+            color: white; 
+        }
+        .lesson-link.coming-soon { 
+            color: #a0aec0; 
+            border-color: #e2e8f0; 
+            cursor: not-allowed; 
+        }
+        .lesson-link.coming-soon:hover { 
+            background: transparent; 
+            color: #a0aec0; 
+        }
+        
+        /* Footer */
+        .footer { 
+            text-align: center; 
+            margin-top: 8vh; 
+            padding-top: 6vh; 
+            border-top: 1px solid #e2e8f0; 
+        }
+        .footer-quote { 
+            font-style: italic; 
+            font-size: clamp(1rem, 2.5vw, 1.3rem); 
+            color: #4a5568; 
+            margin-bottom: 20px; 
+            max-width: 700px; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+        .footer-verse { 
+            font-size: clamp(0.8rem, 1.8vw, 1rem); 
+            color: #2b6cb0; 
+            font-weight: 500; 
+            letter-spacing: 0.5px; 
+            margin-bottom: 20px; 
+        }
+        .footer-updated { 
+            font-size: clamp(0.8rem, 1.6vw, 0.9rem); 
+            color: #718096; 
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) { 
+            .container { padding: 4vh 4vw; }
+            .courses-grid { grid-template-columns: 1fr; }
+            .actions-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .lesson-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .lesson-link { align-self: flex-end; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Biblical Studies <span style="color: #2b6cb0; font-style: italic;">Teaching Hub</span></h1>
+            <div class="divider"></div>
+            <p>Central access point for all course presentations and materials</p>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <div class="stats-header">
+                <h2>Course <span style="color: #2b6cb0; font-style: italic;">Overview</span></h2>
+                <div style="width: 40px; height: 1px; background: #cbd5e0; margin: 15px auto;"></div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalCourses">4</div>
+                    <div class="stat-label">Courses</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalLessons">42</div>
+                    <div class="stat-label">Lessons</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="totalSlides">280</div>
+                    <div class="stat-label">Total Slides</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="activeCourses">1</div>
+                    <div class="stat-label">Active</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="actions-section">
+            <div class="actions-header">
+                <h2>Quick <span style="color: #2b6cb0; font-style: italic;">Actions</span></h2>
+                <div style="width: 40px; height: 1px; background: #cbd5e0; margin: 15px auto;"></div>
+            </div>
+            <div class="actions-grid">
+                <a href="#" class="action-btn" onclick="createNewLesson()">Create New Lesson</a>
+                <a href="#" class="action-btn" onclick="manageCourses()">Manage Courses</a>
+                <a href="#" class="action-btn" onclick="exportData()">Export All Data</a>
+                <a href="#" class="action-btn" onclick="viewAnalytics()">View Analytics</a>
+            </div>
+        </div>
+
+        <!-- Courses Section -->
+        <div class="courses-section">
+            <div class="courses-header">
+                <h2>Course <span style="color: #2b6cb0; font-style: italic;">Catalog</span></h2>
+                <div class="divider"></div>
+                <p>Comprehensive biblical education designed to strengthen faith and deepen understanding of God's Word</p>
+            </div>
+
+            <div class="courses-grid">
+                <!-- Biblical Perspectives Course -->
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="course-title">
+                            Biblical Perspectives
+                            <span class="course-status status-active">Active</span>
+                        </div>
+                    </div>
+                    <div class="course-description">
+                        An exploration of presuppositional apologetics and biblical worldview thinking. Students learn to approach all of life from a distinctly Christian perspective.
+                    </div>
+                    
+                    <div class="lessons-header">
+                        Lessons (12 total)
+                    </div>
+                    <div class="lesson-list">
+                        <div class="lesson-item">
+                            <span class="lesson-name">1. What is Ultimate Authority?</span>
+                            <a href="../biblical_perspectives_presentation.html" class="lesson-link">View</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">2. The Problem of Knowledge</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">3. Scripture as Foundation</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">4. Worldview Analysis</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">5. Science and Faith</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">6. Ethics and Morality</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Old Testament Survey Course -->
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="course-title">
+                            Old Testament Survey
+                            <span class="course-status status-planning">Planning</span>
+                        </div>
+                    </div>
+                    <div class="course-description">
+                        A comprehensive overview of the Old Testament, covering major themes, historical context, and theological significance of each book.
+                    </div>
+                    
+                    <div class="lessons-header">
+                        Lessons (16 planned)
+                    </div>
+                    <div class="lesson-list">
+                        <div class="lesson-item">
+                            <span class="lesson-name">1. Introduction & Overview</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">2. Genesis: Beginnings</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">3. Exodus: Deliverance</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">4. Leviticus: Holiness</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">5. Numbers & Deuteronomy</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">6. Joshua & Judges</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Testament Survey Course -->
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="course-title">
+                            New Testament Survey
+                            <span class="course-status status-planning">Planning</span>
+                        </div>
+                    </div>
+                    <div class="course-description">
+                        An in-depth study of the New Testament books, exploring the life of Christ, early church history, and apostolic teachings.
+                    </div>
+                    
+                    <div class="lessons-header">
+                        Lessons (14 planned)
+                    </div>
+                    <div class="lesson-list">
+                        <div class="lesson-item">
+                            <span class="lesson-name">1. Introduction & Context</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">2. Matthew: The King</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">3. Mark: The Servant</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">4. Luke: The Son of Man</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">5. John: The Son of God</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">6. Acts: The Spirit's Work</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Christian Issues Course -->
+                <div class="course-card">
+                    <div class="course-header">
+                        <div class="course-title">
+                            Christian Issues
+                            <span class="course-status status-considering">Considering</span>
+                        </div>
+                    </div>
+                    <div class="course-description">
+                        Contemporary issues facing Christians today, examined through the lens of biblical theology and practical application.
+                    </div>
+                    
+                    <div class="lessons-header">
+                        Topics (10 planned)
+                    </div>
+                    <div class="lesson-list">
+                        <div class="lesson-item">
+                            <span class="lesson-name">1. Christianity & Culture</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">2. Technology & Faith</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">3. Biblical Social Justice</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">4. Church & State</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">5. Marriage & Family</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                        <div class="lesson-item">
+                            <span class="lesson-name">6. End Times Issues</span>
+                            <a href="#" class="lesson-link coming-soon">Coming Soon</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-quote">
+                "All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness"
+            </div>
+            <div class="footer-verse">2 TIMOTHY 3:16</div>
+            <div class="footer-updated">
+                Last updated: <span id="lastUpdated"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set last updated date
+        document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString();
+
+        // Placeholder functions for admin actions
+        function createNewLesson() {
+            alert('Feature coming soon: Create New Lesson');
+        }
+
+        function manageCourses() {
+            alert('Feature coming soon: Manage Courses');
+        }
+
+        function exportData() {
+            alert('Feature coming soon: Export Data');
+        }
+
+        function viewAnalytics() {
+            alert('Feature coming soon: View Analytics');
+        }
+
+        // Update stats dynamically
+        function updateStats() {
+            const courses = document.querySelectorAll('.course-card').length;
+            const lessons = document.querySelectorAll('.lesson-item').length;
+            const activeCourses = document.querySelectorAll('.status-active').length;
+            
+            document.getElementById('totalCourses').textContent = courses;
+            document.getElementById('totalLessons').textContent = lessons;
+            document.getElementById('activeCourses').textContent = activeCourses;
+        }
+
+        // Initialize
+        updateStats();
+
+        // Add hover effects
+        document.querySelectorAll('.lesson-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                if (!this.querySelector('.coming-soon')) {
+                    this.style.transform = 'translateX(5px)';
+                }
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
+    </script>
+</body>
+</html>
