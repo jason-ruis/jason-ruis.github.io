@@ -3,153 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblical Studies Teaching Hub</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Jason Ruis - Chaplain, Pastor, Teacher</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #0a0a0a;
+            min-height: 100vh;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .card {
+            background: white;
+            width: 100%;
+            margin: 0;
+            box-shadow: none;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+            color: white;
+            padding: 120px 60px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+        }
+
+        .header h1 {
+            font-size: 4.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            position: relative;
+            color: white;
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            opacity: 0.8;
+            font-weight: 400;
+            margin-top: 15px;
+            position: relative;
+            letter-spacing: 0.5px;
+        }
+
+        .content {
+            padding: 80px 60px;
+            background: white;
+        }
+
+        .section {
+            margin-bottom: 70px;
+        }
+
+        .section h2 {
+            color: #000;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 2px;
+        }
+
+        .section p {
+            font-size: 1.15em;
+            color: #4a5568;
+            margin-bottom: 20px;
+            font-weight: 400;
+            line-height: 1.8;
+        }
+
+        .roles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .role-card {
+            background: #fafafa;
+            padding: 35px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 100%);
+            transform: scaleY(0);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .role-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+            border-color: #6366f1;
+        }
+
+        .role-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .role-card h3 {
+            color: #1a1a1a;
+            font-size: 1.5em;
+            margin-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .role-card p {
+            font-size: 1em;
+            color: #6b7280;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 40px;
+        }
+
+        .contact-btn {
+            display: block;
+            padding: 20px 40px;
+            background: #000;
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-size: 1.05em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            border: 2px solid #000;
+            letter-spacing: 0.3px;
+            text-align: center;
+        }
+
+        .contact-btn:hover {
+            background: #6366f1;
+            border-color: #6366f1;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .interests {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 30px;
+        }
+
+        .interest-tag {
+            background: #f3f4f6;
+            color: #374151;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            font-weight: 500;
+            border: 1px solid #e5e7eb;
+            transition: all 0.2s ease;
+        }
+
+        .interest-tag:hover {
+            background: #6366f1;
+            color: white;
+            border-color: #6366f1;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: #fafafa;
+            padding: 50px 60px;
+            text-align: center;
+            color: #6b7280;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .footer p {
+            font-size: 1.05em;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.8em;
+            }
+            
+            .header {
+                padding: 80px 30px 60px;
+            }
+            
+            .content {
+                padding: 50px 30px;
+            }
+
+            .footer {
+                padding: 40px 30px;
+            }
+            
+            .roles {
+                grid-template-columns: 1fr;
+            }
+
+            .section h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <div class="card">
         <div class="header">
-            <h1>Biblical Studies Teaching Hub</h1>
-            <div class="divider"></div>
+            <h1>Jason Ruis</h1>
+            <p class="subtitle">Equipping Saints | Developing Leaders | Pursuing Reformation</p>
         </div>
 
-        <div class="courses">
-            <div class="course">
-                <div class="course-header">
-                    <h2 class="course-title">Biblical Perspectives</h2>
-                    <span class="course-status status-active">Active</span>
-                </div>
-                <p class="course-description">
-                    An exploration of presuppositional apologetics and biblical worldview thinking. Students learn to approach all of life from a distinctly Christian perspective, examining how Scripture provides the foundation for all knowledge and understanding.
-                </p>
-                <div class="course-meta">12 lessons • 6 hours • Currently teaching</div>
-                <div class="lessons">
-                    <div class="lesson">
-                        <span class="lesson-name">1. What is Ultimate Authority?</span>
-                        <a href="biblical_perspectives_lesson1.html" class="lesson-link" target="_blank">View Lesson</a>
-                    </div>
-                    <div class="lesson">
-                        <span class="lesson-name">2. The Problem of Knowledge</span>
-                        <a href="#" class="lesson-link coming-soon">Coming Soon</a>
-                    </div>
-                    <div class="lesson">
-                        <span class="lesson-name">3. Scripture as Foundation</span>
-                        <a href="#" class="lesson-link coming-soon">Coming Soon</a>
-                    </div>
-                    <div class="lesson">
-                        <span class="lesson-name">4. Worldview Analysis</span>
-                        <a href="#" class="lesson-link coming-soon">Coming Soon</a>
-                    </div>
-                </div>
+        <div class="content">
+            <div class="section">
+                <p style="text-align: center; font-size: 1.2em; color: #374151;">Chaplain • Pastor • Teacher • Podcast Host</p>
+                <p style="text-align: center; margin-top: 10px;">Equipping people to understand God's Word and apply it to daily life.</p>
             </div>
 
-            <div class="course">
-                <div class="course-header">
-                    <h2 class="course-title">Old Testament Survey</h2>
-                    <span class="course-status status-planning">Planning</span>
-                </div>
-                <p class="course-description">
-                    A comprehensive overview of the Old Testament, covering major themes, historical context, and theological significance of each book. Students will gain a cohesive understanding of God's progressive revelation.
-                </p>
-                <div class="course-meta">16 lessons planned • 8 hours estimated • In development</div>
-                <div class="lessons">
-                    <div class="lesson">
-                        <span class="lesson-name">1. Introduction & Overview</span>
-                        <a href="#" class="lesson-link coming-soon">Coming Soon</a>
-                    </div>
-                    <div class="lesson">
-                        <span class="lesson-name">2. Genesis: Beginnings</span>
-                        <a href="#" class="lesson-link coming-soon">Coming Soon</a>
-                    </div>
-                    <div class="lesson">
-                        <span class="lesson-name">3. Exodus: Deliverance</span>
-                        <a href="#" class="lesson-link coming-soon">Coming Soon</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="course">
-                <div class="course-header">
-                    <h2 class="course-title">New Testament Survey</h2>
-                    <span class="course-status status-planning">Planning</span>
-                </div>
-                <p class="course-description">
-                    An in-depth study of the New Testament books, exploring the life of Christ, early church history, and apostolic teachings with focus on practical application for modern believers.
-                </p>
-                <div class="course-meta">14 lessons planned • 7 hours estimated • In development</div>
-                <div class="lessons">
-                    <div class="lesson">
-                        <span class="lesson-name">1. Introduction & Context</span>
-                        <a href="#" class="lesson-link coming-soon">Coming Soon</a>
-                    </div>
-                    <div class="lesson">
-                        <span class="lesson-name">2. Matthew: The King</span>
-                        <a href="#" class="lesson-link coming-soon">Coming Soon</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="course">
-                <div class="course-header">
-                    <h2 class="course-title">Christian Issues</h2>
-                    <span class="course-status status-planning">Considering</span>
-                </div>
-                <p class="course-description">
-                    Contemporary issues facing Christians today, examined through the lens of biblical theology and practical application. Addresses current cultural challenges with scriptural wisdom.
-                </p>
-                <div class="course-meta">10 topics considered • 5 hours estimated • Research phase</div>
-                <div class="lessons">
-                    <div class="lesson">
-                        <span class="lesson-name">1. Christianity & Culture</span>
-                        <a href="#" class="lesson-link coming-soon">Coming Soon</a>
-                    </div>
-                    <div class="lesson">
-                        <span class="lesson-name">2. Technology & Faith</span>
-                        <a href="#" class="lesson-link coming-soon">Coming Soon</a>
-                    </div>
+            <div class="section">
+                <div class="contact-links">
+                    <a href="https://www.linkedin.com/in/jason-ruis-735917257/" class="contact-btn" target="_blank">LinkedIn</a>
+                    <a href="https://themessyreformation.com" class="contact-btn" target="_blank">The Messy Reformation Podcast</a>
+                    <a href="https://jasonruis.com" class="contact-btn" target="_blank">Substack</a>
                 </div>
             </div>
         </div>
 
         <div class="footer">
-            <p>"All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness, that the man of God may be complete, equipped for every good work." — 2 Timothy 3:16-17</p>
+            <p>"Equipping saints to know Christ and glorify God"</p>
         </div>
     </div>
-
-    <script>
-        // Set last updated date
-        document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString();
-
-        // Placeholder functions for admin actions
-        function createNewLesson() {
-            alert('Feature coming soon: Create New Lesson');
-        }
-
-        function manageCourses() {
-            alert('Feature coming soon: Manage Courses');
-        }
-
-        function exportData() {
-            alert('Feature coming soon: Export Data');
-        }
-
-        function viewAnalytics() {
-            alert('Feature coming soon: View Analytics');
-        }
-
-        // Update stats dynamically
-        function updateStats() {
-            const courses = document.querySelectorAll('.course').length;
-            const lessons = document.querySelectorAll('.lesson').length;
-            const activeCourses = document.querySelectorAll('.status-active').length;
-            
-            document.getElementById('totalCourses').textContent = courses;
-            document.getElementById('totalLessons').textContent = lessons;
-            document.getElementById('activeCourses').textContent = activeCourses;
-        }
-
-        // Initialize
-        updateStats();
-    </script>
 </body>
 </html>
