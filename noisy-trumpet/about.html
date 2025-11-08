@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - The Noisy Trumpet Publishing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #0e1c26;
+            background-color: #fafafa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #0e1c26;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: #b1924e;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #b1924e;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0e1c26 0%, #1a2f3a 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero .tagline {
+            font-size: 1.3rem;
+            color: #b1924e;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #0e1c26;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .mission-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            color: #0e1c26;
+        }
+
+        .mission-image {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 60px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+        }
+
+        /* Values Section */
+        .values-section {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .value-card {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            border-left: 5px solid #b1924e;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #0e1c26;
+        }
+
+        .value-card p {
+            line-height: 1.7;
+            color: #6c757d;
+        }
+
+        /* Story Section */
+        .story-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .story-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #0e1c26;
+            margin-top: 40px;
+        }
+
+        .story-content h3:first-child {
+            margin-top: 0;
+        }
+
+        .story-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #0e1c26;
+        }
+
+        .quote-box {
+            background-color: #f8f9fa;
+            border-left: 5px solid #b1924e;
+            padding: 30px;
+            margin: 40px 0;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: #0e1c26;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+
+        .team-member {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .team-member h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #0e1c26;
+        }
+
+        .team-role {
+            color: #b1924e;
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .team-member p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #0e1c26;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #0e1c26 0%, #1a2f3a 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #b1924e;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(177, 146, 78, 0.3);
+        }
+
+        .cta-button-secondary {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+
+        .cta-button-secondary:hover {
+            background-color: white;
+            color: #0e1c26;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0e1c26;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+            color: #b1924e;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-section a:hover {
+            color: #b1924e;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #4a5f7a;
+            padding-top: 20px;
+            text-align: center;
+            color: #95a5a6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .mission-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="images/trumpet_logo_small.png" alt="The Noisy Trumpet Publishing Logo" class="logo-icon" width="56" height="40">
+                    THE NOISY TRUMPET PUBLISHING
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="catalog.html">Catalog</a></li>
+                        <li><a href="about.html" class="active">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>About The Noisy Trumpet</h1>
+            <p class="tagline">"For if the trumpet give an uncertain sound, who shall prepare himself to the battle?" - 1 Corinthians 14:8</p>
+            <p>We exist to publish clear, biblically faithful resources that equip the church for faithful ministry in challenging times.</p>
+        </div>
+    </section>
+
+    <section class="mission-section">
+        <div class="container">
+            <h2 class="section-title">Our Mission</h2>
+            <p class="section-subtitle">Sounding a clear trumpet call for biblical faithfulness in Reformed theology and practice</p>
+
+            <div class="mission-grid">
+                <div class="mission-text">
+                    <p>In an age characterized by theological confusion, cultural accommodation, and uncertain voices, the church needs resources that sound a clear, biblical note. The Noisy Trumpet Publishing exists to provide exactly that—works that help pastors, teachers, and thoughtful believers understand Scripture, apply Reformed theology, and navigate contemporary challenges with wisdom rooted in God's Word.</p>
+
+                    <p>We believe that the Reformed confessions—carefully crafted summaries of biblical teaching—remain relevant and vital for the church today. Our publications are committed to these historic Reformed standards while addressing the pressing questions of our day.</p>
+
+                    <p>Every work we publish undergoes careful theological review to ensure accuracy, biblical faithfulness, and practical usefulness for the church.</p>
+                </div>
+
+                <div class="mission-image">
+                    <img src="images/trumpet logo.png" alt="The Noisy Trumpet Logo" style="max-width: 100%; height: auto;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="values-section">
+        <div class="container">
+            <h2 class="section-title">Our Core Values</h2>
+            <p class="section-subtitle">The principles that guide everything we publish</p>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <h3>Biblical Authority</h3>
+                    <p>We are committed to the supreme authority of Scripture as God's inspired, inerrant Word. Every publication is evaluated first and foremost by its faithfulness to biblical teaching.</p>
+                </div>
+
+                <div class="value-card">
+                    <h3>Confessional Integrity</h3>
+                    <p>We stand firmly on the historic Reformed confessions—the Three Forms of Unity and the Westminster Standards—believing they accurately represent biblical Christianity.</p>
+                </div>
+
+                <div class="value-card">
+                    <h3>Theological Clarity</h3>
+                    <p>In a noisy age, we strive to publish works that communicate clearly, avoiding both needless complexity and oversimplification. Truth deserves careful, accessible presentation.</p>
+                </div>
+
+                <div class="value-card">
+                    <h3>Pastoral Wisdom</h3>
+                    <p>Theology must serve the church. Our publications combine doctrinal precision with pastoral sensitivity, offering practical wisdom for real ministry challenges.</p>
+                </div>
+
+                <div class="value-card">
+                    <h3>Church Faithfulness</h3>
+                    <p>We love the church and are committed to her flourishing. Our work aims to equip believers for faithful participation in local congregations and the broader Reformed community.</p>
+                </div>
+
+                <div class="value-card">
+                    <h3>Cultural Engagement</h3>
+                    <p>We believe Christians must engage contemporary culture from a position of biblical conviction, neither retreating in fear nor accommodating in compromise.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="story-section">
+        <div class="container">
+            <h2 class="section-title">Our Story</h2>
+
+            <div class="story-content">
+                <h3>Why "The Noisy Trumpet"?</h3>
+                <p>The name comes from 1 Corinthians 14:8, where Paul asks a pointed question: "For if the trumpet give an uncertain sound, who shall prepare himself to the battle?" In Paul's day, trumpets were used in warfare to signal troops—advance, retreat, stand firm. A clear trumpet call meant the difference between victory and defeat. An uncertain sound left soldiers confused and unprepared.</p>
+
+                <p>Today's church faces a similar situation. On critical questions of doctrine, ethics, and ecclesiology, many voices offer uncertain sounds. Theological confusion abounds. Cultural accommodation masquerades as missional wisdom. Historic Christian positions are abandoned in the name of relevance.</p>
+
+                <div class="quote-box">
+                    "The church doesn't need more noise. It needs clear, biblical truth proclaimed with conviction and applied with wisdom."
+                </div>
+
+                <p>That's why we exist. Not to add to the noise, but to sound a clear trumpet call—resources that help God's people understand biblical truth, stand firm in Reformed orthodoxy, and apply Scripture faithfully to contemporary challenges.</p>
+
+                <h3>Our Commitment to Excellence</h3>
+                <p>We believe that truth deserves to be presented excellently. From theological accuracy to editorial quality to physical production, we're committed to publishing works worthy of their subject matter. Each publication undergoes rigorous theological review, careful editing, and thoughtful design.</p>
+
+                <p>We focus on accessible formats—pamphlets, short books, digital resources—that make serious theology available to busy pastors, church leaders, and engaged laypeople. Our goal isn't to produce academic monographs (valuable as those are), but practical resources that serve the church's teaching ministry.</p>
+
+                <h3>Looking Forward</h3>
+                <p>We're just beginning this publishing journey, but we have ambitious plans. Our upcoming catalog includes works on church discipline, confessional hermeneutics, pastoral ministry in cultural crisis, and practical Reformed theology for contemporary application.</p>
+
+                <p>We're also developing resources for church groups, study guides, and supplementary materials that help churches use our publications effectively in teaching and discipleship.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">Meet the Publisher</h2>
+
+            <div class="team-member">
+                <h3>[Your Name]</h3>
+                <div class="team-role">Founder & Publisher</div>
+
+                <p>[Add your biography here. Include relevant information such as:]</p>
+
+                <p>[Education: "holds an M.Div. from Calvin Theological Seminary and a B.A. in Biblical Studies from [University]..."]</p>
+
+                <p>[Ministry Experience: "has served in pastoral ministry for [X] years within the CRCNA/PCA/etc., currently serving as [position] at [church]. He has extensive experience in [relevant areas like church governance, theological education, etc.]..."]</p>
+
+                <p>[Writing & Media: "His writing on Reformed theology and church issues has appeared in [publications]. He hosts the [Podcast Name] podcast, which reaches [audience size] listeners and explores [topics]..."]</p>
+
+                <p>[Personal: "He lives in [Location] with his wife [Name] and their [number] children. When not writing or ministering, he enjoys [hobbies/interests]..."]</p>
+
+                <p>[Theological Commitments: "He is committed to the Westminster Standards/Three Forms of Unity and believes in the ongoing relevance of confessional Reformed theology for the contemporary church."]</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Join Us in This Mission</h2>
+            <p>Help us sound a clear trumpet call for biblical faithfulness in the Reformed church. Explore our catalog, subscribe to our newsletter, and share our resources with your church.</p>
+
+            <div class="cta-buttons">
+                <a href="catalog.html" class="cta-button">Browse Our Catalog</a>
+                <a href="contact.html" class="cta-button cta-button-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Publications</h4>
+                    <a href="catalog.html">Current Catalog</a>
+                    <a href="catalog.html">Coming Soon</a>
+                    <a href="catalog.html">Pre-Orders</a>
+                    <a href="catalog.html">Digital Library</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="blog.html">Blog</a>
+                    <a href="#">Free Samples</a>
+                    <a href="#">Author Interviews</a>
+                    <a href="#">Study Guides</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="#">Podcast</a>
+                    <a href="#">Substack</a>
+                    <a href="contact.html">Bulk Orders</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Noisy Trumpet Publishing. All rights reserved. | <a href="privacy.html" style="color: #95a5a6;">Privacy Policy</a> | <a href="terms.html" style="color: #95a5a6;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

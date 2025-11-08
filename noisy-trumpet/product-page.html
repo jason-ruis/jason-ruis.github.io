@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confessional Renewal in the CRCNA - The Noisy Trumpet Publishing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #0e1c26;
+            background-color: #fafafa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #0e1c26;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: #b1924e;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 40px;
+            margin-right: 15px;
+            fill: #b1924e;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #b1924e;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background-color: white;
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .breadcrumb a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #0e1c26;
+        }
+
+        .breadcrumb span {
+            color: #6c757d;
+            margin: 0 10px;
+        }
+
+        /* Product Section */
+        .product-detail {
+            background-color: white;
+            padding: 60px 0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .product-image {
+            position: sticky;
+            top: 120px;
+            align-self: start;
+        }
+
+        .cover-placeholder {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 60px 40px;
+            text-align: center;
+            aspect-ratio: 3/4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .cover-placeholder .title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #0e1c26;
+        }
+
+        .image-note {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .product-info {
+            /* Content flows normally */
+        }
+
+        .pre-order-badge {
+            display: inline-block;
+            background-color: #b1924e;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #0e1c26;
+            line-height: 1.2;
+        }
+
+        .product-subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .product-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .meta-value {
+            font-size: 1.1rem;
+            color: #0e1c26;
+            font-weight: bold;
+        }
+
+        /* Purchase Options */
+        .purchase-section {
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border: 2px solid #e9ecef;
+        }
+
+        .purchase-title {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            color: #0e1c26;
+            text-align: center;
+        }
+
+        .format-options {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .format-option {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .format-option:hover {
+            border-color: #b1924e;
+        }
+
+        .format-option.selected {
+            border-color: #b1924e;
+            background-color: #faf8f3;
+        }
+
+        .format-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .format-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .format-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #0e1c26;
+        }
+
+        .format-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #b1924e;
+        }
+
+        .format-description {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .quantity-label {
+            font-weight: bold;
+            color: #0e1c26;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+        }
+
+        .quantity-btn {
+            background-color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #0e1c26;
+            transition: background-color 0.3s;
+        }
+
+        .quantity-btn:hover {
+            background-color: #f8f9fa;
+        }
+
+        .quantity-input {
+            border: none;
+            width: 60px;
+            text-align: center;
+            padding: 10px;
+            font-size: 1rem;
+            background-color: white;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            background-color: #b1924e;
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #9e8142;
+            transform: translateY(-1px);
+        }
+
+        .total-price {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #0e1c26;
+            margin-bottom: 20px;
+        }
+
+        .shipping-note {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #0e1c26;
+            border-bottom: 2px solid #b1924e;
+            padding-bottom: 10px;
+        }
+
+        .description {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .key-topics {
+            background-color: white;
+            border-left: 5px solid #b1924e;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .key-topics h4 {
+            margin-bottom: 15px;
+            color: #0e1c26;
+        }
+
+        .topics-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+        }
+
+        .topics-list li {
+            list-style: none;
+            padding: 5px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .topics-list li:before {
+            content: "•";
+            color: #b1924e;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Sample Chapter */
+        .sample-chapter {
+            background-color: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .sample-btn {
+            display: inline-block;
+            background-color: transparent;
+            color: #0e1c26;
+            border: 2px solid #0e1c26;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .sample-btn:hover {
+            background-color: #0e1c26;
+            color: white;
+        }
+
+        /* Author Section */
+        .author-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+
+        .author-bio h4 {
+            color: #0e1c26;
+            margin-bottom: 15px;
+        }
+
+        .author-bio p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        /* Related Products */
+        .related-products {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .related-item {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 2px solid #e9ecef;
+            transition: transform 0.3s;
+        }
+
+        .related-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .related-item h4 {
+            color: #0e1c26;
+            margin-bottom: 10px;
+        }
+
+        .related-item p {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .coming-soon {
+            color: #b1924e;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0e1c26;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+            color: #b1924e;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-section a:hover {
+            color: #b1924e;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #4a5f7a;
+            padding-top: 20px;
+            text-align: center;
+            color: #95a5a6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .product-image {
+                position: static;
+            }
+
+            .product-title {
+                font-size: 2rem;
+            }
+
+            .product-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .format-header {
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="images/trumpet_logo_small.png" alt="The Noisy Trumpet Publishing Logo" class="logo-icon" width="56" height="40">
+                    THE NOISY TRUMPET PUBLISHING
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="catalog.html">Catalog</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="breadcrumb">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <span>›</span>
+            <a href="#">Catalog</a>
+            <span>›</span>
+            <span>Confessional Renewal in the CRCNA</span>
+        </div>
+    </section>
+
+    <section class="product-detail">
+        <div class="container">
+            <div class="product-grid">
+                <div class="product-image">
+                    <div class="cover-placeholder">
+                        <div class="title">Confessional Renewal in the CRCNA</div>
+                        <div>Cover Design</div>
+                        <div>In Progress</div>
+                    </div>
+                    <div class="image-note">Final cover will feature professional typography and design</div>
+                </div>
+
+                <div class="product-info">
+                    <div class="pre-order-badge">Pre-Order • Ships March 2025</div>
+                    <h1 class="product-title">Confessional Renewal in the CRCNA</h1>
+                    <p class="product-subtitle">A Call to Biblical Faithfulness in Troubled Times</p>
+                    
+                    <div class="product-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Format</div>
+                            <div class="meta-value">28-Page Pamphlet</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Release Date</div>
+                            <div class="meta-value">March 2025</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Author</div>
+                            <div class="meta-value">[Your Name]</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Category</div>
+                            <div class="meta-value">Church Issues</div>
+                        </div>
+                    </div>
+
+                    <div class="purchase-section">
+                        <h3 class="purchase-title">Choose Your Format</h3>
+                        
+                        <div class="format-options">
+                            <label class="format-option selected">
+                                <input type="radio" name="format" value="bundle" checked>
+                                <div class="format-header">
+                                    <span class="format-name">Physical + Digital Bundle</span>
+                                    <span class="format-price">$12</span>
+                                </div>
+                                <div class="format-description">
+                                    High-quality printed pamphlet shipped to your door + immediate PDF download
+                                </div>
+                            </label>
+
+                            <label class="format-option">
+                                <input type="radio" name="format" value="physical">
+                                <div class="format-header">
+                                    <span class="format-name">Physical Only</span>
+                                    <span class="format-price">$10</span>
+                                </div>
+                                <div class="format-description">
+                                    Printed pamphlet shipped when available (March 2025)
+                                </div>
+                            </label>
+
+                            <label class="format-option">
+                                <input type="radio" name="format" value="digital">
+                                <div class="format-header">
+                                    <span class="format-name">Digital Only</span>
+                                    <span class="format-price">$6</span>
+                                </div>
+                                <div class="format-description">
+                                    PDF download available immediately upon release
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="quantity-selector">
+                            <span class="quantity-label">Quantity:</span>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="decreaseQuantity()">−</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="50" id="quantity">
+                                <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                            </div>
+                        </div>
+
+                        <div class="total-price">
+                            Total: <strong>$12.00</strong>
+                        </div>
+
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                        
+                        <div class="shipping-note">
+                            Free shipping on orders over $25 • Physical items ship March 2025
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">About This Work</h2>
+                <div class="description">
+                    <p>The Christian Reformed Church in North America stands at a crossroads. Recent decades have witnessed significant theological drift from our historic confessional moorings, raising urgent questions about the future of Reformed witness in our denomination.</p>
+                    
+                    <p>This pamphlet examines the current challenges facing confessional integrity within the CRCNA, offering both diagnosis and hope. Drawing from Scripture, our historic confessions, and the wisdom of Reformed theologians past and present, it charts a course toward genuine renewal—not compromise disguised as progress, but authentic return to biblical faithfulness.</p>
+                </div>
+
+                <div class="key-topics">
+                    <h4>Key Topics Addressed:</h4>
+                    <ul class="topics-list">
+                        <li>The Authority of Scripture in denominational decision-making</li>
+                        <li>Understanding our confessional standards in contemporary context</li>
+                        <li>The role of church assemblies in maintaining doctrinal integrity</li>
+                        <li>Biblical approaches to cultural engagement vs. accommodation</li>
+                        <li>Practical steps toward confessional renewal</li>
+                        <li>Learning from historical precedents of church reform</li>
+                    </ul>
+                </div>
+
+                <div class="sample-chapter">
+                    <a href="#" class="sample-btn">Read Free Sample Chapter</a>
+                    <p>Get a preview of the theological depth and pastoral wisdom contained in this important work. The sample includes the complete introduction and first chapter, "Foundations Under Fire."</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">About the Author</h2>
+                <div class="author-section">
+                    <div class="author-bio">
+                        <h4>[Your Name]</h4>
+                        <p>[Add your credentials here - education, pastoral experience, previous writing, etc. For example: "holds an M.Div. from Calvin Theological Seminary and has served in pastoral ministry for over 15 years within the CRCNA."]</p>
+                        <p>[Continue with relevant experience: "His writing on church issues has appeared in The Banner, Reformed Journal, and other publications. He hosts the [Podcast Name] podcast, reaching thousands of engaged listeners in the Reformed community."]</p>
+                        <p>[Personal touch: "He lives in [Location] with his wife and children, where he serves [current role/church]."]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-products">
+        <div class="container">
+            <h2 class="section-title">Coming Soon</h2>
+            <div class="related-grid">
+                <div class="related-item">
+                    <h4>Biblical Church Discipline</h4>
+                    <p>A pastoral guide to restoring biblical church discipline in contemporary Reformed churches.</p>
+                    <div class="coming-soon">Summer 2025</div>
+                </div>
+                <div class="related-item">
+                    <h4>The Westminster Standards Today</h4>
+                    <p>Understanding and applying the Westminster Confession and Catechisms in modern ministry.</p>
+                    <div class="coming-soon">Fall 2025</div>
+                </div>
+                <div class="related-item">
+                    <h4>Preaching Through Cultural Crisis</h4>
+                    <p>How pastors can faithfully proclaim God's Word in times of cultural upheaval and change.</p>
+                    <div class="coming-soon">Winter 2025</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Publications</h4>
+                    <a href="catalog.html">Current Catalog</a>
+                    <a href="catalog.html">Coming Soon</a>
+                    <a href="catalog.html">Pre-Orders</a>
+                    <a href="catalog.html">Digital Library</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="blog.html">Blog</a>
+                    <a href="#">Free Samples</a>
+                    <a href="#">Author Interviews</a>
+                    <a href="#">Study Guides</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="#">Podcast</a>
+                    <a href="#">Substack</a>
+                    <a href="contact.html">Bulk Orders</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Noisy Trumpet Publishing. All rights reserved. | <a href="privacy.html" style="color: #95a5a6;">Privacy Policy</a> | <a href="terms.html" style="color: #95a5a6;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Format selection
+        document.querySelectorAll('input[name="format"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.format-option').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                this.closest('.format-option').classList.add('selected');
+                updatePrice();
+            });
+        });
+
+        // Quantity controls
+        function increaseQuantity() {
+            const input = document.getElementById('quantity');
+            const currentValue = parseInt(input.value);
+            if (currentValue < 50) {
+                input.value = currentValue + 1;
+                updatePrice();
+            }
+        }
+
+        function decreaseQuantity() {
+            const input = document.getElementById('quantity');
+            const currentValue = parseInt(input.value);
+            if (currentValue > 1) {
+                input.value = currentValue - 1;
+                updatePrice();
+            }
+        }
+
+        document.getElementById('quantity').addEventListener('change', updatePrice);
+
+        function updatePrice() {
+            const selectedFormat = document.querySelector('input[name="format"]:checked');
+            const quantity = parseInt(document.getElementById('quantity').value);
+            
+            let basePrice = 12; // Default to bundle
+            if (selectedFormat.value === 'physical') basePrice = 10;
+            if (selectedFormat.value === 'digital') basePrice = 6;
+            
+            const total = basePrice * quantity;
+            document.querySelector('.total-price strong').textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Add to cart functionality
+        document.querySelector('.add-to-cart-btn').addEventListener('click', function() {
+            const selectedFormat = document.querySelector('input[name="format"]:checked').value;
+            const quantity = document.getElementById('quantity').value;
+            
+            // Here you would typically send this data to your backend
+            console.log(`Added to cart: ${quantity}x ${selectedFormat} format`);
+            
+            // Visual feedback
+            this.textContent = 'Added to Cart!';
+            this.style.backgroundColor = '#28a745';
+            
+            setTimeout(() => {
+                this.textContent = 'Add to Cart';
+                this.style.backgroundColor = '#d4af37';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

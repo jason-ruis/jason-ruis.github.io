@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog - The Noisy Trumpet Publishing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #0e1c26;
+            background-color: #fafafa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #0e1c26;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: #b1924e;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 40px;
+            margin-right: 15px;
+            fill: #b1924e;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #b1924e;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background-color: white;
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .breadcrumb a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #0e1c26;
+        }
+
+        .breadcrumb span {
+            color: #6c757d;
+            margin: 0 10px;
+        }
+
+        /* Catalog Header */
+        .catalog-header {
+            background-color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .catalog-title {
+            font-size: 3rem;
+            color: #0e1c26;
+            margin-bottom: 20px;
+        }
+
+        .catalog-subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background-color: #f8f9fa;
+            padding: 30px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .filter-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .filter-label {
+            font-weight: bold;
+            color: #0e1c26;
+        }
+
+        .filter-select {
+            padding: 8px 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            background-color: white;
+            color: #0e1c26;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+
+        .filter-select:focus {
+            border-color: #b1924e;
+            outline: none;
+        }
+
+        .results-count {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        /* Catalog Grid */
+        .catalog-content {
+            padding: 60px 0;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            border: 2px solid #e9ecef;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            aspect-ratio: 3/4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 0.85rem;
+            color: #6c757d;
+            max-width: 400px;
+        }
+
+        .product-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .badge-preorder {
+            background-color: #b1924e;
+            color: white;
+        }
+
+        .badge-available {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .badge-coming-soon {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            color: #0e1c26;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .product-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .product-title a:hover {
+            color: #b1924e;
+        }
+
+        .product-author {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .product-description {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .product-format {
+            background-color: #f8f9fa;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            color: #0e1c26;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            background-color: #b1924e;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #9e8142;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #0e1c26;
+            border: 2px solid #e9ecef;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .btn-secondary:hover {
+            border-color: #b1924e;
+            color: #b1924e;
+        }
+
+        /* Category Sections */
+        .category-section {
+            margin-bottom: 60px;
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #b1924e;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: #0e1c26;
+        }
+
+        .view-all-link {
+            color: #b1924e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .view-all-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Newsletter CTA */
+        .newsletter-cta {
+            background: linear-gradient(135deg, #0e1c26 0%, #1a2f3a 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .newsletter-cta h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #b1924e;
+        }
+
+        .newsletter-cta p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .email-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+
+        .email-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .email-form button {
+            background-color: #b1924e;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .email-form button:hover {
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0e1c26;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+            color: #b1924e;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-section a:hover {
+            color: #b1924e;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #4a5f7a;
+            padding-top: 20px;
+            text-align: center;
+            color: #95a5a6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            .catalog-title {
+                font-size: 2.2rem;
+            }
+
+            .filter-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                justify-content: space-between;
+            }
+
+            .catalog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+
+            .email-form {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="images/trumpet_logo_small.png" alt="The Noisy Trumpet Publishing Logo" class="logo-icon" width="56" height="40">
+                    THE NOISY TRUMPET PUBLISHING
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="catalog.html" class="active">Catalog</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="breadcrumb">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <span>›</span>
+            <span>Catalog</span>
+        </div>
+    </section>
+
+    <section class="catalog-header">
+        <div class="container">
+            <h1 class="catalog-title">Our Catalog</h1>
+            <p class="catalog-subtitle">Biblically faithful resources for pastors, teachers, and thoughtful believers in the Reformed tradition</p>
+        </div>
+    </section>
+
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-content">
+                <div class="filter-group">
+                    <span class="filter-label">Category:</span>
+                    <select class="filter-select" id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="church-issues">Church Issues</option>
+                        <option value="reformed-theology">Reformed Theology</option>
+                        <option value="pastoral-ministry">Pastoral Ministry</option>
+                        <option value="biblical-studies">Biblical Studies</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <span class="filter-label">Format:</span>
+                    <select class="filter-select" id="formatFilter">
+                        <option value="all">All Formats</option>
+                        <option value="pamphlet">Pamphlets</option>
+                        <option value="book">Books</option>
+                        <option value="digital">Digital Only</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <span class="filter-label">Availability:</span>
+                    <select class="filter-select" id="availabilityFilter">
+                        <option value="all">All Items</option>
+                        <option value="available">Available Now</option>
+                        <option value="preorder">Pre-Order</option>
+                        <option value="coming-soon">Coming Soon</option>
+                    </select>
+                </div>
+
+                <div class="results-count">
+                    Showing 6 items
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="catalog-content">
+        <div class="container">
+            <!-- Current/Pre-Order Section -->
+            <div class="category-section">
+                <div class="category-header">
+                    <h2 class="category-title">Available & Pre-Order</h2>
+                    <a href="#" class="view-all-link">View All →</a>
+                </div>
+                
+                <div class="catalog-grid">
+                    <div class="product-card" data-category="church-issues" data-format="pamphlet" data-availability="preorder">
+                        <div class="product-image">
+                            <div><strong>Coming Soon</strong><br>Cover Design in Progress</div>
+                        </div>
+                        <div class="product-badge badge-preorder">Pre-Order</div>
+                        <h3 class="product-title">
+                            <a href="product-page.html">Confessional Renewal in the CRCNA</a>
+                        </h3>
+                        <div class="product-author">By [Your Name]</div>
+                        <p class="product-description">
+                            A thoughtful examination of the current challenges facing confessional integrity within the Christian Reformed Church in North America, offering biblical pathways toward genuine renewal.
+                        </p>
+                        <div class="product-meta">
+                            <span class="product-format">28-page Pamphlet</span>
+                            <span>Ships March 2025</span>
+                        </div>
+                        <div class="product-price">From $6</div>
+                        <div class="product-actions">
+                            <a href="product-page.html" class="btn-primary">Pre-Order Now</a>
+                            <a href="product-page.html" class="btn-secondary">Sample</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coming Soon Section -->
+            <div class="category-section">
+                <div class="category-header">
+                    <h2 class="category-title">Coming Soon</h2>
+                    <a href="#" class="view-all-link">View All →</a>
+                </div>
+                
+                <div class="catalog-grid">
+                    <div class="product-card" data-category="church-issues" data-format="pamphlet" data-availability="coming-soon">
+                        <div class="product-image">
+                            <div><strong>In Development</strong><br>Expected Summer 2025</div>
+                        </div>
+                        <div class="product-badge badge-coming-soon">Coming Soon</div>
+                        <h3 class="product-title">
+                            <a href="#">Biblical Church Discipline</a>
+                        </h3>
+                        <div class="product-author">By [Your Name]</div>
+                        <p class="product-description">
+                            A pastoral guide to restoring biblical church discipline in contemporary Reformed churches, addressing both theology and practical implementation.
+                        </p>
+                        <div class="product-meta">
+                            <span class="product-format">40-page Pamphlet</span>
+                            <span>Expected Summer 2025</span>
+                        </div>
+                        <div class="product-price">TBA</div>
+                        <div class="product-actions">
+                            <a href="#" class="btn-primary">Notify When Available</a>
+                            <a href="#" class="btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="reformed-theology" data-format="book" data-availability="coming-soon">
+                        <div class="product-image">
+                            <div><strong>In Development</strong><br>Expected Fall 2025</div>
+                        </div>
+                        <div class="product-badge badge-coming-soon">Coming Soon</div>
+                        <h3 class="product-title">
+                            <a href="#">The Westminster Standards Today</a>
+                        </h3>
+                        <div class="product-author">By [Your Name]</div>
+                        <p class="product-description">
+                            Understanding and applying the Westminster Confession and Catechisms in modern ministry context, with practical guidance for pastors and teachers.
+                        </p>
+                        <div class="product-meta">
+                            <span class="product-format">120-page Book</span>
+                            <span>Expected Fall 2025</span>
+                        </div>
+                        <div class="product-price">TBA</div>
+                        <div class="product-actions">
+                            <a href="#" class="btn-primary">Notify When Available</a>
+                            <a href="#" class="btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="pastoral-ministry" data-format="pamphlet" data-availability="coming-soon">
+                        <div class="product-image">
+                            <div><strong>In Development</strong><br>Expected Winter 2025</div>
+                        </div>
+                        <div class="product-badge badge-coming-soon">Coming Soon</div>
+                        <h3 class="product-title">
+                            <a href="#">Preaching Through Cultural Crisis</a>
+                        </h3>
+                        <div class="product-author">By [Your Name]</div>
+                        <p class="product-description">
+                            How pastors can faithfully proclaim God's Word in times of cultural upheaval and change, maintaining biblical fidelity while addressing contemporary challenges.
+                        </p>
+                        <div class="product-meta">
+                            <span class="product-format">35-page Pamphlet</span>
+                            <span>Expected Winter 2025</span>
+                        </div>
+                        <div class="product-price">TBA</div>
+                        <div class="product-actions">
+                            <a href="#" class="btn-primary">Notify When Available</a>
+                            <a href="#" class="btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="church-issues" data-format="book" data-availability="coming-soon">
+                        <div class="product-image">
+                            <div><strong>In Planning</strong><br>Expected 2026</div>
+                        </div>
+                        <div class="product-badge badge-coming-soon">In Planning</div>
+                        <h3 class="product-title">
+                            <a href="#">Reformed Church Government</a>
+                        </h3>
+                        <div class="product-author">By [Your Name]</div>
+                        <p class="product-description">
+                            A comprehensive examination of biblical church polity and governance in the Reformed tradition, with practical applications for modern church leadership.
+                        </p>
+                        <div class="product-meta">
+                            <span class="product-format">150-page Book</span>
+                            <span>Expected 2026</span>
+                        </div>
+                        <div class="product-price">TBA</div>
+                        <div class="product-actions">
+                            <a href="#" class="btn-primary">Express Interest</a>
+                            <a href="#" class="btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="reformed-theology" data-format="book" data-availability="coming-soon">
+                        <div class="product-image">
+                            <div><strong>In Planning</strong><br>Expected 2026</div>
+                        </div>
+                        <div class="product-badge badge-coming-soon">In Planning</div>
+                        <h3 class="product-title">
+                            <a href="#">Covenant Theology for Pastors</a>
+                        </h3>
+                        <div class="product-author">By [Your Name]</div>
+                        <p class="product-description">
+                            A practical guide to understanding and teaching covenant theology in pastoral ministry, bridging academic theology and congregational application.
+                        </p>
+                        <div class="product-meta">
+                            <span class="product-format">100-page Book</span>
+                            <span>Expected 2026</span>
+                        </div>
+                        <div class="product-price">TBA</div>
+                        <div class="product-actions">
+                            <a href="#" class="btn-primary">Express Interest</a>
+                            <a href="#" class="btn-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter-cta">
+        <div class="container">
+            <h2>Stay Updated on New Releases</h2>
+            <p>Be the first to know about new publications, pre-order opportunities, and exclusive theological resources.</p>
+            <form class="email-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Publications</h4>
+                    <a href="catalog.html">Current Catalog</a>
+                    <a href="catalog.html">Coming Soon</a>
+                    <a href="catalog.html">Pre-Orders</a>
+                    <a href="catalog.html">Digital Library</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="blog.html">Blog</a>
+                    <a href="#">Free Samples</a>
+                    <a href="#">Author Interviews</a>
+                    <a href="#">Study Guides</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="#">Podcast</a>
+                    <a href="#">Substack</a>
+                    <a href="contact.html">Bulk Orders</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Noisy Trumpet Publishing. All rights reserved. | <a href="privacy.html" style="color: #95a5a6;">Privacy Policy</a> | <a href="terms.html" style="color: #95a5a6;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Filter functionality
+        const categoryFilter = document.getElementById('categoryFilter');
+        const formatFilter = document.getElementById('formatFilter');
+        const availabilityFilter = document.getElementById('availabilityFilter');
+
+        function updateFilters() {
+            const category = categoryFilter.value;
+            const format = formatFilter.value;
+            const availability = availabilityFilter.value;
+
+            const productCards = document.querySelectorAll('.product-card');
+            let visibleCount = 0;
+
+            productCards.forEach(card => {
+                let shouldShow = true;
+
+                // Get card attributes (you would need to add these to the HTML)
+                const cardCategory = card.getAttribute('data-category') || 'church-issues';
+                const cardFormat = card.getAttribute('data-format') || 'pamphlet';
+                const cardAvailability = card.getAttribute('data-availability') || 'preorder';
+
+                // Apply filters
+                if (category !== 'all' && cardCategory !== category) {
+                    shouldShow = false;
+                }
+                if (format !== 'all' && cardFormat !== format) {
+                    shouldShow = false;
+                }
+                if (availability !== 'all' && cardAvailability !== availability) {
+                    shouldShow = false;
+                }
+
+                // Show or hide card
+                if (shouldShow) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Update results count
+            const resultsCount = document.querySelector('.results-count');
+            resultsCount.textContent = `Showing ${visibleCount} item${visibleCount !== 1 ? 's' : ''}`;
+        }
+
+        categoryFilter.addEventListener('change', updateFilters);
+        formatFilter.addEventListener('change', updateFilters);
+        availabilityFilter.addEventListener('change', updateFilters);
+
+        // Newsletter form
+        document.querySelector('.email-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            console.log('Newsletter signup:', email);
+            // Show success message
+            alert('Thank you for subscribing! You\'ll be notified about new releases.');
+        });
+
+        // Product action buttons
+        document.querySelectorAll('.btn-primary').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const action = this.textContent.trim();
+                console.log('Action clicked:', action);
+                
+                if (action === 'Pre-Order Now') {
+                    // Redirect to product page
+                    window.location.href = '#product-page';
+                } else if (action === 'Notify When Available' || action === 'Express Interest') {
+                    // Show email signup modal
+                    const email = prompt('Enter your email to be notified when this becomes available:');
+                    if (email) {
+                        alert('Thank you! We\'ll notify you when this item is available.');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

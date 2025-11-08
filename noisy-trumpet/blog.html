@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - The Noisy Trumpet Publishing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #0e1c26;
+            background-color: #fafafa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #0e1c26;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: #b1924e;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 40px;
+            margin-right: 15px;
+            fill: #b1924e;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #b1924e;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background-color: white;
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .breadcrumb a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #0e1c26;
+        }
+
+        .breadcrumb span {
+            color: #6c757d;
+            margin: 0 10px;
+        }
+
+        /* Blog Header */
+        .blog-header {
+            background-color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .blog-title {
+            font-size: 3rem;
+            color: #0e1c26;
+            margin-bottom: 20px;
+        }
+
+        .blog-subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Blog Layout */
+        .blog-content {
+            padding: 60px 0;
+        }
+
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            display: none;
+        }
+
+        /* Featured Article */
+        .featured-article {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            margin-bottom: 40px;
+            border: 2px solid #e9ecef;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .featured-badge {
+            background-color: #b1924e;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .article-title {
+            font-size: 2rem;
+            color: #0e1c26;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .article-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .article-title a:hover {
+            color: #b1924e;
+        }
+
+        .article-meta {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .article-excerpt {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .read-more {
+            color: #0e1c26;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .read-more:hover {
+            border-bottom-color: #b1924e;
+        }
+
+        /* Article Grid */
+        .articles-grid {
+            display: grid;
+            gap: 30px;
+        }
+
+        .article-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            border: 2px solid #e9ecef;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .article-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .article-card .article-title {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+
+        .article-card .article-meta {
+            margin-bottom: 15px;
+        }
+
+        .article-card .article-excerpt {
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .category-tag {
+            background-color: #f8f9fa;
+            color: #0e1c26;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s;
+        }
+
+        .category-tag:hover {
+            background-color: #b1924e;
+            color: white;
+            border-color: #b1924e;
+        }
+
+        /* Sidebar */
+        .sidebar-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 2px solid #e9ecef;
+        }
+
+        .sidebar-title {
+            font-size: 1.3rem;
+            color: #2c4f5c;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #d4af37;
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-list li {
+            margin-bottom: 10px;
+        }
+
+        .category-list a {
+            color: #6c757d;
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        .category-list a:hover {
+            color: #2c4f5c;
+        }
+
+        .post-count {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+
+        .recent-posts {
+            list-style: none;
+        }
+
+        .recent-posts li {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .recent-posts li:last-child {
+            border-bottom: none;
+        }
+
+        .recent-post-title {
+            font-size: 0.95rem;
+            color: #2c4f5c;
+            text-decoration: none;
+            font-weight: bold;
+            line-height: 1.4;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .recent-post-title:hover {
+            color: #d4af37;
+        }
+
+        .recent-post-date {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: linear-gradient(135deg, #0e1c26 0%, #1a2f3a 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .newsletter-section h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #b1924e;
+        }
+
+        .newsletter-section p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .email-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+
+        .email-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .email-form button {
+            background-color: #b1924e;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .email-form button:hover {
+            transform: translateY(-1px);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+
+        .pagination a,
+        .pagination span {
+            padding: 10px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #0e1c26;
+            transition: all 0.3s;
+        }
+
+        .pagination a:hover {
+            border-color: #b1924e;
+            background-color: #b1924e;
+            color: white;
+        }
+
+        .pagination .current {
+            background-color: #b1924e;
+            border-color: #b1924e;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0e1c26;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+            color: #b1924e;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-section a:hover {
+            color: #b1924e;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #4a5f7a;
+            padding-top: 20px;
+            text-align: center;
+            color: #95a5a6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            .blog-title {
+                font-size: 2.2rem;
+            }
+
+            .featured-article {
+                padding: 25px;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .email-form {
+                flex-direction: column;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="images/trumpet_logo_small.png" alt="The Noisy Trumpet Publishing Logo" class="logo-icon" width="56" height="40">
+                    THE NOISY TRUMPET PUBLISHING
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="catalog.html">Catalog</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html" class="active">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="breadcrumb">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <span>›</span>
+            <span>Blog</span>
+        </div>
+    </section>
+
+    <section class="blog-header">
+        <div class="container">
+            <h1 class="blog-title">Theological Insights</h1>
+            <p class="blog-subtitle">Exploring Reformed theology, church issues, and biblical faithfulness in contemporary context</p>
+        </div>
+    </section>
+
+    <section class="blog-content">
+        <div class="container">
+            <div class="main-content">
+                <!-- Featured Article -->
+                <article class="featured-article">
+                    <div class="featured-badge">Featured Article</div>
+                    <h2 class="article-title">
+                        <a href="#">The Crisis of Confessional Authority in Reformed Churches</a>
+                    </h2>
+                    <div class="article-meta">
+                        <span>By [Your Name]</span>
+                        <span>January 15, 2025</span>
+                        <a href="#" class="category-tag">Church Issues</a>
+                        <span>8 min read</span>
+                    </div>
+                    <p class="article-excerpt">
+                        The Reformed tradition has always maintained that Scripture is our ultimate authority, mediated through carefully crafted confessions that summarize biblical teaching. Yet today, many Reformed churches are experiencing a crisis of confessional authority—not because our confessions have failed, but because we have failed to understand their proper role and application. This article examines how we can restore proper confessional authority while avoiding both rigid legalism and theological drift.
+                    </p>
+                    <a href="#" class="read-more">Continue Reading →</a>
+                </article>
+
+                <!-- Recent Articles -->
+                <div class="articles-grid">
+                    <article class="article-card">
+                        <h3 class="article-title">
+                            <a href="#">Scripture's Self-Attestation and Modern Challenges</a>
+                        </h3>
+                        <div class="article-meta">
+                            <span>January 8, 2025</span>
+                            <a href="#" class="category-tag">Biblical Authority</a>
+                            <span>6 min read</span>
+                        </div>
+                        <p class="article-excerpt">
+                            How do we respond to contemporary challenges to biblical authority while maintaining the Reformed doctrine of Scripture's self-attestation? This post explores the balance between apologetic engagement and faithful confession.
+                        </p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </article>
+
+                    <article class="article-card">
+                        <h3 class="article-title">
+                            <a href="#">Pastoral Ministry in Times of Theological Confusion</a>
+                        </h3>
+                        <div class="article-meta">
+                            <span>December 28, 2024</span>
+                            <a href="#" class="category-tag">Pastoral Ministry</a>
+                            <span>7 min read</span>
+                        </div>
+                        <p class="article-excerpt">
+                            Practical wisdom for pastors navigating the challenges of leading congregations through seasons of theological uncertainty and cultural pressure. How do we shepherd faithfully without becoming divisive?
+                        </p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </article>
+
+                    <article class="article-card">
+                        <h3 class="article-title">
+                            <a href="#">Understanding Church Discipline in Reformed Context</a>
+                        </h3>
+                        <div class="article-meta">
+                            <span>December 21, 2024</span>
+                            <a href="#" class="category-tag">Church Governance</a>
+                            <span>9 min read</span>
+                        </div>
+                        <p class="article-excerpt">
+                            Church discipline has fallen into disuse in many Reformed churches, often due to misunderstanding rather than theological disagreement. This article examines biblical principles and practical application.
+                        </p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </article>
+
+                    <article class="article-card">
+                        <h3 class="article-title">
+                            <a href="#">The Westminster Standards and Contemporary Application</a>
+                        </h3>
+                        <div class="article-meta">
+                            <span>December 14, 2024</span>
+                            <a href="#" class="category-tag">Reformed Theology</a>
+                            <span>5 min read</span>
+                        </div>
+                        <p class="article-excerpt">
+                            How do we faithfully apply seventeenth-century confessional documents to twenty-first-century questions? A framework for confessional hermeneutics in Reformed churches.
+                        </p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </article>
+
+                    <article class="article-card">
+                        <h3 class="article-title">
+                            <a href="#">Book Review: Recent Works on Reformed Ecclesiology</a>
+                        </h3>
+                        <div class="article-meta">
+                            <span>December 7, 2024</span>
+                            <a href="#" class="category-tag">Book Reviews</a>
+                            <span>4 min read</span>
+                        </div>
+                        <p class="article-excerpt">
+                            An examination of three recent books addressing Reformed church government and polity, with particular attention to their practical implications for denominational governance.
+                        </p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </article>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="#">← Previous</a>
+                    <span class="current">1</span>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">Next →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter-section">
+        <div class="container">
+            <h2>Stay Updated</h2>
+            <p>Get new theological insights, book announcements, and exclusive content delivered directly to your inbox.</p>
+            <form class="email-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Publications</h4>
+                    <a href="catalog.html">Current Catalog</a>
+                    <a href="catalog.html">Coming Soon</a>
+                    <a href="catalog.html">Pre-Orders</a>
+                    <a href="catalog.html">Digital Library</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="blog.html">Blog</a>
+                    <a href="#">Free Samples</a>
+                    <a href="#">Author Interviews</a>
+                    <a href="#">Study Guides</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="#">Podcast</a>
+                    <a href="#">Substack</a>
+                    <a href="contact.html">Bulk Orders</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Noisy Trumpet Publishing. All rights reserved. | <a href="privacy.html" style="color: #95a5a6;">Privacy Policy</a> | <a href="terms.html" style="color: #95a5a6;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

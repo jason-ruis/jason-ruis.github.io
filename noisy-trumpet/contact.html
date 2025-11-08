@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - The Noisy Trumpet Publishing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #0e1c26;
+            background-color: #fafafa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #0e1c26;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: #b1924e;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 40px;
+            margin-right: 15px;
+            fill: #b1924e;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            color: #b1924e;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background-color: white;
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .breadcrumb a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #0e1c26;
+        }
+
+        .breadcrumb span {
+            color: #6c757d;
+            margin: 0 10px;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, #0e1c26 0%, #1a2f3a 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .contact-info {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+
+        .contact-info h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #0e1c26;
+        }
+
+        .info-item {
+            margin-bottom: 30px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: #b1924e;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .info-text {
+            color: #0e1c26;
+            font-size: 1.05rem;
+        }
+
+        .info-text a {
+            color: #0e1c26;
+            text-decoration: none;
+            border-bottom: 1px solid #b1924e;
+        }
+
+        .info-text a:hover {
+            color: #b1924e;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #0e1c26;
+            transition: all 0.3s;
+            border: 2px solid #e9ecef;
+        }
+
+        .social-link:hover {
+            background-color: #b1924e;
+            color: white;
+            border-color: #b1924e;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+        }
+
+        .contact-form h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #0e1c26;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #0e1c26;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            font-family: 'Georgia', serif;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #b1924e;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .required {
+            color: #b1924e;
+        }
+
+        .submit-btn {
+            background-color: #b1924e;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: #9e8142;
+            transform: translateY(-1px);
+        }
+
+        .form-note {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+            display: none;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-title {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #0e1c26;
+        }
+
+        .faq-item {
+            background-color: white;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #0e1c26;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: #f8f9fa;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+        }
+
+        .faq-answer.active {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            line-height: 1.7;
+            color: #6c757d;
+        }
+
+        .toggle-icon {
+            font-size: 1.5rem;
+            color: #b1924e;
+            transition: transform 0.3s;
+        }
+
+        .toggle-icon.active {
+            transform: rotate(45deg);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0e1c26;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+            color: #b1924e;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-section a:hover {
+            color: #b1924e;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #4a5f7a;
+            padding-top: 20px;
+            text-align: center;
+            color: #95a5a6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            .page-title {
+                font-size: 2.2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="images/trumpet_logo_small.png" alt="The Noisy Trumpet Publishing Logo" class="logo-icon" width="56" height="40">
+                    THE NOISY TRUMPET PUBLISHING
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="catalog.html">Catalog</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html" class="active">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="breadcrumb">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <span>›</span>
+            <span>Contact</span>
+        </div>
+    </section>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Get In Touch</h1>
+            <p class="page-subtitle">We'd love to hear from you. Reach out with questions, bulk orders, or partnership opportunities.</p>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Contact Information</h2>
+
+                    <div class="info-item">
+                        <span class="info-label">Email</span>
+                        <p class="info-text">
+                            <a href="mailto:info@noisytrumpet.com">info@noisytrumpet.com</a>
+                        </p>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Bulk Orders & Wholesale</span>
+                        <p class="info-text">
+                            <a href="mailto:orders@noisytrumpet.com">orders@noisytrumpet.com</a>
+                        </p>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Speaking & Podcast Inquiries</span>
+                        <p class="info-text">
+                            <a href="mailto:speaking@noisytrumpet.com">speaking@noisytrumpet.com</a>
+                        </p>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Connect With Us</span>
+                        <div class="social-links">
+                            <a href="#" class="social-link">Substack</a>
+                            <a href="#" class="social-link">Podcast</a>
+                            <a href="#" class="social-link">Twitter</a>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Response Time</span>
+                        <p class="info-text">
+                            We typically respond to inquiries within 1-2 business days.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h2>Send Us a Message</h2>
+
+                    <div class="success-message" id="successMessage">
+                        Thank you for your message! We'll get back to you soon.
+                    </div>
+
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject <span class="required">*</span></label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject...</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="order">Order Question</option>
+                                <option value="bulk">Bulk/Wholesale Order</option>
+                                <option value="speaking">Speaking Invitation</option>
+                                <option value="media">Media/Interview Request</option>
+                                <option value="partnership">Partnership Opportunity</option>
+                                <option value="technical">Technical Support</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message <span class="required">*</span></label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Send Message</button>
+
+                        <p class="form-note">
+                            <span class="required">*</span> Required fields. We respect your privacy and will never share your information.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-container">
+                <h2 class="faq-title">Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How can I order books in bulk for my church or organization?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer special pricing for bulk orders of 10 or more copies. Please email orders@noisytrumpet.com with the titles and quantities you're interested in, and we'll provide a custom quote with discounted pricing and shipping options.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Do you accept speaking engagements or podcast interviews?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We're open to speaking engagements at churches, conferences, and Reformed gatherings, as well as podcast and media interviews. Please email speaking@noisytrumpet.com with details about your event or program, including date, location, and topic of interest.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>When will my pre-ordered items ship?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Pre-ordered items will ship according to their listed release dates. You'll receive an email notification when your order ships. Digital versions (if included in your order) will be delivered immediately upon release.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What is your refund policy?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We want you to be satisfied with your purchase. Physical products may be returned within 30 days of receipt for a full refund if they're in original condition. Digital products are non-refundable after download. Please contact us if you have any concerns about your order.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Do you offer international shipping?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Currently, we ship physical products within the United States and Canada. Digital products are available worldwide. If you're located internationally and interested in our physical products, please contact us to discuss options.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How can I submit a manuscript for consideration?</span>
+                        <span class="toggle-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>At this time, we're primarily focused on our current publishing schedule. However, we're always interested in hearing about quality Reformed theological works. Please email info@noisytrumpet.com with a brief description of your manuscript and we'll let you know if we're accepting submissions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Publications</h4>
+                    <a href="catalog.html">Current Catalog</a>
+                    <a href="catalog.html">Coming Soon</a>
+                    <a href="catalog.html">Pre-Orders</a>
+                    <a href="catalog.html">Digital Library</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="blog.html">Blog</a>
+                    <a href="#">Free Samples</a>
+                    <a href="#">Author Interviews</a>
+                    <a href="#">Study Guides</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="#">Podcast</a>
+                    <a href="#">Substack</a>
+                    <a href="contact.html">Bulk Orders</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Noisy Trumpet Publishing. All rights reserved. | <a href="privacy.html" style="color: #95a5a6;">Privacy Policy</a> | <a href="terms.html" style="color: #95a5a6;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Contact form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+
+            // Here you would typically send the data to a backend service
+            console.log('Form submitted:', formData);
+
+            // Show success message
+            document.getElementById('successMessage').style.display = 'block';
+
+            // Reset form
+            this.reset();
+
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 5000);
+
+            // Scroll to success message
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        // FAQ toggle functionality
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('.toggle-icon');
+
+            // Close all other FAQs
+            document.querySelectorAll('.faq-answer').forEach(item => {
+                if (item !== answer && item.classList.contains('active')) {
+                    item.classList.remove('active');
+                    item.previousElementSibling.querySelector('.toggle-icon').classList.remove('active');
+                }
+            });
+
+            // Toggle current FAQ
+            answer.classList.toggle('active');
+            icon.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - The Noisy Trumpet Publishing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #0e1c26;
+            background-color: #fafafa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #0e1c26;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: #b1924e;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .logo-icon {
+            width: 56px;
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #b1924e;
+        }
+
+        /* Page Header */
+        .page-header {
+            background-color: white;
+            padding: 40px 0;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            color: #0e1c26;
+            margin-bottom: 10px;
+        }
+
+        /* Cart Section */
+        .cart-section {
+            padding: 60px 0;
+        }
+
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .cart-items {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            border: 2px solid #e9ecef;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr auto;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-image {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            aspect-ratio: 3/4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #6c757d;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .item-details h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: #0e1c26;
+        }
+
+        .item-details h3 a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .item-details h3 a:hover {
+            color: #b1924e;
+        }
+
+        .item-format {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .item-price {
+            font-size: 1.2rem;
+            color: #0e1c26;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .qty-btn {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .qty-btn:hover {
+            background-color: #b1924e;
+            color: white;
+            border-color: #b1924e;
+        }
+
+        .qty-input {
+            width: 60px;
+            text-align: center;
+            padding: 5px;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .remove-btn {
+            color: #dc3545;
+            text-decoration: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .remove-btn:hover {
+            opacity: 0.7;
+        }
+
+        .item-total {
+            text-align: right;
+        }
+
+        .item-total-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #0e1c26;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-cart h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #6c757d;
+        }
+
+        .empty-cart p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #6c757d;
+        }
+
+        /* Cart Summary */
+        .cart-summary {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            border: 2px solid #e9ecef;
+            position: sticky;
+            top: 120px;
+            height: fit-content;
+        }
+
+        .summary-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #0e1c26;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .summary-row.total {
+            border-bottom: none;
+            border-top: 2px solid #0e1c26;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #0e1c26;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background-color: #b1924e;
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 25px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .checkout-btn:hover {
+            background-color: #9e8142;
+            transform: translateY(-1px);
+        }
+
+        .continue-shopping {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: #0e1c26;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .continue-shopping:hover {
+            color: #b1924e;
+        }
+
+        .shipping-note {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0e1c26;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+            color: #b1924e;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-section a:hover {
+            color: #b1924e;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #4a5f7a;
+            padding-top: 20px;
+            text-align: center;
+            color: #95a5a6;
+        }
+
+        .btn-primary {
+            background-color: #b1924e;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #9e8142;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                gap: 20px;
+            }
+
+            .cart-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-item {
+                grid-template-columns: 80px 1fr;
+            }
+
+            .item-total {
+                grid-column: 1 / -1;
+                text-align: left;
+                margin-top: 10px;
+            }
+
+            .cart-summary {
+                position: static;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="images/trumpet_logo_small.png" alt="The Noisy Trumpet Publishing Logo" class="logo-icon" width="56" height="40">
+                    THE NOISY TRUMPET PUBLISHING
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="catalog.html">Catalog</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Shopping Cart</h1>
+        </div>
+    </section>
+
+    <section class="cart-section">
+        <div class="container">
+            <div class="cart-layout" id="cartLayout">
+                <div class="cart-items" id="cartItems">
+                    <!-- Cart items will be inserted here by JavaScript -->
+                </div>
+
+                <div class="cart-summary" id="cartSummary" style="display: none;">
+                    <h2 class="summary-title">Order Summary</h2>
+
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span id="shipping">Calculated at checkout</span>
+                    </div>
+
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="total">$0.00</span>
+                    </div>
+
+                    <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+                    <a href="catalog.html" class="continue-shopping">Continue Shopping</a>
+
+                    <div class="shipping-note">
+                        <strong>Note:</strong> Free shipping on orders over $25. Pre-order items will ship according to their release dates.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Publications</h4>
+                    <a href="catalog.html">Current Catalog</a>
+                    <a href="catalog.html">Coming Soon</a>
+                    <a href="catalog.html">Pre-Orders</a>
+                    <a href="catalog.html">Digital Library</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <a href="blog.html">Blog</a>
+                    <a href="#">Free Samples</a>
+                    <a href="#">Author Interviews</a>
+                    <a href="#">Study Guides</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="#">Podcast</a>
+                    <a href="#">Substack</a>
+                    <a href="contact.html">Bulk Orders</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 The Noisy Trumpet Publishing. All rights reserved. | <a href="privacy.html" style="color: #95a5a6;">Privacy Policy</a> | <a href="terms.html" style="color: #95a5a6;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sample cart data (in a real app, this would come from localStorage or a backend)
+        let cart = [
+            {
+                id: 1,
+                title: "Confessional Renewal in the CRCNA",
+                format: "Physical + Digital Bundle",
+                price: 12.00,
+                quantity: 1
+            }
+        ];
+
+        // Initialize cart
+        function initCart() {
+            // Try to load cart from localStorage
+            const savedCart = localStorage.getItem('noisyTrumpetCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            }
+            renderCart();
+        }
+
+        // Render cart
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartSummary = document.getElementById('cartSummary');
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <h2>Your cart is empty</h2>
+                        <p>Add some books to get started!</p>
+                        <a href="catalog.html" class="btn-primary">Browse Catalog</a>
+                    </div>
+                `;
+                cartSummary.style.display = 'none';
+                return;
+            }
+
+            cartSummary.style.display = 'block';
+
+            let html = '';
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+
+                html += `
+                    <div class="cart-item">
+                        <div class="item-image">
+                            <div>Cover<br>Coming<br>Soon</div>
+                        </div>
+                        <div class="item-details">
+                            <h3><a href="product-page.html">${item.title}</a></h3>
+                            <div class="item-format">${item.format}</div>
+                            <div class="item-price">$${item.price.toFixed(2)} each</div>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="updateQuantity(${index}, -1)">−</button>
+                                <input type="number" class="qty-input" value="${item.quantity}" min="1" max="50"
+                                       onchange="setQuantity(${index}, this.value)">
+                                <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                            </div>
+                            <a href="#" class="remove-btn" onclick="removeItem(${index}); return false;">Remove</a>
+                        </div>
+                        <div class="item-total">
+                            <div class="item-total-price">$${itemTotal.toFixed(2)}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cartItemsContainer.innerHTML = html;
+
+            // Update summary
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${subtotal.toFixed(2)}`;
+        }
+
+        // Update quantity
+        function updateQuantity(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity < 1) cart[index].quantity = 1;
+            if (cart[index].quantity > 50) cart[index].quantity = 50;
+            saveCart();
+            renderCart();
+        }
+
+        // Set quantity
+        function setQuantity(index, value) {
+            const qty = parseInt(value);
+            if (qty >= 1 && qty <= 50) {
+                cart[index].quantity = qty;
+                saveCart();
+                renderCart();
+            }
+        }
+
+        // Remove item
+        function removeItem(index) {
+            if (confirm('Remove this item from your cart?')) {
+                cart.splice(index, 1);
+                saveCart();
+                renderCart();
+            }
+        }
+
+        // Save cart to localStorage
+        function saveCart() {
+            localStorage.setItem('noisyTrumpetCart', JSON.stringify(cart));
+        }
+
+        // Add to cart function (can be called from other pages)
+        function addToCart(item) {
+            // Check if item already exists
+            const existingIndex = cart.findIndex(cartItem =>
+                cartItem.id === item.id && cartItem.format === item.format
+            );
+
+            if (existingIndex >= 0) {
+                cart[existingIndex].quantity += item.quantity;
+            } else {
+                cart.push(item);
+            }
+
+            saveCart();
+            renderCart();
+        }
+
+        // Initialize on page load
+        initCart();
+    </script>
+</body>
+</html>
