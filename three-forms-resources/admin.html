@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Add Resource — Three Forms Resources</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 2px solid var(--light-border);
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        .form-panel, .output-panel {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .panel-title {
+            color: var(--navy);
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-md);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--light-border);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--navy);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            font-size: 0.9rem;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="url"],
+        .form-group input[type="number"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border: 2px solid var(--light-border);
+            border-radius: var(--border-radius-sm);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--charcoal);
+        }
+
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-sm);
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .generate-button {
+            width: 100%;
+            padding: var(--spacing-md);
+            background: var(--brass);
+            color: var(--white);
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: var(--spacing-md);
+        }
+
+        .generate-button:hover {
+            background: #b08838;
+        }
+
+        .output-textarea {
+            width: 100%;
+            min-height: 500px;
+            padding: var(--spacing-sm);
+            border: 2px solid var(--light-border);
+            border-radius: var(--border-radius-sm);
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            resize: vertical;
+            background: #f9f9f9;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+        }
+
+        .copy-button, .clear-button {
+            flex: 1;
+            padding: var(--spacing-sm);
+            border: 2px solid var(--brass);
+            background: transparent;
+            color: var(--brass);
+            border-radius: var(--border-radius-sm);
+            font-family: var(--font-body);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-button:hover {
+            background: var(--brass);
+            color: var(--white);
+        }
+
+        .clear-button {
+            border-color: #ccc;
+            color: #666;
+        }
+
+        .clear-button:hover {
+            background: #f5f5f5;
+        }
+
+        .instructions {
+            background: #e8f4fd;
+            border-left: 4px solid #2563eb;
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            border-radius: var(--border-radius-sm);
+        }
+
+        .instructions h4 {
+            color: #1e40af;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .instructions ol {
+            margin-left: var(--spacing-md);
+            color: #334155;
+        }
+
+        .instructions li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        @media (max-width: 992px) {
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo-section">
+                <div class="logo-mark">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="15" cy="20" r="9" stroke="#C49A47" stroke-width="2" fill="none"/>
+                        <circle cx="25" cy="20" r="9" stroke="#C49A47" stroke-width="2" fill="none"/>
+                        <circle cx="20" cy="13" r="9" stroke="#C49A47" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1 class="site-title">Three Forms Resources</h1>
+                    <p class="site-tagline">Admin - Add New Resource</p>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Back to Directory</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="admin-container">
+        <div class="admin-header">
+            <h1>Add New Resource to CSV</h1>
+            <p>Fill out the form below to generate a CSV row for a new resource</p>
+        </div>
+
+        <div class="instructions">
+            <h4>📝 Instructions:</h4>
+            <ol>
+                <li>Fill out the form with resource details</li>
+                <li>Click "Generate CSV Row" to create the formatted output</li>
+                <li>Copy the CSV output from the right panel</li>
+                <li>Open <code>three-forms-resources.csv</code> in a text editor</li>
+                <li>Paste the new row at the end of the file (before closing the file)</li>
+                <li>Save the CSV file</li>
+                <li>Refresh the website to see the new resource</li>
+            </ol>
+        </div>
+
+        <div class="admin-grid">
+            <!-- Form Panel -->
+            <div class="form-panel">
+                <h2 class="panel-title">Resource Details</h2>
+
+                <form id="resourceForm">
+                    <div class="form-group">
+                        <label>ID (auto-generated)</label>
+                        <input type="text" id="id" readonly style="background: #f5f5f5;">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <input type="text" id="title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Author(s) *</label>
+                        <input type="text" id="authors" placeholder="Separate multiple with semicolons">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Resource Type *</label>
+                            <select id="resource_type">
+                                <option value="book">Book</option>
+                                <option value="commentary">Commentary</option>
+                                <option value="study_guide">Study Guide</option>
+                                <option value="sermon_series">Sermon Series</option>
+                                <option value="curriculum">Curriculum</option>
+                                <option value="article">Article</option>
+                                <option value="primary_text">Primary Text</option>
+                                <option value="devotional">Devotional</option>
+                                <option value="podcast_episode">Podcast</option>
+                                <option value="video">Video</option>
+                                <option value="web_page">Web Page</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Form *</label>
+                            <select id="form">
+                                <option value="Heidelberg">Heidelberg Catechism</option>
+                                <option value="Belgic">Belgic Confession</option>
+                                <option value="Canons">Canons of Dort</option>
+                                <option value="General">General/All Three</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Summary (1-2 sentences) *</label>
+                        <textarea id="summary"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tags (pipe-separated)</label>
+                        <input type="text" id="tags" placeholder="tag1|tag2|tag3">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Language</label>
+                            <input type="text" id="language" value="English">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date (YYYY or YYYY-MM-DD)</label>
+                            <input type="text" id="date">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>License/Rights</label>
+                        <select id="license_or_rights">
+                            <option value="copyrighted">Copyrighted</option>
+                            <option value="public domain">Public Domain</option>
+                            <option value="CC-BY">CC-BY</option>
+                            <option value="CC-BY-SA">CC-BY-SA</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Primary URL *</label>
+                        <input type="url" id="url">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Canonical URL (if different)</label>
+                        <input type="url" id="canonical_url">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Purchase Store</label>
+                            <input type="text" id="purchase_store" placeholder="Amazon, Christianbook, etc.">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Purchase URL</label>
+                            <input type="url" id="purchase_url">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>ASIN (Amazon)</label>
+                            <input type="text" id="asin" placeholder="B001EXAMPLE">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Amazon Affiliate Ready?</label>
+                            <select id="amazon_affiliate_ready">
+                                <option value="FALSE">No</option>
+                                <option value="TRUE">Yes</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Recommended For (semicolon-separated)</label>
+                        <input type="text" id="recommended_for" placeholder="pastors;lay;seminary">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Read Time (minutes)</label>
+                            <input type="number" id="estimated_read_time_minutes">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Confidence Score (0-100)</label>
+                            <input type="number" id="confidence_score" value="90" min="0" max="100">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="url" id="image_url">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Media Embed URL (YouTube, etc.)</label>
+                        <input type="url" id="media_embed_url">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea id="notes"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Source Citation Site</label>
+                        <input type="text" id="source_citation_site" placeholder="Amazon, Publisher website, etc.">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="is_church_resource">
+                            This is a church-created resource
+                        </label>
+                    </div>
+
+                    <button type="button" class="generate-button" onclick="generateCSV()">Generate CSV Row</button>
+                </form>
+            </div>
+
+            <!-- Output Panel -->
+            <div class="output-panel">
+                <h2 class="panel-title">CSV Output</h2>
+                <textarea id="csvOutput" class="output-textarea" readonly></textarea>
+                <div class="action-buttons">
+                    <button class="copy-button" onclick="copyToClipboard()">📋 Copy to Clipboard</button>
+                    <button class="clear-button" onclick="clearForm()">🗑️ Clear Form</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Auto-generate ID as user types
+        document.getElementById('title').addEventListener('input', updateID);
+        document.getElementById('authors').addEventListener('input', updateID);
+        document.getElementById('date').addEventListener('input', updateID);
+        document.getElementById('form').addEventListener('change', updateID);
+
+        function updateID() {
+            const form = document.getElementById('form').value;
+            const title = document.getElementById('title').value;
+            const authors = document.getElementById('authors').value.split(';')[0];
+            const date = document.getElementById('date').value;
+
+            const formPrefix = {
+                'Heidelberg': 'hc',
+                'Belgic': 'bc',
+                'Canons': 'cd',
+                'General': 'tfu'
+            }[form] || 'res';
+
+            const slugify = (text) => text.toLowerCase()
+                .replace(/[^\w\s-]/g, '')
+                .replace(/[\s_-]+/g, '-')
+                .slice(0, 30);
+
+            const authorSlug = slugify(authors);
+            const titleSlug = slugify(title);
+            const year = date.slice(0, 4);
+
+            let id = formPrefix;
+            if (authorSlug) id += `-${authorSlug}`;
+            if (titleSlug) id += `-${titleSlug}`;
+            if (year) id += `-${year}`;
+
+            document.getElementById('id').value = id || formPrefix + '-resource';
+        }
+
+        function escapeCSV(value) {
+            if (value === null || value === undefined) return '';
+            value = String(value);
+            // If contains comma, quote, or newline, wrap in quotes and escape quotes
+            if (value.includes(',') || value.includes('"') || value.includes('\n')) {
+                return '"' + value.replace(/"/g, '""') + '"';
+            }
+            return value;
+        }
+
+        function generateCSV() {
+            const fields = [
+                'id', 'title', 'authors', 'resource_type', 'form', 'summary', 'tags',
+                'language', 'date', 'license_or_rights', 'url', 'canonical_url',
+                'purchase_store', 'purchase_url', 'asin', 'amazon_affiliate_ready',
+                'recommended_for', 'estimated_read_time_minutes', 'media_embed_url',
+                'image_url', 'notes', 'source_citation_site', 'source_citation_author',
+                'source_citation_date', 'source_citation_url', 'confidence_score',
+                'duplicate_of'
+            ];
+
+            // Check if church resource tag should be added
+            const isChurchResource = document.getElementById('is_church_resource').checked;
+            let tags = document.getElementById('tags').value;
+            if (isChurchResource && !tags.includes('church-created')) {
+                tags = tags ? tags + '|church-created' : 'church-created';
+            }
+
+            const values = fields.map(field => {
+                if (field === 'tags') {
+                    return escapeCSV(tags);
+                } else if (field === 'canonical_url') {
+                    const val = document.getElementById(field).value;
+                    return escapeCSV(val || document.getElementById('url').value);
+                } else if (field === 'duplicate_of' || field === 'source_citation_author' || field === 'source_citation_date' || field === 'source_citation_url') {
+                    return '';
+                } else {
+                    const element = document.getElementById(field);
+                    return element ? escapeCSV(element.value) : '';
+                }
+            });
+
+            const csvRow = values.join(',');
+            document.getElementById('csvOutput').value = csvRow;
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('csvOutput');
+            output.select();
+            document.execCommand('copy');
+
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = '✅ Copied!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 2000);
+        }
+
+        function clearForm() {
+            if (confirm('Clear all form fields?')) {
+                document.getElementById('resourceForm').reset();
+                document.getElementById('csvOutput').value = '';
+                document.getElementById('id').value = '';
+                document.getElementById('language').value = 'English';
+                document.getElementById('confidence_score').value = '90';
+            }
+        }
+
+        // Initialize
+        updateID();
+    </script>
+</body>
+</html>

@@ -379,6 +379,13 @@ a:hover {
     margin-bottom: var(--spacing-sm);
 }
 
+.card-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs);
+}
+
 .card-confession {
     display: inline-block;
     padding: 0.25rem 0.75rem;
@@ -389,7 +396,29 @@ a:hover {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: var(--spacing-xs);
+}
+
+.church-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    color: var(--white);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.resource-card.church-resource {
+    border: 2px solid rgba(37, 99, 235, 0.2);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+}
+
+.resource-card.church-resource:hover {
+    border-color: rgba(37, 99, 235, 0.4);
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.15);
 }
 
 .card-title {
