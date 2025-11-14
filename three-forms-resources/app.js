@@ -114,14 +114,18 @@ function createResourceCard(resource) {
     const primaryUrl = resource.url || resource.canonical_url || '#';
     const purchaseUrl = resource.purchase_url || '';
     const hasAmazonAffiliate = resource.amazon_affiliate_ready === 'TRUE' && resource.asin;
+    const isChurchResource = resource.tags && resource.tags.includes('church-created');
 
     // Format resource type for display
     const typeDisplay = formatResourceType(resourceType);
 
     return `
-        <article class="resource-card">
+        <article class="resource-card${isChurchResource ? ' church-resource' : ''}">
             <div class="card-header">
-                <span class="card-confession">${form}</span>
+                <div class="card-badges">
+                    <span class="card-confession">${form}</span>
+                    ${isChurchResource ? '<span class="church-badge">Church Created</span>' : ''}
+                </div>
                 <h3 class="card-title">${title}</h3>
                 ${authors ? `<p class="card-author">by ${authors}</p>` : ''}
             </div>
@@ -235,6 +239,12 @@ function setupEventListeners() {
         checkbox.addEventListener('change', handleTypeFilter);
     });
 
+    // Church resources filter
+    const churchResourcesFilter = document.getElementById('churchResourcesFilter');
+    if (churchResourcesFilter) {
+        churchResourcesFilter.addEventListener('change', applyFilters);
+    }
+
     // Reset button
     document.getElementById('resetFilters').addEventListener('click', resetFilters);
 
@@ -314,6 +324,10 @@ function applyFilters() {
         }
     });
 
+    // Check if church resources filter is active
+    const churchResourcesFilter = document.getElementById('churchResourcesFilter');
+    const showOnlyChurchResources = churchResourcesFilter && churchResourcesFilter.checked;
+
     // Filter resources
     filteredResources = allResources.filter(resource => {
         // Search filter
@@ -339,6 +353,14 @@ function applyFilters() {
         // Type filter
         if (selectedTypes.length > 0) {
             if (!selectedTypes.includes(resource.resource_type)) {
+                return false;
+            }
+        }
+
+        // Church resources filter
+        if (showOnlyChurchResources) {
+            const isChurchResource = resource.tags && resource.tags.includes('church-created');
+            if (!isChurchResource) {
                 return false;
             }
         }
@@ -373,6 +395,12 @@ function resetFilters() {
     document.querySelectorAll('input[name="type"]:not(#typeAll)').forEach(cb => {
         cb.checked = false;
     });
+
+    // Reset church resources filter
+    const churchResourcesFilter = document.getElementById('churchResourcesFilter');
+    if (churchResourcesFilter) {
+        churchResourcesFilter.checked = false;
+    }
 
     // Reset results
     filteredResources = [...allResources];
@@ -411,9 +439,29 @@ function setupNavigationLinks() {
                 e.preventDefault();
                 resetFilters();
                 updateActiveNav(link);
+            } else if (href === '#church-resources') {
+                e.preventDefault();
+                filterByChurchResources();
+                updateActiveNav(link);
             }
         });
     });
+}
+
+/**
+ * Filter to show only church-created resources
+ */
+function filterByChurchResources() {
+    // Reset all filters first
+    resetFilters();
+
+    // Check the church resources filter
+    const churchResourcesFilter = document.getElementById('churchResourcesFilter');
+    if (churchResourcesFilter) {
+        churchResourcesFilter.checked = true;
+    }
+
+    applyFilters();
 }
 
 /**
