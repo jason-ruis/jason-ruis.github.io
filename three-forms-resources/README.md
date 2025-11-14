@@ -174,11 +174,16 @@ The website includes:
 
 ## 📊 Current Statistics
 
-- **Total Resources:** 263
-- **Confessions Covered:** 3 (Heidelberg, Belgic, Canons, plus General)
-- **Resource Types:** 10+ categories
-- **Languages:** Primarily English
+- **Total Resources:** 307
+- **Heidelberg Catechism:** 78 resources
+- **Belgic Confession:** 86 resources
+- **Canons of Dort:** 96 resources
+- **General/Combined:** 47 resources
+- **Amazon Affiliate Ready:** 22 products with ASINs
+- **Resource Types:** 15+ categories
+- **Languages:** Primarily English (with Dutch, German, Latin, French)
 - **Date Range:** 1561–2025
+- **Free Resources:** 100+ freely accessible
 
 ---
 
