@@ -24,6 +24,7 @@ async function loadCSVData() {
         filteredResources = [...allResources];
         renderResources(filteredResources);
         updateResultCount(filteredResources.length);
+        document.getElementById('totalResources').textContent = allResources.length;
     } catch (error) {
         console.error('Error loading CSV:', error);
         document.getElementById('resourceGrid').innerHTML =
