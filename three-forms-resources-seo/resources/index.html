@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Resources - Three Forms Resources Directory</title>
+    <meta name="description" content="Browse all 307+ resources on the Heidelberg Catechism, Belgic Confession, and Canons of Dort. Filter by confession, type, and search by keyword.">
+    <link rel="canonical" href="https://jason-ruis.github.io/three-forms-resources-seo/resources/">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .resources-header {
+            text-align: center;
+            padding: var(--spacing-xl) var(--spacing-md);
+            background: linear-gradient(135deg, #1a2332 0%, #2d4059 100%);
+            color: var(--white);
+        }
+
+        .resources-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-sm);
+            color: var(--white);
+        }
+
+        .resources-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .controls-section {
+            background: var(--white);
+            padding: var(--spacing-lg) var(--spacing-md);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .controls-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .search-filter-bar {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 2px solid var(--light-border);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            font-family: var(--font-body);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--brass);
+        }
+
+        .filter-select {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 2px solid var(--light-border);
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            font-family: var(--font-body);
+            background: var(--white);
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--brass);
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: var(--spacing-xs);
+            border: 2px solid var(--light-border);
+            border-radius: var(--border-radius-sm);
+            overflow: hidden;
+        }
+
+        .view-button {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--white);
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-body);
+            transition: all 0.3s ease;
+        }
+
+        .view-button.active {
+            background: var(--brass);
+            color: var(--white);
+        }
+
+        .view-button:hover:not(.active) {
+            background: #f5f5f5;
+        }
+
+        .results-info {
+            color: var(--charcoal);
+            font-size: 0.95rem;
+        }
+
+        .resources-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-xl) var(--spacing-md);
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .resources-list {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .resource-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .resource-thumbnail {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #1a2332 0%, #2d4059 100%);
+            border-radius: var(--border-radius-sm);
+            margin-bottom: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .resource-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .resource-type-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--brass);
+            color: var(--white);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .resource-title {
+            color: var(--navy);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            line-height: 1.3;
+        }
+
+        .resource-authors {
+            color: var(--charcoal);
+            font-size: 0.95rem;
+            margin-bottom: var(--spacing-sm);
+            font-style: italic;
+        }
+
+        .resource-summary {
+            color: var(--charcoal);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: var(--spacing-md);
+            flex-grow: 1;
+        }
+
+        .resource-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--light-border);
+        }
+
+        .meta-tag {
+            font-size: 0.85rem;
+            color: #666;
+            background: #f5f5f5;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .resource-links {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .resource-link {
+            flex: 1;
+            text-align: center;
+            padding: var(--spacing-sm);
+            background: var(--brass);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: var(--border-radius-sm);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .resource-link:hover {
+            background: #b08838;
+        }
+
+        .resource-link.secondary {
+            background: transparent;
+            border: 2px solid var(--brass);
+            color: var(--brass);
+        }
+
+        .resource-link.secondary:hover {
+            background: var(--brass);
+            color: var(--white);
+        }
+
+        .list-view .resource-card {
+            display: grid;
+            grid-template-columns: 150px 1fr auto;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .list-view .resource-thumbnail {
+            width: 150px;
+            height: 150px;
+            margin: 0;
+        }
+
+        .list-view .resource-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .list-view .resource-links {
+            flex-direction: column;
+            min-width: 150px;
+        }
+
+        .loading-message,
+        .no-results {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--charcoal);
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .search-filter-bar {
+                grid-template-columns: 1fr;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .list-view .resource-card {
+                grid-template-columns: 1fr;
+            }
+
+            .list-view .resource-thumbnail {
+                width: 100%;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <a href="../index.html" itemprop="item"><span itemprop="name">Home</span></a>
+                    <meta itemprop="position" content="1" />
+                </li>
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <span itemprop="name">All Resources</span>
+                    <meta itemprop="position" content="2" />
+                </li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Header & Navigation -->
+    <header class="site-header">
+        <div class="container">
+            <div class="logo-section">
+                <div class="logo-mark">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="15" cy="20" r="9" stroke="#C49A47" stroke-width="2" fill="none"/>
+                        <circle cx="25" cy="20" r="9" stroke="#C49A47" stroke-width="2" fill="none"/>
+                        <circle cx="20" cy="13" r="9" stroke="#C49A47" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1 class="site-title">Three Forms Resources</h1>
+                    <p class="site-tagline">Exploring the Riches of the Reformed Confessions</p>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="../heidelberg/" class="nav-link">Heidelberg Catechism</a>
+                <a href="../belgic/" class="nav-link">Belgic Confession</a>
+                <a href="../canons/" class="nav-link">Canons of Dort</a>
+                <a href="../blog/" class="nav-link">Blog</a>
+                <a href="../faq.html" class="nav-link">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Resources Header -->
+    <div class="resources-header">
+        <h1>All Resources</h1>
+        <p>Browse our complete directory of Reformed resources</p>
+    </div>
+
+    <!-- Controls Section -->
+    <div class="controls-section">
+        <div class="controls-container">
+            <div class="search-filter-bar">
+                <div class="search-box">
+                    <input
+                        type="text"
+                        id="searchInput"
+                        class="search-input"
+                        placeholder="Search by title, author, or keyword..."
+                        aria-label="Search resources"
+                    >
+                </div>
+                <select id="confessionFilter" class="filter-select" aria-label="Filter by confession">
+                    <option value="">All Confessions</option>
+                    <option value="Heidelberg">Heidelberg Catechism</option>
+                    <option value="Belgic">Belgic Confession</option>
+                    <option value="Canons">Canons of Dort</option>
+                    <option value="General">General</option>
+                </select>
+                <select id="typeFilter" class="filter-select" aria-label="Filter by resource type">
+                    <option value="">All Types</option>
+                    <option value="book">Books</option>
+                    <option value="commentary">Commentaries</option>
+                    <option value="study_guide">Study Guides</option>
+                    <option value="sermon_series">Sermon Series</option>
+                    <option value="article">Articles</option>
+                    <option value="video">Videos</option>
+                    <option value="podcast_episode">Podcasts</option>
+                </select>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="results-info" id="resultsInfo">Loading resources...</div>
+                <div class="view-toggle">
+                    <button class="view-button active" data-view="grid" aria-label="Grid view">Grid</button>
+                    <button class="view-button" data-view="list" aria-label="List view">List</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resources Container -->
+    <div id="resourcesContainer" class="resources-grid">
+        <div class="loading-message">Loading resources from database...</div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2025 Three Forms Resources. Soli Deo Gloria.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../app.js"></script>
+    <script>
+        let allResources = [];
+        let filteredResources = [];
+        let currentView = 'grid';
+
+        // Load resources from CSV
+        async function loadResources() {
+            try {
+                const response = await fetch('../three-forms-resources.csv');
+                const csvText = await response.text();
+                allResources = parseCSV(csvText);
+                filteredResources = [...allResources];
+                displayResources();
+                updateResultsInfo();
+            } catch (error) {
+                console.error('Error loading resources:', error);
+                document.getElementById('resourcesContainer').innerHTML = '<div class="no-results">Error loading resources. Please try again later.</div>';
+            }
+        }
+
+        // Simple CSV parser
+        function parseCSV(text) {
+            const lines = text.split('\n');
+            const headers = lines[0].split(',').map(h => h.trim());
+            const resources = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i].trim()) continue;
+                const values = parseCSVLine(lines[i]);
+                const resource = {};
+                headers.forEach((header, index) => {
+                    resource[header] = values[index] || '';
+                });
+                if (resource.id) {
+                    resources.push(resource);
+                }
+            }
+
+            return resources;
+        }
+
+        // Parse CSV line handling quoted values
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                const nextChar = line[i + 1];
+
+                if (char === '"' && inQuotes && nextChar === '"') {
+                    current += '"';
+                    i++;
+                } else if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            result.push(current.trim());
+            return result;
+        }
+
+        // Display resources
+        function displayResources() {
+            const container = document.getElementById('resourcesContainer');
+            container.className = currentView === 'grid' ? 'resources-grid' : 'resources-list list-view';
+
+            if (filteredResources.length === 0) {
+                container.innerHTML = '<div class="no-results">No resources found matching your criteria.</div>';
+                return;
+            }
+
+            container.innerHTML = filteredResources.map(resource => {
+                const typeLabel = formatResourceType(resource.resource_type);
+                const thumbnail = resource.image_url ?
+                    `<img src="${resource.image_url}" alt="${resource.title}">` :
+                    getResourceIcon(resource.resource_type);
+
+                return `
+                    <div class="resource-card">
+                        <div class="resource-thumbnail">${thumbnail}</div>
+                        <div class="resource-content">
+                            <span class="resource-type-badge">${typeLabel}</span>
+                            <h3 class="resource-title">${resource.title}</h3>
+                            <div class="resource-authors">${resource.authors}</div>
+                            <p class="resource-summary">${resource.summary}</p>
+                            <div class="resource-meta">
+                                <span class="meta-tag">${resource.form}</span>
+                                ${resource.date ? `<span class="meta-tag">${resource.date}</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="resource-links">
+                            <a href="${resource.url}" class="resource-link" target="_blank" rel="noopener">View Resource</a>
+                            ${resource.purchase_url ? `<a href="${resource.purchase_url}" class="resource-link secondary" target="_blank" rel="noopener">Purchase</a>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Format resource type
+        function formatResourceType(type) {
+            return type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
+
+        // Get resource icon
+        function getResourceIcon(type) {
+            const icons = {
+                'book': '📚',
+                'commentary': '📖',
+                'study_guide': '📝',
+                'sermon_series': '🎤',
+                'article': '📄',
+                'video': '🎥',
+                'podcast_episode': '🎧',
+                'primary_text': '📜',
+                'devotional': '🙏',
+                'curriculum': '📚',
+                'web_page': '🌐'
+            };
+            return icons[type] || '📄';
+        }
+
+        // Filter resources
+        function filterResources() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const confessionFilter = document.getElementById('confessionFilter').value;
+            const typeFilter = document.getElementById('typeFilter').value;
+
+            filteredResources = allResources.filter(resource => {
+                const matchesSearch = !searchTerm ||
+                    resource.title.toLowerCase().includes(searchTerm) ||
+                    resource.authors.toLowerCase().includes(searchTerm) ||
+                    resource.summary.toLowerCase().includes(searchTerm) ||
+                    (resource.tags && resource.tags.toLowerCase().includes(searchTerm));
+
+                const matchesConfession = !confessionFilter || resource.form === confessionFilter;
+                const matchesType = !typeFilter || resource.resource_type === typeFilter;
+
+                return matchesSearch && matchesConfession && matchesType;
+            });
+
+            displayResources();
+            updateResultsInfo();
+        }
+
+        // Update results info
+        function updateResultsInfo() {
+            const info = document.getElementById('resultsInfo');
+            const total = filteredResources.length;
+            const allTotal = allResources.length;
+
+            if (total === allTotal) {
+                info.textContent = `Showing all ${total} resources`;
+            } else {
+                info.textContent = `Showing ${total} of ${allTotal} resources`;
+            }
+        }
+
+        // View toggle
+        document.querySelectorAll('.view-button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.view-button').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentView = this.dataset.view;
+                displayResources();
+            });
+        });
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', filterResources);
+        document.getElementById('confessionFilter').addEventListener('change', filterResources);
+        document.getElementById('typeFilter').addEventListener('change', filterResources);
+
+        // Load resources on page load
+        loadResources();
+    </script>
+</body>
+</html>

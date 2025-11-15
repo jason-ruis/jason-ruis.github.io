@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Main Pages -->
+    <url>
+        <loc>https://jason-ruis.github.io/three-forms-resources-seo/</loc>
+        <lastmod>2025-11-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Confession Landing Pages -->
+    <url>
+        <loc>https://jason-ruis.github.io/three-forms-resources-seo/heidelberg/</loc>
+        <lastmod>2025-11-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://jason-ruis.github.io/three-forms-resources-seo/belgic/</loc>
+        <lastmod>2025-11-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://jason-ruis.github.io/three-forms-resources-seo/canons/</loc>
+        <lastmod>2025-11-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Resources Directory -->
+    <url>
+        <loc>https://jason-ruis.github.io/three-forms-resources-seo/resources/</loc>
+        <lastmod>2025-11-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Blog Pages -->
+    <url>
+        <loc>https://jason-ruis.github.io/three-forms-resources-seo/blog/</loc>
+        <lastmod>2025-11-14</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://jason-ruis.github.io/three-forms-resources-seo/blog/best-heidelberg-catechism-books-2025.html</loc>
+        <lastmod>2025-11-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://jason-ruis.github.io/three-forms-resources-seo/blog/free-heidelberg-catechism-resources.html</loc>
+        <lastmod>2025-11-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Individual Resource Pages -->
+    <url>
+        <loc>https://jason-ruis.github.io/three-forms-resources-seo/resources/good-news-we-almost-forgot.html</loc>
+        <lastmod>2025-11-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://jason-ruis.github.io/three-forms-resources-seo/resources/r-scott-clark-heidelberg-commentary.html</loc>
+        <lastmod>2025-11-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Secondary Pages -->
+    <url>
+        <loc>https://jason-ruis.github.io/three-forms-resources-seo/faq.html</loc>
+        <lastmod>2025-11-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://jason-ruis.github.io/three-forms-resources-seo/submit.html</loc>
+        <lastmod>2025-11-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+</urlset>
