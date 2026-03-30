@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2025 CRCNA Church Statistics — Membership Report</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Georgia', serif;
+      background: #f4f1eb;
+      color: #1a1a1a;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: #1a3a5c;
+      color: #fff;
+      padding: 36px 48px 28px;
+      border-bottom: 5px solid #c9a227;
+    }
+    header h1 { font-size: 2rem; letter-spacing: .5px; margin-bottom: 4px; }
+    header p  { font-size: .95rem; color: #adc4de; margin-top: 6px; }
+    .header-sub { font-size: 1.05rem; color: #c9a227; font-style: italic; margin-top: 2px; }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1300px; margin: 0 auto; padding: 32px 32px 60px; }
+    section { margin-bottom: 48px; }
+    h2 {
+      font-size: 1.35rem;
+      color: #1a3a5c;
+      border-bottom: 2px solid #c9a227;
+      padding-bottom: 6px;
+      margin-bottom: 20px;
+    }
+    h3 { font-size: 1.05rem; color: #1a3a5c; margin-bottom: 10px; }
+
+    /* ── KPI CARDS ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 16px;
+    }
+    .kpi-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px 18px 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      border-top: 4px solid #1a3a5c;
+      text-align: center;
+    }
+    .kpi-card.highlight { border-top-color: #c9a227; }
+    .kpi-card.danger    { border-top-color: #c0392b; }
+    .kpi-card.success   { border-top-color: #27ae60; }
+    .kpi-num  { font-size: 2rem; font-weight: bold; color: #1a3a5c; line-height: 1.1; }
+    .kpi-card.danger  .kpi-num { color: #c0392b; }
+    .kpi-card.success .kpi-num { color: #27ae60; }
+    .kpi-label { font-size: .78rem; color: #666; margin-top: 6px; text-transform: uppercase; letter-spacing: .5px; }
+
+    /* ── CHARTS ── */
+    .chart-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .chart-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+    .chart-box {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px 20px 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    }
+    .chart-box.full { grid-column: 1 / -1; }
+    .chart-box canvas { width: 100% !important; }
+
+    /* ── INSIGHT CALLOUT ── */
+    .insight {
+      background: #eef4fb;
+      border-left: 4px solid #1a3a5c;
+      padding: 12px 16px;
+      border-radius: 0 6px 6px 0;
+      font-size: .88rem;
+      color: #2c2c2c;
+      margin-top: 12px;
+      line-height: 1.55;
+    }
+    .insight strong { color: #1a3a5c; }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .82rem;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    }
+    thead th {
+      background: #1a3a5c;
+      color: #fff;
+      padding: 10px 12px;
+      text-align: right;
+      font-weight: normal;
+      font-size: .77rem;
+      letter-spacing: .3px;
+    }
+    thead th:first-child { text-align: left; }
+    tbody tr:nth-child(even) { background: #f7f5f0; }
+    tbody tr:hover { background: #eaf0f8; }
+    tbody td {
+      padding: 8px 12px;
+      text-align: right;
+      border-bottom: 1px solid #e8e4dc;
+      color: #333;
+    }
+    tbody td:first-child { text-align: left; font-weight: 600; color: #1a3a5c; }
+    tfoot td {
+      padding: 9px 12px;
+      text-align: right;
+      font-weight: bold;
+      background: #1a3a5c;
+      color: #fff;
+      border-top: 2px solid #c9a227;
+    }
+    tfoot td:first-child { text-align: left; }
+    .positive { color: #27ae60; font-weight: bold; }
+    .negative { color: #c0392b; font-weight: bold; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: .77rem;
+      color: #888;
+      border-top: 1px solid #ddd;
+      background: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .chart-grid-2, .chart-grid-3 { grid-template-columns: 1fr; }
+      header { padding: 24px 20px; }
+      header h1 { font-size: 1.4rem; }
+      .container { padding: 20px 16px 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>2025 CRCNA Church Statistics</h1>
+  <div class="header-sub">Christian Reformed Church in North America — Membership Report</div>
+  <p>Compiled from denomination-wide questionnaire data &nbsp;|&nbsp; Reporting Year: 2024–2025</p>
+</header>
+
+<div class="container">
+
+  <!-- ── KPIs ── -->
+  <section>
+    <h2>Denomination-Wide Summary</h2>
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-num">981</div><div class="kpi-label">Total Congregations</div></div>
+      <div class="kpi-card highlight"><div class="kpi-num">183,710</div><div class="kpi-label">Total Members</div></div>
+      <div class="kpi-card"><div class="kpi-num">128,846</div><div class="kpi-label">Avg Sunday Attendance</div></div>
+      <div class="kpi-card"><div class="kpi-num">135,648</div><div class="kpi-label">Professing Members</div></div>
+      <div class="kpi-card"><div class="kpi-num">48,062</div><div class="kpi-label">Non-Professing Members</div></div>
+      <div class="kpi-card"><div class="kpi-num">19,617</div><div class="kpi-label">Inactive Professing (18+)</div></div>
+      <div class="kpi-card success"><div class="kpi-num">5,170</div><div class="kpi-label">Total Additions</div></div>
+      <div class="kpi-card danger"><div class="kpi-num">6,913</div><div class="kpi-label">Total Declines</div></div>
+      <div class="kpi-card danger"><div class="kpi-num">−1,743</div><div class="kpi-label">Net Membership Change</div></div>
+      <div class="kpi-card"><div class="kpi-num">50</div><div class="kpi-label">Classis Regions</div></div>
+      <div class="kpi-card"><div class="kpi-num">2,238</div><div class="kpi-label">Professions of Faith</div></div>
+      <div class="kpi-card"><div class="kpi-num">70%</div><div class="kpi-label">Attendance / Total Members</div></div>
+    </div>
+    <div class="insight">
+      The CRCNA reported a <strong>net loss of 1,743 members</strong> denomination-wide — driven primarily by reversions (3,376), deaths (1,763), and departures to other denominations (1,774). Total additions (5,170) were outpaced by total declines (6,913). Average Sunday attendance represents roughly <strong>70% of total membership</strong>, suggesting significant inactive membership.
+    </div>
+  </section>
+
+  <!-- ── GROWTH / DECLINE OVERVIEW ── -->
+  <section>
+    <h2>Membership Growth &amp; Decline</h2>
+    <div class="chart-grid-2">
+      <div class="chart-box">
+        <h3>Sources of Growth</h3>
+        <canvas id="chartAdditions" height="240"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Sources of Decline</h3>
+        <canvas id="chartDeclines" height="240"></canvas>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:18px;">
+      <strong>Baptisms (1,769)</strong> are the single largest source of growth, but <strong>reversions (3,376)</strong> — baptized members who leave without joining another denomination — account for nearly half of all declines. Deaths (1,763) and departures to other denominations (1,774) are nearly equal. Evangelism-driven additions total only 1,328.
+    </div>
+  </section>
+
+  <!-- ── NET CHANGE BY CLASSIS ── -->
+  <section>
+    <h2>Net Membership Change by Classis</h2>
+    <div class="chart-box">
+      <canvas id="chartNetChange" height="420"></canvas>
+    </div>
+    <div class="insight">
+      <strong>Southeast U.S. (+150)</strong> leads all classis regions in net membership growth, followed by Ontario Southwest (+83) and Illiana (+66). The heaviest losses are in <strong>Lake Erie (−358)</strong>, Niagara (−219), Thornapple Valley (−192), and Quinte (−173). These losses are disproportionately driven by reversions, not deaths.
+    </div>
+  </section>
+
+  <!-- ── TOP BY MEMBERSHIP & ATTENDANCE ── -->
+  <section>
+    <h2>Largest Classis Regions</h2>
+    <div class="chart-grid-2">
+      <div class="chart-box">
+        <h3>Top 15 by Total Members</h3>
+        <canvas id="chartTopMembers" height="340"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Top 15 by Sunday Attendance</h3>
+        <canvas id="chartTopAttendance" height="340"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROFESSING VS NON-PROFESSING ── -->
+  <section>
+    <h2>Membership Composition</h2>
+    <div class="chart-grid-3">
+      <div class="chart-box">
+        <h3>Professing vs. Non-Professing</h3>
+        <canvas id="chartComposition" height="240"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Active vs. Inactive Professing (18+)</h3>
+        <canvas id="chartActive" height="240"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Under-18 Professing Share by Region</h3>
+        <canvas id="chartYouth" height="240"></canvas>
+      </div>
+    </div>
+    <div class="insight">
+      <strong>73.8%</strong> of all members are professing; 26.2% are non-professing. Of professing adults (18+), approximately <strong>17.3% are listed as inactive</strong> — a significant pastoral concern. The Greater Los Angeles classis has the highest concentration of under-18 professing members (12.7% of its total professing), while several Canadian and Midwest classis report near-zero youth professing members.
+    </div>
+  </section>
+
+  <!-- ── CONGREGATION SIZE BREAKDOWN ── -->
+  <section>
+    <h2>Congregation Size Distribution</h2>
+    <p style="font-size:.85rem;color:#555;margin-bottom:18px;">Based on Average Sunday Attendance — 955 of 981 congregations reported attendance data.</p>
+    <div class="chart-grid-2">
+      <div class="chart-box">
+        <h3>% of Congregations by Attendance Size</h3>
+        <canvas id="chartSizePct" height="300"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Number of Congregations by Size</h3>
+        <canvas id="chartSizeCount" height="300"></canvas>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:16px;">
+      The CRCNA is overwhelmingly a denomination of <strong>small-to-midsize churches.</strong> Over half of all congregations (52.4%) average fewer than 100 people on Sunday, and <strong>21.6% — more than 1 in 5 — average under 45.</strong> Only 1.2% of congregations (11 churches) average 750 or more in attendance. This concentration at the small end has significant implications for staffing, finances, and long-term sustainability.
+    </div>
+  </section>
+
+  <!-- ── US vs CANADA ── -->
+  <section>
+    <h2>United States vs. Canada — Church Size Comparison</h2>
+    <div class="kpi-grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:20px;">
+      <div class="kpi-card"><div class="kpi-num">720</div><div class="kpi-label">US Churches (with data)</div></div>
+      <div class="kpi-card"><div class="kpi-num">95,661</div><div class="kpi-label">US Total Attendance</div></div>
+      <div class="kpi-card highlight"><div class="kpi-num">133</div><div class="kpi-label">US Avg per Church</div></div>
+      <div class="kpi-card"><div class="kpi-num" style="font-size:1.5rem">24%</div><div class="kpi-label">US Churches Under 45</div></div>
+      <div class="kpi-card"><div class="kpi-num">235</div><div class="kpi-label">Canadian Churches (with data)</div></div>
+      <div class="kpi-card"><div class="kpi-num">33,087</div><div class="kpi-label">Canada Total Attendance</div></div>
+      <div class="kpi-card highlight"><div class="kpi-num">141</div><div class="kpi-label">Canada Avg per Church</div></div>
+      <div class="kpi-card"><div class="kpi-num" style="font-size:1.5rem">13%</div><div class="kpi-label">Canadian Churches Under 45</div></div>
+    </div>
+    <div class="chart-grid-2">
+      <div class="chart-box">
+        <h3>US — Size Distribution (% of churches)</h3>
+        <canvas id="chartUSSize" height="280"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Canada — Size Distribution (% of churches)</h3>
+        <canvas id="chartCASize" height="280"></canvas>
+      </div>
+    </div>
+    <div class="chart-box" style="margin-top:24px;">
+      <h3>US vs. Canada — Side-by-Side Size Comparison</h3>
+      <canvas id="chartUSvsCA" height="200"></canvas>
+    </div>
+    <div class="insight" style="margin-top:16px;">
+      Canadian congregations skew <strong>noticeably larger</strong> than their American counterparts. Only 12.8% of Canadian churches average under 45 in attendance, compared to 24.4% in the US — nearly twice the rate. The 100–199 band is the most common size in Canada (35.3%), while the 45–99 band leads in the US (31.1%). Both countries average nearly the same per-church attendance overall (133 US vs 141 Canada), but the US has a much longer tail of very small, under-45 congregations.
+    </div>
+  </section>
+
+  <!-- ── SIZE BY CLASSIS ── -->
+  <section>
+    <h2>Congregation Size Distribution by Classis</h2>
+    <div class="chart-box full" style="margin-bottom:24px;">
+      <h3>% of Churches Under 45 Avg Attendance by Classis (sorted)</h3>
+      <canvas id="chartSmallByClassis" height="440"></canvas>
+    </div>
+    <div class="chart-box full">
+      <h3>Congregation Size Composition — All Classis (stacked)</h3>
+      <canvas id="chartSizeByClassis" height="620"></canvas>
+    </div>
+    <div class="insight" style="margin-top:16px;">
+      <strong>Ko-Am (82%), Red Mesa (68%), Hanmi (57%), Northcentral Iowa (42%), and Pacific Northwest (41%)</strong> have the highest share of congregations averaging under 45 in Sunday attendance. By contrast, <strong>Georgetown, Grand Rapids East, Iakota, North Cascades, and Classis Wisconsin (all 0%)</strong> have no congregations that small. Classis Wisconsin stands out as one of the denomination's strongest regions by congregational size health.
+    </div>
+  </section>
+
+  <!-- ── FULL DATA TABLE ── -->
+  <section>
+    <h2>Full Classis Data Table</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Classis</th>
+            <th>Congreg.</th>
+            <th>Sun. Att.</th>
+            <th>Total Members</th>
+            <th>Professing</th>
+            <th>Non-Prof.</th>
+            <th>Inactive (18+)</th>
+            <th>Additions</th>
+            <th>Declines</th>
+            <th>Net Change</th>
+          </tr>
+        </thead>
+        <tbody id="classisTableBody"></tbody>
+        <tfoot>
+          <tr>
+            <td>TOTAL</td>
+            <td>981</td>
+            <td>128,846</td>
+            <td>183,710</td>
+            <td>135,648</td>
+            <td>48,062</td>
+            <td>19,617</td>
+            <td>5,170</td>
+            <td>6,913</td>
+            <td class="negative">−1,743</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Source: 2025 CRCNA Church Statistics Questionnaire &nbsp;|&nbsp; Data reflects most recent reporting year per congregation (primarily 2024) &nbsp;|&nbsp; Report generated March 2026
+</footer>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const classisData = [
+  { name:"Alberta North",           cong:30, att:4207, fam:2453, pmU18:58,  pm:5118,  npm:2991, inactive:1107, add:169, dec:157 },
+  { name:"Alberta South/Sask.",     cong:18, att:1878, fam:963,  pmU18:14,  pm:2322,  npm:1047, inactive:389,  add:77,  dec:138 },
+  { name:"Arizona",                 cong:9,  att:827,  fam:126,  pmU18:9,   pm:279,   npm:51,   inactive:36,   add:27,  dec:29  },
+  { name:"Atlantic Northeast",      cong:23, att:1662, fam:973,  pmU18:37,  pm:1920,  npm:428,  inactive:355,  add:27,  dec:77  },
+  { name:"B.C. North-West",         cong:21, att:3138, fam:1092, pmU18:69,  pm:2418,  npm:813,  inactive:442,  add:112, dec:109 },
+  { name:"B.C. South-East",         cong:23, att:3658, fam:1555, pmU18:31,  pm:3504,  npm:1200, inactive:377,  add:108, dec:277 },
+  { name:"California South",        cong:18, att:2663, fam:1287, pmU18:164, pm:2290,  npm:439,  inactive:186,  add:98,  dec:41  },
+  { name:"Central California",      cong:35, att:4846, fam:1740, pmU18:147, pm:4524,  npm:1587, inactive:670,  add:196, dec:149 },
+  { name:"Central Plains",          cong:21, att:2817, fam:1316, pmU18:82,  pm:2855,  npm:1041, inactive:406,  add:71,  dec:237 },
+  { name:"Chicago South",           cong:16, att:2231, fam:1240, pmU18:121, pm:2820,  npm:931,  inactive:265,  add:106, dec:102 },
+  { name:"Columbia",                cong:16, att:1191, fam:538,  pmU18:41,  pm:1155,  npm:358,  inactive:139,  add:58,  dec:40  },
+  { name:"Eastern Canada",          cong:19, att:1744, fam:940,  pmU18:44,  pm:2079,  npm:849,  inactive:301,  add:57,  dec:137 },
+  { name:"Georgetown",              cong:18, att:4108, fam:2053, pmU18:102, pm:4778,  npm:1676, inactive:783,  add:120, dec:217 },
+  { name:"Grand Rapids East",       cong:22, att:4466, fam:2175, pmU18:186, pm:4711,  npm:1782, inactive:903,  add:167, dec:209 },
+  { name:"Grand Rapids North",      cong:18, att:1973, fam:1169, pmU18:98,  pm:2458,  npm:644,  inactive:375,  add:87,  dec:165 },
+  { name:"Grand Rapids South",      cong:18, att:4173, fam:2210, pmU18:131, pm:4916,  npm:1580, inactive:495,  add:219, dec:372 },
+  { name:"Grandville",              cong:17, att:3847, fam:2201, pmU18:86,  pm:4598,  npm:1658, inactive:702,  add:129, dec:154 },
+  { name:"Greater Los Angeles",     cong:32, att:5484, fam:2501, pmU18:416, pm:3279,  npm:2025, inactive:581,  add:80,  dec:119 },
+  { name:"Hackensack",              cong:26, att:2071, fam:806,  pmU18:103, pm:1620,  npm:360,  inactive:161,  add:88,  dec:37  },
+  { name:"Hamilton",                cong:15, att:2467, fam:1395, pmU18:33,  pm:3451,  npm:1285, inactive:692,  add:72,  dec:149 },
+  { name:"Hanmi",                   cong:24, att:1846, fam:726,  pmU18:125, pm:1122,  npm:236,  inactive:130,  add:69,  dec:45  },
+  { name:"Heartland",               cong:22, att:3539, fam:1432, pmU18:108, pm:3471,  npm:1397, inactive:417,  add:109, dec:139 },
+  { name:"Holland",                 cong:31, att:5301, fam:2732, pmU18:135, pm:6141,  npm:1972, inactive:668,  add:165, dec:258 },
+  { name:"Hudson",                  cong:25, att:1521, fam:678,  pmU18:96,  pm:1504,  npm:372,  inactive:282,  add:66,  dec:58  },
+  { name:"Huron",                   cong:22, att:3776, fam:2004, pmU18:22,  pm:4409,  npm:2016, inactive:630,  add:183, dec:165 },
+  { name:"Iakota",                  cong:20, att:5208, fam:2132, pmU18:48,  pm:4867,  npm:2400, inactive:572,  add:184, dec:123 },
+  { name:"Illiana",                 cong:18, att:3237, fam:2150, pmU18:129, pm:3841,  npm:1366, inactive:529,  add:211, dec:145 },
+  { name:"Kalamazoo",               cong:12, att:1663, fam:721,  pmU18:89,  pm:1809,  npm:553,  inactive:289,  add:80,  dec:83  },
+  { name:"Ko-Am",                   cong:22, att:736,  fam:365,  pmU18:60,  pm:611,   npm:93,   inactive:56,   add:18,  dec:5   },
+  { name:"Lake Erie",               cong:16, att:1629, fam:690,  pmU18:115, pm:1810,  npm:410,  inactive:367,  add:85,  dec:443 },
+  { name:"Lake Superior",           cong:25, att:2838, fam:1553, pmU18:78,  pm:3431,  npm:1255, inactive:597,  add:102, dec:155 },
+  { name:"Minnkota",                cong:17, att:2619, fam:1114, pmU18:80,  pm:2693,  npm:931,  inactive:329,  add:88,  dec:125 },
+  { name:"Muskegon",                cong:19, att:2557, fam:1466, pmU18:36,  pm:3022,  npm:768,  inactive:335,  add:116, dec:85  },
+  { name:"Niagara",                 cong:14, att:2388, fam:1357, pmU18:0,   pm:2652,  npm:1044, inactive:346,  add:75,  dec:294 },
+  { name:"North Cascades",          cong:10, att:1584, fam:619,  pmU18:57,  pm:1573,  npm:491,  inactive:310,  add:51,  dec:67  },
+  { name:"Northcentral Iowa",       cong:12, att:706,  fam:404,  pmU18:43,  pm:943,   npm:231,  inactive:224,  add:36,  dec:26  },
+  { name:"Northern Illinois",       cong:16, att:1666, fam:1011, pmU18:77,  pm:2159,  npm:811,  inactive:335,  add:110, dec:48  },
+  { name:"Northern Michigan",       cong:14, att:1591, fam:798,  pmU18:51,  pm:1969,  npm:644,  inactive:424,  add:61,  dec:152 },
+  { name:"Ontario Southwest",       cong:28, att:4301, fam:1877, pmU18:32,  pm:4628,  npm:1789, inactive:805,  add:271, dec:188 },
+  { name:"Pacific Northwest",       cong:29, att:1829, fam:731,  pmU18:30,  pm:1669,  npm:413,  inactive:188,  add:59,  dec:63  },
+  { name:"Quinte",                  cong:19, att:2629, fam:1502, pmU18:43,  pm:3383,  npm:1149, inactive:537,  add:153, dec:326 },
+  { name:"Red Mesa",                cong:21, att:817,  fam:469,  pmU18:98,  pm:1110,  npm:470,  inactive:201,  add:14,  dec:16  },
+  { name:"Rocky Mountain",          cong:36, att:2075, fam:741,  pmU18:80,  pm:1751,  npm:386,  inactive:189,  add:101, dec:94  },
+  { name:"Southeast U.S.",          cong:21, att:2591, fam:474,  pmU18:109, pm:2010,  npm:461,  inactive:72,   add:273, dec:123 },
+  { name:"Thornapple Valley",       cong:13, att:2407, fam:1247, pmU18:128, pm:2571,  npm:742,  inactive:387,  add:87,  dec:279 },
+  { name:"Toronto",                 cong:20, att:2196, fam:1230, pmU18:35,  pm:2968,  npm:575,  inactive:415,  add:89,  dec:206 },
+  { name:"Wisconsin",               cong:16, att:2561, fam:1104, pmU18:160, pm:2620,  npm:1035, inactive:210,  add:89,  dec:148 },
+  { name:"Yellowstone",             cong:7,  att:872,  fam:309,  pmU18:36,  pm:826,   npm:279,  inactive:133,  add:45,  dec:20  },
+  { name:"Zeeland",                 cong:17, att:2712, fam:1260, pmU18:70,  pm:2990,  npm:1028, inactive:275,  add:112, dec:119 },
+];
+
+// Growth/Decline detail
+const growthData = {
+  "Alberta North":       { evang:26,  bapt:75,  other:68,  leftDenom:54,  deaths:52,  rev:51  },
+  "Alberta South/Sask.": { evang:3,   bapt:43,  other:31,  leftDenom:35,  deaths:37,  rev:66  },
+  "Arizona":             { evang:9,   bapt:4,   other:14,  leftDenom:19,  deaths:6,   rev:4   },
+  "Atlantic Northeast":  { evang:6,   bapt:10,  other:11,  leftDenom:21,  deaths:21,  rev:35  },
+  "B.C. North-West":     { evang:53,  bapt:19,  other:40,  leftDenom:47,  deaths:27,  rev:35  },
+  "B.C. South-East":     { evang:21,  bapt:43,  other:44,  leftDenom:45,  deaths:52,  rev:180 },
+  "California South":    { evang:45,  bapt:7,   other:46,  leftDenom:20,  deaths:9,   rev:12  },
+  "Central California":  { evang:23,  bapt:86,  other:87,  leftDenom:50,  deaths:34,  rev:65  },
+  "Central Plains":      { evang:7,   bapt:33,  other:31,  leftDenom:60,  deaths:39,  rev:138 },
+  "Chicago South":       { evang:32,  bapt:28,  other:46,  leftDenom:47,  deaths:38,  rev:17  },
+  "Columbia":            { evang:23,  bapt:11,  other:24,  leftDenom:11,  deaths:23,  rev:6   },
+  "Eastern Canada":      { evang:5,   bapt:24,  other:28,  leftDenom:18,  deaths:37,  rev:82  },
+  "Georgetown":          { evang:17,  bapt:59,  other:44,  leftDenom:49,  deaths:58,  rev:110 },
+  "Grand Rapids East":   { evang:27,  bapt:84,  other:56,  leftDenom:54,  deaths:77,  rev:78  },
+  "Grand Rapids North":  { evang:12,  bapt:26,  other:49,  leftDenom:36,  deaths:49,  rev:80  },
+  "Grand Rapids South":  { evang:16,  bapt:69,  other:134, leftDenom:51,  deaths:58,  rev:263 },
+  "Grandville":          { evang:15,  bapt:51,  other:63,  leftDenom:61,  deaths:65,  rev:28  },
+  "Greater Los Angeles": { evang:31,  bapt:25,  other:24,  leftDenom:28,  deaths:33,  rev:58  },
+  "Hackensack":          { evang:46,  bapt:10,  other:32,  leftDenom:11,  deaths:8,   rev:18  },
+  "Hamilton":            { evang:12,  bapt:20,  other:40,  leftDenom:55,  deaths:45,  rev:49  },
+  "Hanmi":               { evang:34,  bapt:1,   other:34,  leftDenom:34,  deaths:10,  rev:1   },
+  "Heartland":           { evang:29,  bapt:49,  other:31,  leftDenom:57,  deaths:45,  rev:37  },
+  "Holland":             { evang:42,  bapt:44,  other:79,  leftDenom:69,  deaths:68,  rev:121 },
+  "Hudson":              { evang:32,  bapt:20,  other:14,  leftDenom:45,  deaths:12,  rev:1   },
+  "Huron":               { evang:18,  bapt:79,  other:86,  leftDenom:37,  deaths:53,  rev:75  },
+  "Iakota":              { evang:40,  bapt:89,  other:55,  leftDenom:61,  deaths:46,  rev:16  },
+  "Illiana":             { evang:83,  bapt:70,  other:58,  leftDenom:51,  deaths:40,  rev:54  },
+  "Kalamazoo":           { evang:18,  bapt:18,  other:44,  leftDenom:20,  deaths:40,  rev:23  },
+  "Ko-Am":               { evang:7,   bapt:4,   other:7,   leftDenom:4,   deaths:1,   rev:0   },
+  "Lake Erie":           { evang:29,  bapt:22,  other:34,  leftDenom:30,  deaths:15,  rev:398 },
+  "Lake Superior":       { evang:12,  bapt:52,  other:38,  leftDenom:19,  deaths:42,  rev:94  },
+  "Minnkota":            { evang:0,   bapt:36,  other:52,  leftDenom:29,  deaths:35,  rev:61  },
+  "Muskegon":            { evang:18,  bapt:37,  other:61,  leftDenom:5,   deaths:41,  rev:39  },
+  "Niagara":             { evang:17,  bapt:39,  other:19,  leftDenom:59,  deaths:41,  rev:194 },
+  "North Cascades":      { evang:23,  bapt:18,  other:10,  leftDenom:27,  deaths:26,  rev:14  },
+  "Northcentral Iowa":   { evang:8,   bapt:6,   other:22,  leftDenom:8,   deaths:11,  rev:7   },
+  "Northern Illinois":   { evang:24,  bapt:23,  other:63,  leftDenom:15,  deaths:23,  rev:10  },
+  "Northern Michigan":   { evang:12,  bapt:18,  other:31,  leftDenom:28,  deaths:39,  rev:85  },
+  "Ontario Southwest":   { evang:129, bapt:85,  other:57,  leftDenom:70,  deaths:63,  rev:55  },
+  "Pacific Northwest":   { evang:12,  bapt:13,  other:34,  leftDenom:24,  deaths:16,  rev:23  },
+  "Quinte":              { evang:43,  bapt:52,  other:58,  leftDenom:32,  deaths:63,  rev:231 },
+  "Red Mesa":            { evang:8,   bapt:4,   other:2,   leftDenom:2,   deaths:6,   rev:8   },
+  "Rocky Mountain":      { evang:43,  bapt:11,  other:47,  leftDenom:57,  deaths:21,  rev:16  },
+  "Southeast U.S.":      { evang:111, bapt:103, other:59,  leftDenom:41,  deaths:11,  rev:71  },
+  "Thornapple Valley":   { evang:44,  bapt:35,  other:8,   leftDenom:96,  deaths:75,  rev:108 },
+  "Toronto":             { evang:40,  bapt:15,  other:34,  leftDenom:13,  deaths:70,  rev:123 },
+  "Wisconsin":           { evang:8,   bapt:33,  other:48,  leftDenom:42,  deaths:24,  rev:82  },
+  "Yellowstone":         { evang:2,   bapt:23,  other:20,  leftDenom:1,   deaths:13,  rev:6   },
+  "Zeeland":             { evang:13,  bapt:43,  other:56,  leftDenom:26,  deaths:45,  rev:48  },
+};
+
+// ── POPULATE TABLE ───────────────────────────────────────────────────────────
+const tbody = document.getElementById('classisTableBody');
+classisData.forEach(d => {
+  const totalMem = d.pm + d.npm;
+  const net = d.add - d.dec;
+  const netStr = (net >= 0 ? '+' : '') + net.toLocaleString();
+  const netClass = net >= 0 ? 'positive' : 'negative';
+  tbody.insertAdjacentHTML('beforeend', `
+    <tr>
+      <td>${d.name}</td>
+      <td>${d.cong}</td>
+      <td>${d.att.toLocaleString()}</td>
+      <td>${totalMem.toLocaleString()}</td>
+      <td>${d.pm.toLocaleString()}</td>
+      <td>${d.npm.toLocaleString()}</td>
+      <td>${d.inactive.toLocaleString()}</td>
+      <td>${d.add.toLocaleString()}</td>
+      <td>${d.dec.toLocaleString()}</td>
+      <td class="${netClass}">${netStr}</td>
+    </tr>
+  `);
+});
+
+// ── CHART HELPERS ─────────────────────────────────────────────────────────────
+const BLUE   = '#1a3a5c';
+const GOLD   = '#c9a227';
+const GREEN  = '#27ae60';
+const RED    = '#c0392b';
+const LTBLUE = '#4a7cb5';
+const ORANGE = '#e67e22';
+const PURPLE = '#8e44ad';
+
+Chart.defaults.font.family = 'Georgia, serif';
+Chart.defaults.font.size   = 12;
+
+// ── 1. ADDITIONS PIE ─────────────────────────────────────────────────────────
+new Chart(document.getElementById('chartAdditions'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Covenant Baptisms', 'Evangelism', 'From Other Denominations'],
+    datasets: [{
+      data: [1769, 1328, 2073],
+      backgroundColor: [BLUE, GOLD, LTBLUE],
+      borderWidth: 2, borderColor: '#fff'
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { position: 'bottom' },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.label}: ${ctx.raw.toLocaleString()} (${(ctx.raw/5170*100).toFixed(1)}%)`
+        }
+      }
+    }
+  }
+});
+
+// ── 2. DECLINES PIE ──────────────────────────────────────────────────────────
+new Chart(document.getElementById('chartDeclines'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Reversions', 'Deaths', 'Left for Other Denom.'],
+    datasets: [{
+      data: [3376, 1763, 1774],
+      backgroundColor: [RED, '#7f8c8d', ORANGE],
+      borderWidth: 2, borderColor: '#fff'
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { position: 'bottom' },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.label}: ${ctx.raw.toLocaleString()} (${(ctx.raw/6913*100).toFixed(1)}%)`
+        }
+      }
+    }
+  }
+});
+
+// ── 3. NET CHANGE BAR ────────────────────────────────────────────────────────
+const netSorted = [...classisData]
+  .map(d => ({ name: d.name, net: d.add - d.dec }))
+  .sort((a, b) => a.net - b.net);
+
+new Chart(document.getElementById('chartNetChange'), {
+  type: 'bar',
+  data: {
+    labels: netSorted.map(d => d.name),
+    datasets: [{
+      label: 'Net Change',
+      data: netSorted.map(d => d.net),
+      backgroundColor: netSorted.map(d => d.net >= 0 ? GREEN : RED),
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: {
+        grid: { color: '#e8e4dc' },
+        ticks: { callback: v => (v >= 0 ? '+' : '') + v }
+      },
+      y: { ticks: { font: { size: 10 } } }
+    }
+  }
+});
+
+// ── 4. TOP 15 BY TOTAL MEMBERS ───────────────────────────────────────────────
+const topByMem = [...classisData]
+  .sort((a, b) => (b.pm + b.npm) - (a.pm + a.npm))
+  .slice(0, 15);
+
+new Chart(document.getElementById('chartTopMembers'), {
+  type: 'bar',
+  data: {
+    labels: topByMem.map(d => d.name),
+    datasets: [
+      { label: 'Professing', data: topByMem.map(d => d.pm), backgroundColor: BLUE, borderRadius: 2 },
+      { label: 'Non-Professing', data: topByMem.map(d => d.npm), backgroundColor: GOLD, borderRadius: 2 },
+    ]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: { legend: { position: 'bottom' } },
+    scales: {
+      x: { stacked: true, grid: { color: '#e8e4dc' } },
+      y: { stacked: true, ticks: { font: { size: 10 } } }
+    }
+  }
+});
+
+// ── 5. TOP 15 BY ATTENDANCE ──────────────────────────────────────────────────
+const topByAtt = [...classisData]
+  .sort((a, b) => b.att - a.att)
+  .slice(0, 15);
+
+new Chart(document.getElementById('chartTopAttendance'), {
+  type: 'bar',
+  data: {
+    labels: topByAtt.map(d => d.name),
+    datasets: [{
+      label: 'Avg Sunday Attendance',
+      data: topByAtt.map(d => d.att),
+      backgroundColor: LTBLUE,
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: '#e8e4dc' } },
+      y: { ticks: { font: { size: 10 } } }
+    }
+  }
+});
+
+// ── 6. COMPOSITION DOUGHNUT ──────────────────────────────────────────────────
+new Chart(document.getElementById('chartComposition'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Professing Members', 'Non-Professing Members'],
+    datasets: [{
+      data: [135648, 48062],
+      backgroundColor: [BLUE, GOLD],
+      borderWidth: 2, borderColor: '#fff'
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { position: 'bottom' },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.label}: ${ctx.raw.toLocaleString()} (${(ctx.raw/183710*100).toFixed(1)}%)`
+        }
+      }
+    }
+  }
+});
+
+// ── 7. ACTIVE VS INACTIVE ────────────────────────────────────────────────────
+// Adult professing = total professing - under-18 professing
+// Inactive = given; Active = adult professing - inactive
+const totalPM_adult = 135648 - 4142; // subtract under-18
+const totalInactive = 19617;
+const totalActive   = totalPM_adult - totalInactive;
+
+new Chart(document.getElementById('chartActive'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Active Professing (18+)', 'Inactive Professing (18+)', 'Professing Under 18'],
+    datasets: [{
+      data: [totalActive, totalInactive, 4142],
+      backgroundColor: [GREEN, RED, GOLD],
+      borderWidth: 2, borderColor: '#fff'
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { position: 'bottom' },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            const total = totalActive + totalInactive + 4142;
+            return ` ${ctx.label}: ${ctx.raw.toLocaleString()} (${(ctx.raw/total*100).toFixed(1)}%)`;
+          }
+        }
+      }
+    }
+  }
+});
+
+// ── 8. YOUTH PROFESSING – TOP 10 CLASSIS ────────────────────────────────────
+const youthPct = classisData
+  .filter(d => d.pm > 0 && d.pmU18 > 0)
+  .map(d => ({ name: d.name, pct: (d.pmU18 / d.pm * 100) }))
+  .sort((a, b) => b.pct - a.pct)
+  .slice(0, 10);
+
+new Chart(document.getElementById('chartYouth'), {
+  type: 'bar',
+  data: {
+    labels: youthPct.map(d => d.name),
+    datasets: [{
+      label: '% Under-18 Professing',
+      data: youthPct.map(d => d.pct.toFixed(1)),
+      backgroundColor: PURPLE,
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: '#e8e4dc' }, ticks: { callback: v => v + '%' } },
+      y: { ticks: { font: { size: 10 } } }
+    }
+  }
+});
+
+// ── SHARED SIZE LABELS & PALETTE (declared here so all sections can use them) ─
+const sizeLabels = ['Under 45', '45–99', '100–199', '200–349', '350–499', '500–749', '750+'];
+const sizePalette = [
+  '#c0392b', '#e67e22', '#f1c40f', '#27ae60', '#2980b9', '#1a3a5c', '#c9a227',
+];
+
+// ── US vs CANADA DATA ─────────────────────────────────────────────────────────
+const usCounts  = [176, 224, 174, 98, 24, 15, 9];
+const caCounts  = [30,  70,  83,  42, 7,  1,  2];
+const usTotal   = 720;
+const caTotal   = 235;
+const usPcts    = usCounts.map(c => +(c/usTotal*100).toFixed(1));
+const caPcts    = caCounts.map(c => +(c/caTotal*100).toFixed(1));
+
+// ── 11. US SIZE DOUGHNUT ──────────────────────────────────────────────────────
+new Chart(document.getElementById('chartUSSize'), {
+  type: 'doughnut',
+  data: {
+    labels: sizeLabels,
+    datasets: [{
+      data: usPcts,
+      backgroundColor: sizePalette,
+      borderWidth: 2, borderColor: '#fff'
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { position: 'right', labels: { font: { size: 10 }, padding: 10 } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${usCounts[ctx.dataIndex]} churches (${ctx.raw}%)` } }
+    }
+  }
+});
+
+// ── 12. CANADA SIZE DOUGHNUT ─────────────────────────────────────────────────
+new Chart(document.getElementById('chartCASize'), {
+  type: 'doughnut',
+  data: {
+    labels: sizeLabels,
+    datasets: [{
+      data: caPcts,
+      backgroundColor: sizePalette,
+      borderWidth: 2, borderColor: '#fff'
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { position: 'right', labels: { font: { size: 10 }, padding: 10 } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${caCounts[ctx.dataIndex]} churches (${ctx.raw}%)` } }
+    }
+  }
+});
+
+// ── 13. US vs CA GROUPED BAR ─────────────────────────────────────────────────
+new Chart(document.getElementById('chartUSvsCA'), {
+  type: 'bar',
+  data: {
+    labels: sizeLabels,
+    datasets: [
+      { label: 'United States', data: usPcts, backgroundColor: BLUE,   borderRadius: 3 },
+      { label: 'Canada',        data: caPcts, backgroundColor: GOLD,   borderRadius: 3 },
+    ]
+  },
+  options: {
+    plugins: {
+      legend: { position: 'bottom' },
+      tooltip: { callbacks: {
+        label: ctx => {
+          const counts = ctx.datasetIndex === 0 ? usCounts : caCounts;
+          return ` ${ctx.dataset.label}: ${counts[ctx.dataIndex]} churches (${ctx.raw}%)`;
+        }
+      }}
+    },
+    scales: {
+      y: { grid: { color: '#e8e4dc' }, ticks: { callback: v => v + '%' },
+           title: { display: true, text: '% of Congregations', color: '#555', font: { size: 11 } } },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// ── BY CLASSIS DATA ───────────────────────────────────────────────────────────
+const classisList = ['Alberta North','Alberta South/Saskatchewan','Arizona','Atlantic Northeast','B.C. North-West','B.C. South-East','California South','Central California','Central Plains','Chicago South','Columbia','Eastern Canada','Georgetown','Grand Rapids East','Grand Rapids North','Grand Rapids South','Grandville','Greater Los Angeles','Hackensack','Hamilton','Hanmi','Heartland','Holland','Hudson','Huron','Iakota','Illiana','Kalamazoo','Ko-Am','Lake Erie','Lake Superior','Minnkota','Muskegon','Niagara','North Cascades','Northcentral Iowa','Northern Illinois','Northern Michigan','Ontario Southwest','Pacific Northwest','Quinte','Red Mesa','Rocky Mountain','Southeast U.S.','Thornapple Valley','Toronto','Wisconsin','Yellowstone','Zeeland'];
+
+const classisBuckets = {
+  'Under 45':  [4,5,2,8,1,3,4,8,4,3,6,4,0,0,2,2,2,8,9,1,13,1,6,8,2,0,4,1,18,3,3,3,3,3,0,5,4,2,2,12,1,13,12,4,2,3,0,1,1],
+  '45–99':     [6,5,4,6,9,7,6,17,9,6,7,7,2,3,7,4,3,13,12,3,4,5,5,7,1,5,3,3,3,5,12,5,7,2,2,5,5,5,10,12,7,4,14,6,3,8,3,4,3],
+  '100–199':   [12,6,2,6,6,7,5,2,3,5,2,7,7,9,7,4,6,6,4,6,4,9,7,5,12,7,4,4,1,6,4,4,4,2,5,2,4,3,12,5,6,2,5,6,3,6,8,0,5],
+  '200–349':   [7,2,1,1,3,4,1,5,3,1,1,1,6,5,2,6,3,2,0,5,0,5,7,1,5,3,5,4,0,2,6,3,4,6,3,0,1,4,1,0,4,0,1,0,1,3,4,1,7],
+  '350–499':   [1,0,0,0,0,1,0,0,2,0,0,0,2,2,0,0,1,0,0,0,2,2,4,0,2,1,1,0,0,0,0,2,0,1,0,0,1,0,1,0,1,0,0,1,1,0,1,1,0],
+  '500–749':   [0,0,0,0,0,1,2,2,0,0,0,0,0,1,0,0,1,0,1,0,0,0,1,0,0,3,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0],
+  '750+':      [0,0,0,0,1,0,0,1,0,1,0,0,1,0,0,2,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0],
+};
+
+// % under 45 per classis, sorted descending
+const pctUnder45 = classisList.map((c, i) => {
+  const u45 = classisBuckets['Under 45'][i];
+  const tot = Object.keys(classisBuckets).reduce((s, k) => s + classisBuckets[k][i], 0);
+  return { name: c, pct: tot > 0 ? +((u45)/tot*100).toFixed(0) : 0, total: tot };
+}).sort((a,b) => b.pct - a.pct);
+
+// ── 14. % TINY CHURCHES BY CLASSIS (sorted bar) ──────────────────────────────
+new Chart(document.getElementById('chartSmallByClassis'), {
+  type: 'bar',
+  data: {
+    labels: pctUnder45.map(d => d.name),
+    datasets: [{
+      label: '% of churches averaging under 45',
+      data: pctUnder45.map(d => d.pct),
+      backgroundColor: pctUnder45.map(d =>
+        d.pct >= 50 ? '#c0392b' :
+        d.pct >= 30 ? '#e67e22' :
+        d.pct >= 15 ? '#f1c40f' : '#27ae60'
+      ),
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.raw}% of churches under 45 avg attendance (n=${pctUnder45[ctx.dataIndex].total})` } }
+    },
+    scales: {
+      x: { grid: { color: '#e8e4dc' }, ticks: { callback: v => v + '%' }, max: 100 },
+      y: { ticks: { font: { size: 10 } } }
+    }
+  }
+});
+
+// ── 15. STACKED SIZE BY CLASSIS ───────────────────────────────────────────────
+const stackPalette = ['#c0392b','#e67e22','#f1c40f','#27ae60','#2980b9','#1a3a5c','#c9a227'];
+new Chart(document.getElementById('chartSizeByClassis'), {
+  type: 'bar',
+  data: {
+    labels: classisList,
+    datasets: sizeLabels.map((lbl, i) => ({
+      label: lbl,
+      data: classisBuckets[lbl],
+      backgroundColor: stackPalette[i],
+      borderWidth: 0,
+    }))
+  },
+  options: {
+    indexAxis: 'y',
+    plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, padding: 14 } } },
+    scales: {
+      x: { stacked: true, grid: { color: '#e8e4dc' },
+           title: { display: true, text: 'Number of Congregations', color: '#555', font: { size: 11 } } },
+      y: { stacked: true, ticks: { font: { size: 10 } } }
+    }
+  }
+});
+
+// ── 17. CONGREGATION SIZE – PERCENTAGE DOUGHNUT ──────────────────────────────
+const sizeCounts = [206, 294, 257, 140, 31, 16, 11];
+const sizeTotal  = 955;
+const sizePcts   = sizeCounts.map(c => +(c / sizeTotal * 100).toFixed(1));
+
+new Chart(document.getElementById('chartSizePct'), {
+  type: 'doughnut',
+  data: {
+    labels: sizeLabels,
+    datasets: [{
+      data: sizePcts,
+      backgroundColor: sizePalette,
+      borderWidth: 2,
+      borderColor: '#fff',
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { position: 'right', labels: { font: { size: 11 }, padding: 14 } },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.label}: ${sizeCounts[ctx.dataIndex]} churches (${ctx.raw}%)`
+        }
+      }
+    }
+  }
+});
+
+// ── 12. CONGREGATION SIZE – COUNT BAR ────────────────────────────────────────
+new Chart(document.getElementById('chartSizeCount'), {
+  type: 'bar',
+  data: {
+    labels: sizeLabels,
+    datasets: [{
+      label: 'Number of Congregations',
+      data: sizeCounts,
+      backgroundColor: sizePalette,
+      borderRadius: 4,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.raw} churches (${sizePcts[ctx.dataIndex]}%)`
+        }
+      }
+    },
+    scales: {
+      y: {
+        grid: { color: '#e8e4dc' },
+        title: { display: true, text: 'Number of Congregations', color: '#555', font: { size: 11 } }
+      },
+      x: {
+        grid: { display: false },
+        title: { display: true, text: 'Avg Sunday Attendance', color: '#555', font: { size: 11 } }
+      }
+    }
+  }
+});
+
+</script>
+</body>
+</html>
