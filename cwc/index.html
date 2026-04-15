@@ -3,8 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CWC Games and Team Generators</title>
+    <title>CWC Activities</title>
     <style>
+        :root {
+            --system-bg: #f2f2f7;
+            --system-grouped-bg: #ffffff;
+            --system-blue: #007aff;
+            --system-green: #34c759;
+            --system-label: #000000;
+            --system-secondary-label: #3c3c4399;
+            --system-separator: #c6c6c8;
+            --system-card-shadow: rgba(0, 0, 0, 0.06);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --system-bg: #000000;
+                --system-grouped-bg: #1c1c1e;
+                --system-label: #ffffff;
+                --system-secondary-label: #ebebf599;
+                --system-separator: #38383a;
+                --system-card-shadow: rgba(0, 0, 0, 0.3);
+            }
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,69 +34,93 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            background-color: var(--system-bg);
+            color: var(--system-label);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, #10213f 0%, #1e3c72 45%, #2a5298 100%);
-            color: white;
-            padding: 24px;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1120px;
             margin: 0 auto;
+            padding: 56px 20px 40px;
         }
 
         .hero {
+            max-width: 760px;
+            margin: 0 auto 36px;
             text-align: center;
-            margin-bottom: 36px;
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: -0.6px;
             margin-bottom: 10px;
-            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.35);
         }
 
         .hero p {
-            color: #ffd700;
-            font-size: 1.15rem;
-            font-weight: bold;
+            font-size: 18px;
+            line-height: 1.5;
+            color: var(--system-secondary-label);
         }
 
         .section {
-            margin-bottom: 32px;
+            margin-bottom: 28px;
         }
 
         .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 16px;
-            color: #ffd700;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            color: var(--system-secondary-label);
+            margin-bottom: 14px;
+            padding-left: 6px;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 18px;
         }
 
         .card {
-            background: rgba(13, 27, 42, 0.82);
-            border: 3px solid #ffd700;
-            border-radius: 12px;
-            padding: 22px 20px;
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+            background: var(--system-grouped-bg);
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 8px 24px var(--system-card-shadow);
+            border: 1px solid var(--system-separator);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .eyebrow.games {
+            color: var(--system-blue);
+        }
+
+        .eyebrow.teams {
+            color: var(--system-green);
         }
 
         .card h2 {
-            font-size: 1.2rem;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
             margin-bottom: 10px;
-            color: white;
+            color: var(--system-label);
         }
 
         .card p {
-            color: #dfe8ff;
+            color: var(--system-secondary-label);
             line-height: 1.5;
             margin-bottom: 18px;
             min-height: 72px;
@@ -85,30 +131,41 @@
             width: 100%;
             text-align: center;
             text-decoration: none;
-            background: #ffd700;
-            color: #1e3c72;
-            font-weight: bold;
+            background: var(--system-blue);
+            color: white;
+            font-size: 17px;
+            font-weight: 600;
             padding: 14px 18px;
-            border-radius: 8px;
-            transition: transform 0.2s ease, background 0.2s ease;
+            border-radius: 14px;
+            transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.22);
         }
 
         .launch-btn:hover {
-            background: white;
-            transform: translateY(-2px);
+            transform: translateY(-1px);
+            opacity: 0.92;
+        }
+
+        .launch-btn.team-btn {
+            background: var(--system-green);
+            box-shadow: 0 4px 12px rgba(52, 199, 89, 0.22);
         }
 
         @media (max-width: 768px) {
-            body {
-                padding: 18px;
+            .container {
+                padding: 40px 16px 28px;
             }
 
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 32px;
             }
 
             .hero p {
-                font-size: 1rem;
+                font-size: 16px;
+            }
+
+            .card {
+                padding: 18px;
             }
 
             .card p {
@@ -128,18 +185,21 @@
             <h2 class="section-title">Games</h2>
             <div class="grid">
                 <div class="card">
+                    <div class="eyebrow games">Game</div>
                     <h2>Unit 3 Jeopardy</h2>
                     <p>Review Joshua through Solomon with the classroom Jeopardy board and score tracker.</p>
                     <a class="launch-btn" href="unit3_jeopardy_game_score.html">Open Unit 3 Jeopardy</a>
                 </div>
 
                 <div class="card">
+                    <div class="eyebrow games">Game</div>
                     <h2>Finals Jeopardy</h2>
                     <p>Run the larger Old Testament review game with the full finals board.</p>
                     <a class="launch-btn" href="finals-jeopardy.html">Open Finals Jeopardy</a>
                 </div>
 
                 <div class="card">
+                    <div class="eyebrow games">Game</div>
                     <h2>Unit 5 Jeopardy</h2>
                     <p>Play the Unit 5 board focused on Dividing the Kingdom through Hezekiah.</p>
                     <a class="launch-btn" href="unit5_jeopardy_game_score.html">Open Unit 5 Jeopardy</a>
@@ -151,21 +211,24 @@
             <h2 class="section-title">Team Generators</h2>
             <div class="grid">
                 <div class="card">
+                    <div class="eyebrow teams">Teams</div>
                     <h2>BD Team Generator</h2>
                     <p>Open the original Apple-style random team sorter for the BD class roster.</p>
-                    <a class="launch-btn" href="bd-team-generator-apple.html">Open BD Generator</a>
+                    <a class="launch-btn team-btn" href="bd-team-generator-apple.html">Open BD Generator</a>
                 </div>
 
                 <div class="card">
+                    <div class="eyebrow teams">Teams</div>
                     <h2>Unit 5 Generator</h2>
                     <p>Use the Apple-style Team Blue and Team Gold generator for the Unit 5 class roster.</p>
-                    <a class="launch-btn" href="unit5-team-generator-apple.html">Open Apple Version</a>
+                    <a class="launch-btn team-btn" href="unit5-team-generator-apple.html">Open Apple Version</a>
                 </div>
 
                 <div class="card">
+                    <div class="eyebrow teams">Teams</div>
                     <h2>Unit 5 Generator: Jeopardy</h2>
                     <p>Use the Jeopardy-themed Team Blue and Team Gold generator styled to match the Unit 5 game.</p>
-                    <a class="launch-btn" href="unit5-team-generator-jeopardy.html">Open Jeopardy Version</a>
+                    <a class="launch-btn team-btn" href="unit5-team-generator-jeopardy.html">Open Jeopardy Version</a>
                 </div>
             </div>
         </section>
