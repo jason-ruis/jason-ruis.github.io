@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CWC Games and Team Generators</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #10213f 0%, #1e3c72 45%, #2a5298 100%);
+            color: white;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.35);
+        }
+
+        .hero p {
+            color: #ffd700;
+            font-size: 1.15rem;
+            font-weight: bold;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: #ffd700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background: rgba(13, 27, 42, 0.82);
+            border: 3px solid #ffd700;
+            border-radius: 12px;
+            padding: 22px 20px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .card p {
+            color: #dfe8ff;
+            line-height: 1.5;
+            margin-bottom: 18px;
+            min-height: 72px;
+        }
+
+        .launch-btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            background: #ffd700;
+            color: #1e3c72;
+            font-weight: bold;
+            padding: 14px 18px;
+            border-radius: 8px;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .launch-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 18px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .card p {
+                min-height: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>CWC Activities</h1>
+            <p>Launch Jeopardy games and team generators from one place.</p>
+        </div>
+
+        <section class="section">
+            <h2 class="section-title">Games</h2>
+            <div class="grid">
+                <div class="card">
+                    <h2>Unit 3 Jeopardy</h2>
+                    <p>Review Joshua through Solomon with the classroom Jeopardy board and score tracker.</p>
+                    <a class="launch-btn" href="unit3_jeopardy_game_score.html">Open Unit 3 Jeopardy</a>
+                </div>
+
+                <div class="card">
+                    <h2>Finals Jeopardy</h2>
+                    <p>Run the larger Old Testament review game with the full finals board.</p>
+                    <a class="launch-btn" href="finals-jeopardy.html">Open Finals Jeopardy</a>
+                </div>
+
+                <div class="card">
+                    <h2>Unit 5 Jeopardy</h2>
+                    <p>Play the Unit 5 board focused on Dividing the Kingdom through Hezekiah.</p>
+                    <a class="launch-btn" href="unit5_jeopardy_game_score.html">Open Unit 5 Jeopardy</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Team Generators</h2>
+            <div class="grid">
+                <div class="card">
+                    <h2>BD Team Generator</h2>
+                    <p>Open the original Apple-style random team sorter for the BD class roster.</p>
+                    <a class="launch-btn" href="bd-team-generator-apple.html">Open BD Generator</a>
+                </div>
+
+                <div class="card">
+                    <h2>Unit 5 Generator</h2>
+                    <p>Use the Apple-style Team Blue and Team Gold generator for the Unit 5 class roster.</p>
+                    <a class="launch-btn" href="unit5-team-generator-apple.html">Open Apple Version</a>
+                </div>
+
+                <div class="card">
+                    <h2>Unit 5 Generator: Jeopardy</h2>
+                    <p>Use the Jeopardy-themed Team Blue and Team Gold generator styled to match the Unit 5 game.</p>
+                    <a class="launch-btn" href="unit5-team-generator-jeopardy.html">Open Jeopardy Version</a>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 3 Bible Jeopardy - Joshua through Solomon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 3em;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .category {
+            background: #1e3c72;
+            color: white;
+            padding: 15px 5px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.85em;
+            border: 3px solid #ffd700;
+            border-radius: 5px;
+            text-transform: uppercase;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .question-tile {
+            background: #1e3c72;
+            color: #ffd700;
+            padding: 30px 10px;
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            border: 3px solid #ffd700;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .question-tile:hover:not(.used) {
+            background: #2a5298;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .question-tile.used {
+            background: #0d1b2a;
+            color: #555;
+            cursor: not-allowed;
+            border-color: #555;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            background-color: #1e3c72;
+            margin: 5% auto;
+            padding: 40px;
+            border: 5px solid #ffd700;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            color: white;
+            position: relative;
+        }
+
+        .close {
+            color: #ffd700;
+            float: right;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 30px;
+        }
+
+        .close:hover {
+            color: white;
+        }
+
+        .question-text {
+            font-size: 1.8em;
+            margin: 30px 0;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .value {
+            color: #ffd700;
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .answer {
+            display: none;
+            background: #0d1b2a;
+            padding: 25px;
+            margin-top: 30px;
+            border-radius: 5px;
+            font-size: 1.4em;
+            border: 2px solid #ffd700;
+            line-height: 1.6;
+        }
+
+        .show-answer-btn {
+            display: block;
+            margin: 30px auto;
+            padding: 15px 40px;
+            font-size: 1.3em;
+            background: #ffd700;
+            color: #1e3c72;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .show-answer-btn:hover {
+            background: white;
+            transform: scale(1.05);
+        }
+
+        .reset-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            background: #28a745;
+            color: white;
+            border: 3px solid white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .reset-btn:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+
+        .scoreboard {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .score-card {
+            background: white;
+            padding: 25px 40px;
+            border-radius: 10px;
+            border: 4px solid #ffd700;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .score-label {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .boys-label {
+            color: #0066cc;
+        }
+
+        .girls-label {
+            color: #cc0066;
+        }
+
+        .score-value {
+            font-size: 3em;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .team-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .team-btn {
+            padding: 15px 40px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            color: white;
+        }
+
+        .boys-btn {
+            background: #0066cc;
+        }
+
+        .boys-btn:hover {
+            background: #0052a3;
+            transform: scale(1.05);
+        }
+
+        .girls-btn {
+            background: #cc0066;
+        }
+
+        .girls-btn:hover {
+            background: #a30052;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 1200px) {
+            .board {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .board {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 5px;
+            }
+            
+            .category {
+                font-size: 0.7em;
+                padding: 10px 3px;
+                min-height: 60px;
+            }
+            
+            .question-tile {
+                font-size: 1.3em;
+                padding: 20px 5px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+            
+            .question-text {
+                font-size: 1.1em;
+            }
+            
+            .answer {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>UNIT 3 JEOPARDY</h1>
+        <h2 style="text-align: center; color: #ffd700; margin-bottom: 30px; font-size: 1.5em;">Joshua through Solomon</h2>
+        
+        <div class="scoreboard">
+            <div class="score-card">
+                <div class="score-label boys-label">Boys</div>
+                <div class="score-value" id="boysScore">0</div>
+            </div>
+            <div class="score-card">
+                <div class="score-label girls-label">Girls</div>
+                <div class="score-value" id="girlsScore">0</div>
+            </div>
+        </div>
+        
+        <div class="board" id="board"></div>
+        
+        <button class="reset-btn" id="resetBtn">Reset Game</button>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeBtn">&times;</span>
+            <div class="value" id="pointValue"></div>
+            <div class="question-text" id="questionText"></div>
+            <button class="show-answer-btn" id="showAnswerBtn">Show Answer</button>
+            <div class="answer" id="answerText"></div>
+            <div class="team-buttons" id="teamButtons" style="display: none;">
+                <button class="team-btn boys-btn" id="boysBtn">Boys Got It Right</button>
+                <button class="team-btn girls-btn" id="girlsBtn">Girls Got It Right</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const categories = [
+            "Joshua's Leadership",
+            "The Judges Cycle",
+            "Samson",
+            "Ruth & Samuel",
+            "Kings: Saul & David",
+            "David's Reign",
+            "Solomon",
+            "Jesus Lens"
+        ];
+
+        const questions = {
+            "Joshua's Leadership": {
+                100: {
+                    q: "What did Joshua remind the people about obeying God's laws?",
+                    a: "Joshua reminded the people to obey God's commands and keep them. The people initially promised to serve only God."
+                },
+                200: {
+                    q: "Why did God command Israel to destroy the Canaanites in the land?",
+                    a: "By not destroying all the Canaanites and their gods, the Israelites would be continually tempted by them. By not obeying God completely, they planted the seeds for their own destruction."
+                },
+                300: {
+                    q: "How was God's presence evident in Israel's victories and defeats?",
+                    a: "God intervened through natural events: parting the Jordan River, making Jericho's walls fall, sending hailstones, and stopping the sun at the Valley of Aijalon."
+                },
+                400: {
+                    q: "What condition did Joshua give for the land to be a place of rest?",
+                    a: "The people needed to obey God and keep His commands. Only by following God alone could they experience the wonderful life God planned."
+                },
+                500: {
+                    q: "How did God fulfill His promises to Abraham, Isaac, and Jacob?",
+                    a: "God kept His promises by giving Israel the Promised Land. Joseph was laid to rest in Canaan as he requested. God keeps the promises He makes."
+                }
+            },
+            "The Judges Cycle": {
+                100: {
+                    q: "Describe the five-part cycle of life during the judges.",
+                    a: "Relapse (turning from God), Retribution (being attacked by other nations), Repentance (returning to God), Rescue (God raising a judge to save them), and Rest (living in peace)."
+                },
+                200: {
+                    q: "What kind of heroes did God raise up? Why is this significant?",
+                    a: "God raised up flawed heroes like Gideon and Samson. This shows that despite our weaknesses, God can use and strengthen us. We must rely on God, not our own strength."
+                },
+                300: {
+                    q: "What did the Israelites fail to do that Moses and Joshua had commanded?",
+                    a: "The Israelites failed to destroy all the Canaanites living in the Promised Land. They did not kill all the people and their gods."
+                },
+                400: {
+                    q: "How did the people initially respond to reminders to obey God? What happened as time passed?",
+                    a: "Initially they seemed excited about obeying God and promised to serve only Him. However, as years passed they worshiped Canaanite idols and did what was right in their own eyes."
+                },
+                500: {
+                    q: "What does God's faithfulness during the judges period teach us about His character?",
+                    a: "God remained faithful even though the people turned away. He kept His promises, provided leaders, heard their cries, and remained true to His word no matter what."
+                }
+            },
+            "Samson": {
+                100: {
+                    q: "How was Samson set apart as a Nazirite from before birth?",
+                    a: "Manoah and his wife dedicated Samson to God as a Nazirite before his birth."
+                },
+                200: {
+                    q: "How did Samson mirror Israel's own weaknesses?",
+                    a: "Like the Israelites, Samson was easily led astray by the Canaanites/Philistines. He called on God in distress but forgot God when things went well. Like Israel, he was a special child of God."
+                },
+                300: {
+                    q: "Who assisted Israel's spies in Jericho?",
+                    a: "Rahab"
+                },
+                400: {
+                    q: "Who was the only female judge recorded in Judges?",
+                    a: "Deborah"
+                },
+                500: {
+                    q: "Who was the left-handed swordsman judge?",
+                    a: "Ehud"
+                }
+            },
+            "Ruth & Samuel": {
+                100: {
+                    q: "How does Ruth's story contrast with life in Israel during the judges?",
+                    a: "Israel turned from God and did what was right in their own eyes. Ruth did what was right in God's eyes and selflessly served Naomi. God blessed her."
+                },
+                200: {
+                    q: "What important decision did Ruth make about Naomi and God?",
+                    a: "Ruth returned with Naomi to Israel (while Orpah did not return)."
+                },
+                300: {
+                    q: "How did God work through Ruth to establish an important family line?",
+                    a: "God worked through Ruth to establish the family line of David and Christ. Boaz married Ruth and was the father of Obed."
+                },
+                400: {
+                    q: "What three offices did Samuel serve in Israel? Describe each role.",
+                    a: "Judge (settling disputes, defending from enemies), Priest (offering sacrifices, directing worship), Prophet (calling people to repentance, bringing them back to God)."
+                },
+                500: {
+                    q: "What transition in Israel's history did Samuel lead the people through?",
+                    a: "Samuel led Israel from being ruled by God alone (through judges) to a monarchy (kings). He was a transitional figure."
+                }
+            },
+            "Kings: Saul & David": {
+                100: {
+                    q: "Why did Israel want a king like the surrounding nations?",
+                    a: "They wanted to be like the surrounding nations. When they felt leaderless, they turned to Canaanite gods."
+                },
+                200: {
+                    q: "Why did God eventually reject Saul as king? What was his key sin?",
+                    a: "Saul's disobedience caused God to reject him. Saul did not depend on God for all things, did not wait upon God before battle, and relied on himself."
+                },
+                300: {
+                    q: "How did David and Saul respond differently to God throughout 1 Samuel?",
+                    a: "Saul did not depend on God and relied on himself. David relied on God for victories, was willing to be disciplined by God when he sinned, and encouraged people to keep God's commands."
+                },
+                400: {
+                    q: "How did David show respect for 'God's anointed' even when Saul was trying to kill him?",
+                    a: "David showed respect for the rulers God placed over him, even when Saul tried to kill him. He viewed Saul as God's anointed."
+                },
+                500: {
+                    q: "Why were David and Saul unlikely kings of Israel?",
+                    a: "Saul came from the small tribe of Benjamin, and David was the youngest son in his family. Neither came from a powerful family or tribe."
+                }
+            },
+            "David's Reign": {
+                100: {
+                    q: "How did David unite Israel both politically and spiritually?",
+                    a: "David united Israel politically and spiritually. He encouraged the people to keep God's commands and led them in worship."
+                },
+                200: {
+                    q: "What did David bring to Jerusalem to make it the spiritual center?",
+                    a: "Jerusalem became Israel's political and religious capital. David brought worship to the city and made it the spiritual center."
+                },
+                300: {
+                    q: "What covenant did God establish with David? What was promised about his kingdom?",
+                    a: "God established a covenant with David that his kingdom would have no end."
+                },
+                400: {
+                    q: "What sin did David commit with Bathsheba? What were the consequences for David's family and Israel?",
+                    a: "David's adultery with Bathsheba created rivalry among his children. Consequences included: Amnon's rape of Tamar, Amnon's murder by Absalom, and Absalom's and Adonijah's attempts to become king."
+                },
+                500: {
+                    q: "Did God forgive David? Did the consequences disappear? Explain.",
+                    a: "Yes, God forgave David. However, the consequences did not disappear—David's sin had far-reaching consequences for his family and Israel even though he was forgiven."
+                }
+            },
+            "Solomon": {
+                100: {
+                    q: "What did Solomon request from God? What else did God give him?",
+                    a: "Solomon requested wisdom from God. God blessed his request for wisdom and gave him wealth and power as well."
+                },
+                200: {
+                    q: "Why was Jerusalem a good choice of a capital city for Israel?",
+                    a: "Jerusalem was between Benjamin and Judah and didn't belong to one tribe. It was easy to defend. It was the political and religious capital."
+                },
+                300: {
+                    q: "Describe the model that Solomon followed to build the temple in Jerusalem.",
+                    a: "Solomon modeled the temple on the tabernacle and doubled all dimensions. He used only the finest materials and spared no expense. Many items were made of pure gold."
+                },
+                400: {
+                    q: "Why was Solomon led astray by his many wives?",
+                    a: "Solomon's marriages to many foreign wives led him astray. In his later years, Solomon worshiped foreign gods."
+                },
+                500: {
+                    q: "What would happen to Solomon's kingdom because he broke God's commands?",
+                    a: "The kingdom of Israel would divide after Solomon's death, and only two tribes would remain in David's family because Solomon did not keep his part of the covenant."
+                }
+            },
+            "Jesus Lens": {
+                100: {
+                    q: "How does the story of Ruth point ahead to Christ and the inclusion of Gentiles in God's kingdom?",
+                    a: "Ruth (a Gentile) contrasted with Israel during the judges. God worked through Ruth to establish the family line of David and Christ, showing God's plan to include Gentiles."
+                },
+                200: {
+                    q: "How does David's role as king prefigure Christ as the ultimate King?",
+                    a: "God established a covenant with David that his kingdom would have no end. This points to Christ as the ultimate King whose kingdom is eternal."
+                },
+                300: {
+                    q: "How does Israel's repeated failure to fully obey God serve as a warning about partial obedience?",
+                    a: "By not completely obeying God in destroying all Canaanites, Israelites planted seeds for their own destruction. Partial obedience led to continual temptation and cycles of sin."
+                },
+                400: {
+                    q: "What lessons can we learn from Solomon's decline about the dangers of compromise and divided loyalty?",
+                    a: "Solomon's foreign wives, worship of foreign gods, and failure to keep God's covenant show the dangers of compromise and divided loyalty. His reliance on his own abilities led to kingdom division."
+                },
+                500: {
+                    q: "How does Samuel point ahead to Christ?",
+                    a: "Samuel was set apart for God's service before birth, dedicated from birth, and called as a young man to be a prophet. God gave him special talents showing his relationship with God."
+                }
+            }
+        };
+
+        let usedQuestions = new Set();
+        let boysScore = 0;
+        let girlsScore = 0;
+        let currentQuestionValue = 0;
+
+        function updateScoreboard() {
+            document.getElementById('boysScore').textContent = boysScore;
+            document.getElementById('girlsScore').textContent = girlsScore;
+        }
+
+        function addPointsToBoys() {
+            boysScore += currentQuestionValue;
+            updateScoreboard();
+            closeModal();
+        }
+
+        function addPointsToGirls() {
+            girlsScore += currentQuestionValue;
+            updateScoreboard();
+            closeModal();
+        }
+
+        function initializeBoard() {
+            const board = document.getElementById('board');
+            board.innerHTML = '';
+            
+            // Add category headers
+            categories.forEach(cat => {
+                const catDiv = document.createElement('div');
+                catDiv.className = 'category';
+                catDiv.textContent = cat;
+                board.appendChild(catDiv);
+            });
+            
+            // Add question tiles
+            const values = [100, 200, 300, 400, 500];
+            values.forEach(value => {
+                categories.forEach(cat => {
+                    const tile = document.createElement('div');
+                    tile.className = 'question-tile';
+                    tile.textContent = '$' + value;
+                    tile.dataset.category = cat;
+                    tile.dataset.value = value;
+                    
+                    const questionId = `${cat}-${value}`;
+                    if (usedQuestions.has(questionId)) {
+                        tile.classList.add('used');
+                    } else {
+                        tile.onclick = () => openQuestion(cat, value);
+                    }
+                    
+                    board.appendChild(tile);
+                });
+            });
+        }
+
+        function openQuestion(category, value) {
+            const questionId = `${category}-${value}`;
+            if (usedQuestions.has(questionId)) return;
+            
+            const question = questions[category][value];
+            currentQuestionValue = value;
+            
+            document.getElementById('pointValue').textContent = '$' + value;
+            document.getElementById('questionText').textContent = question.q;
+            document.getElementById('answerText').textContent = question.a;
+            document.getElementById('answerText').style.display = 'none';
+            document.getElementById('teamButtons').style.display = 'none';
+            
+            document.getElementById('modal').style.display = 'block';
+            
+            // Mark as used
+            usedQuestions.add(questionId);
+            
+            // Update the board
+            initializeBoard();
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function showAnswer() {
+            const answerDiv = document.getElementById('answerText');
+            answerDiv.style.display = 'block';
+            
+            // Show team buttons after answer is revealed
+            document.getElementById('teamButtons').style.display = 'flex';
+        }
+
+        function resetGame() {
+            if (confirm('Are you sure you want to reset the game? All progress and scores will be lost.')) {
+                usedQuestions.clear();
+                boysScore = 0;
+                girlsScore = 0;
+                updateScoreboard();
+                initializeBoard();
+                closeModal();
+            }
+        }
+
+        // Wait for DOM to be fully loaded before attaching event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Event Listeners
+            document.getElementById('closeBtn').addEventListener('click', closeModal);
+            document.getElementById('showAnswerBtn').addEventListener('click', showAnswer);
+            document.getElementById('resetBtn').addEventListener('click', resetGame);
+            document.getElementById('boysBtn').addEventListener('click', addPointsToBoys);
+            document.getElementById('girlsBtn').addEventListener('click', addPointsToGirls);
+
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                const modal = document.getElementById('modal');
+                if (event.target === modal) {
+                    closeModal();
+                }
+            }
+
+            // Initialize the board and scoreboard on load
+            initializeBoard();
+            updateScoreboard();
+        });
+    </script>
+</body>
+</html>

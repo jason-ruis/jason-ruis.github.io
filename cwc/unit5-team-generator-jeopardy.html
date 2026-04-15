@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 5 Team Generator - Jeopardy Theme</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+            font-size: 3em;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            color: #ffd700;
+            margin-bottom: 32px;
+            font-size: 1.35em;
+            font-weight: bold;
+        }
+
+        .control-panel {
+            background: rgba(13, 27, 42, 0.55);
+            border: 4px solid #ffd700;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 520px;
+            margin: 0 auto 32px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .primary-button {
+            display: inline-block;
+            padding: 16px 40px;
+            font-size: 1.3em;
+            background: #ffd700;
+            color: #1e3c72;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.35);
+        }
+
+        .primary-button:hover {
+            background: white;
+            transform: scale(1.05);
+        }
+
+        .teams-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        .team-section {
+            background: #1e3c72;
+            border: 4px solid #ffd700;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+        }
+
+        .team-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .team-header {
+            padding: 18px 12px;
+            font-size: 1.35em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #0d1b2a;
+            border-bottom: 4px solid #ffd700;
+        }
+
+        .blue-header {
+            color: #7ec8ff;
+        }
+
+        .gold-header {
+            color: #ffd700;
+        }
+
+        .team-list {
+            padding: 10px;
+        }
+
+        .list-row {
+            background: #2a5298;
+            color: white;
+            padding: 16px 14px;
+            margin: 10px 0;
+            font-size: 1.15em;
+            font-weight: bold;
+            border: 3px solid #ffd700;
+            border-radius: 8px;
+            animation: tileReveal 0.28s ease-out forwards;
+            opacity: 0;
+            box-shadow: 0 0 14px rgba(255, 215, 0, 0.15);
+        }
+
+        @keyframes tileReveal {
+            from {
+                transform: scale(0.96);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        #loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.88);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .spinner {
+            width: 80px;
+            height: 80px;
+            border: 8px solid rgba(255, 215, 0, 0.2);
+            border-top: 8px solid #ffd700;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 24px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .status-text {
+            color: #ffd700;
+            font-size: 1.4em;
+            font-weight: bold;
+            text-shadow: 0 0 12px rgba(255, 215, 0, 0.35);
+        }
+
+        @media (max-width: 900px) {
+            .teams-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1.05em;
+            }
+
+            .control-panel {
+                padding: 20px;
+            }
+
+            .primary-button {
+                width: 100%;
+                font-size: 1.1em;
+            }
+
+            .team-header {
+                font-size: 1.1em;
+            }
+
+            .list-row {
+                font-size: 1em;
+                padding: 14px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>UNIT 5 TEAM GENERATOR</h1>
+        <div class="subtitle">Jeopardy Edition: Randomly sort the class into Team Blue and Team Gold.</div>
+
+        <div class="control-panel">
+            <button class="primary-button" onclick="startGeneration()">Generate Teams</button>
+        </div>
+
+        <div class="teams-container">
+            <div id="blue-team" class="team-section">
+                <div class="team-header blue-header">Team Blue</div>
+                <div id="blue-list" class="team-list"></div>
+            </div>
+            <div id="gold-team" class="team-section">
+                <div class="team-header gold-header">Team Gold</div>
+                <div id="gold-list" class="team-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+        <div class="status-text" id="status-text">Loading the board...</div>
+    </div>
+
+    <script>
+        const students = [
+            "Samuel Austin",
+            "Collin Bresser",
+            "Kolten Buwalda",
+            "Victoria Bykowski",
+            "Taylor Fix",
+            "Makayla Gough",
+            "Molly Koepsell",
+            "Ryden Perry",
+            "Bella Schaalma",
+            "Brennan Schaumburg",
+            "Adalyn Smits",
+            "Madelyn Springstroh",
+            "Piper Syens",
+            "Caleb Ten Napel",
+            "Emma Ter Beest",
+            "Allana Vree"
+        ];
+
+        function shuffle(array) {
+            const shuffled = [...array];
+
+            for (let i = shuffled.length - 1; i > 0; i -= 1) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+
+            return shuffled;
+        }
+
+        function startGeneration() {
+            const overlay = document.getElementById("loading-overlay");
+            const status = document.getElementById("status-text");
+
+            overlay.style.display = "flex";
+            status.innerText = "Loading the board...";
+
+            document.getElementById("blue-team").classList.remove("visible");
+            document.getElementById("gold-team").classList.remove("visible");
+            document.getElementById("blue-list").innerHTML = "";
+            document.getElementById("gold-list").innerHTML = "";
+
+            setTimeout(() => {
+                status.innerText = "Choosing categories...";
+            }, 700);
+
+            setTimeout(() => {
+                status.innerText = "Daily Double shuffle...";
+            }, 1400);
+
+            setTimeout(() => {
+                status.innerText = "Assigning teams...";
+            }, 2100);
+
+            setTimeout(() => {
+                overlay.style.display = "none";
+                generateTeams();
+            }, 2800);
+        }
+
+        function generateTeams() {
+            const shuffled = shuffle(students);
+            const half = Math.ceil(shuffled.length / 2);
+            const blue = shuffled.slice(0, half).sort();
+            const gold = shuffled.slice(half).sort();
+
+            renderTeam("blue", blue);
+            renderTeam("gold", gold);
+        }
+
+        function renderTeam(color, names) {
+            const container = document.getElementById(`${color}-team`);
+            const list = document.getElementById(`${color}-list`);
+
+            container.classList.add("visible");
+
+            names.forEach((name, index) => {
+                setTimeout(() => {
+                    const row = document.createElement("div");
+                    row.className = "list-row";
+                    row.innerText = name;
+                    list.appendChild(row);
+                }, index * 120);
+            });
+        }
+    </script>
+</body>
+</html>

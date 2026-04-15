@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 5 Jeopardy - Lessons 5.1-5.7</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 3em;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #ffd700;
+            margin-bottom: 30px;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            margin-bottom: 30px;
+        }
+
+        .category {
+            background: #1e3c72;
+            color: white;
+            padding: 12px 5px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.75em;
+            border: 3px solid #ffd700;
+            border-radius: 5px;
+            text-transform: uppercase;
+            min-height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .question-tile {
+            background: #1e3c72;
+            color: #ffd700;
+            padding: 20px 8px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            border: 3px solid #ffd700;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .question-tile:hover:not(.used) {
+            background: #2a5298;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .question-tile.used {
+            background: #0d1b2a;
+            color: #555;
+            cursor: not-allowed;
+            border-color: #555;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: #1e3c72;
+            margin: 3% auto;
+            padding: 40px;
+            border: 5px solid #ffd700;
+            border-radius: 10px;
+            width: 85%;
+            max-width: 900px;
+            color: white;
+            position: relative;
+        }
+
+        .close {
+            color: #ffd700;
+            float: right;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 30px;
+        }
+
+        .close:hover {
+            color: white;
+        }
+
+        .question-text {
+            font-size: 1.6em;
+            margin: 30px 0;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .value {
+            color: #ffd700;
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .answer {
+            display: none;
+            background: #0d1b2a;
+            padding: 25px;
+            margin-top: 30px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            border: 2px solid #ffd700;
+            line-height: 1.6;
+        }
+
+        .show-answer-btn {
+            display: block;
+            margin: 30px auto;
+            padding: 15px 40px;
+            font-size: 1.3em;
+            background: #ffd700;
+            color: #1e3c72;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .show-answer-btn:hover {
+            background: white;
+            transform: scale(1.05);
+        }
+
+        .reset-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            background: #28a745;
+            color: white;
+            border: 3px solid white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .reset-btn:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+
+        .scoreboard {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .score-card {
+            background: white;
+            padding: 25px 40px;
+            border-radius: 10px;
+            border: 4px solid #ffd700;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .score-label {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .blue-label {
+            color: #0066cc;
+        }
+
+        .gold-label {
+            color: #b8860b;
+        }
+
+        .score-value {
+            font-size: 3em;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .team-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .team-btn {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            color: white;
+        }
+
+        .blue-btn {
+            background: #0066cc;
+        }
+
+        .blue-btn:hover {
+            background: #0052a3;
+            transform: scale(1.05);
+        }
+
+        .gold-btn {
+            background: #b8860b;
+        }
+
+        .gold-btn:hover {
+            background: #8f6a09;
+            transform: scale(1.05);
+        }
+
+        .no-point-btn {
+            background: #6c757d;
+            padding: 15px 30px;
+        }
+
+        .no-point-btn:hover {
+            background: #5a6268;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 1200px) {
+            .board {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .question-tile {
+                font-size: 1.2em;
+                padding: 15px 5px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .subtitle {
+                font-size: 1.05em;
+            }
+
+            .board {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 4px;
+            }
+
+            .category {
+                font-size: 0.62em;
+                padding: 8px 3px;
+                min-height: 54px;
+            }
+
+            .question-tile {
+                font-size: 1em;
+                padding: 12px 4px;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .question-text {
+                font-size: 1.1em;
+            }
+
+            .answer {
+                font-size: 1em;
+            }
+
+            .team-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>UNIT 5 JEOPARDY</h1>
+        <div class="subtitle">Lessons 5.1-5.7: Divided Kingdom Through Hezekiah</div>
+
+        <div class="scoreboard">
+            <div class="score-card">
+                <div class="score-label blue-label">Team Blue</div>
+                <div class="score-value" id="blueScore">0</div>
+            </div>
+            <div class="score-card">
+                <div class="score-label gold-label">Team Gold</div>
+                <div class="score-value" id="goldScore">0</div>
+            </div>
+        </div>
+
+        <div class="board" id="board"></div>
+
+        <button class="reset-btn" id="resetBtn">Reset Game</button>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeBtn">&times;</span>
+            <div class="value" id="pointValue"></div>
+            <div class="question-text" id="questionText"></div>
+            <button class="show-answer-btn" id="showAnswerBtn">Show Answer</button>
+            <div class="answer" id="answerText"></div>
+            <div class="team-buttons" id="teamButtons" style="display: none;">
+                <button class="team-btn blue-btn" id="blueBtn">Team Blue Got It Right</button>
+                <button class="team-btn gold-btn" id="goldBtn">Team Gold Got It Right</button>
+                <button class="team-btn no-point-btn" id="noPointBtn">No Points</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const categories = [
+            "Dividing the Kingdom",
+            "Early Kings of Israel",
+            "God vs. Baal",
+            "Ahab's Legacy",
+            "Judgment on Israel",
+            "Judah's First 150 Years",
+            "Hezekiah"
+        ];
+
+        const questions = {
+            "Dividing the Kingdom": {
+                100: {
+                    q: "What decision by Rehoboam helped split the kingdom?",
+                    a: "He rejected the wise counsel of the elders and followed the harsh advice of his younger advisors, threatening to make the people's burden heavier."
+                },
+                200: {
+                    q: "What fear drove Jeroboam to create rival worship centers?",
+                    a: "He feared that if the people kept going to Jerusalem to worship, they would return their loyalty to Rehoboam and the house of David."
+                },
+                300: {
+                    q: "At which two locations did Jeroboam set up golden calves?",
+                    a: "Bethel and Dan."
+                },
+                400: {
+                    q: "What long-term spiritual effect did Jeroboam's calves have on Israel?",
+                    a: "They led Israel into ongoing idolatry and false worship, becoming the sinful pattern of the northern kingdom."
+                },
+                500: {
+                    q: "How do Rehoboam and Jeroboam together show the danger of choosing power over faithfulness?",
+                    a: "Rehoboam's harsh rule split the kingdom, and Jeroboam's political fear led him into idolatry. Both choices put control ahead of obedience to God."
+                }
+            },
+            "Early Kings of Israel": {
+                100: {
+                    q: "What pattern does 1 Kings use to introduce each king of Israel?",
+                    a: "It states when the king began to reign, how long he reigned, and whether he did evil or good in the eyes of the Lord."
+                },
+                200: {
+                    q: "By what repeated standard are Israel's kings judged?",
+                    a: "They are repeatedly judged by whether they followed Jeroboam's sinful pattern."
+                },
+                300: {
+                    q: "Why might Omri have looked successful by worldly standards?",
+                    a: "He built Samaria, strengthened the kingdom, and became well known internationally."
+                },
+                400: {
+                    q: "How does the Bible evaluate Omri despite that outward success?",
+                    a: "It says Omri did more evil than the kings before him."
+                },
+                500: {
+                    q: "What do the early northern kings teach about what matters most to God?",
+                    a: "Obedience to God matters more than power, fame, wealth, or political success."
+                }
+            },
+            "God vs. Baal": {
+                100: {
+                    q: "How did Ahab surpass the evil of previous kings?",
+                    a: "He married Jezebel, built a temple for Baal in Samaria, set up an Asherah pole, and openly promoted Baal worship."
+                },
+                200: {
+                    q: "What role did Jezebel play in Israel's Baal worship?",
+                    a: "She aggressively promoted Baal worship and supported its prophets."
+                },
+                300: {
+                    q: "Why was Baal worship attractive, and why was it dangerous?",
+                    a: "It was attractive because Baal was seen as the god of rain, fertility, and crops, but it was dangerous because it pulled Israel away from exclusive devotion to the Lord."
+                },
+                400: {
+                    q: "What happened on Mount Carmel when Elijah faced the prophets of Baal?",
+                    a: "The prophets of Baal cried out all day with no answer, but after Elijah repaired the Lord's altar, drenched the sacrifice, and prayed, God sent fire from heaven."
+                },
+                500: {
+                    q: "What did the Mount Carmel showdown prove?",
+                    a: "It proved that the Lord alone is the true God and that Baal had no power."
+                }
+            },
+            "Ahab's Legacy": {
+                100: {
+                    q: "Why did Naboth refuse to sell his vineyard to Ahab?",
+                    a: "Because it was his family inheritance."
+                },
+                200: {
+                    q: "How did Jezebel help Ahab get Naboth's vineyard?",
+                    a: "She arranged false accusations so Naboth would be executed, and then Ahab took the vineyard."
+                },
+                300: {
+                    q: "What did Ahab and Jezebel's actions reveal about their view of God's covenant?",
+                    a: "They abused royal power, rejected God's law, and destroyed a covenant member for personal gain."
+                },
+                400: {
+                    q: "What sentence did God pronounce on Ahab through Elijah?",
+                    a: "God declared that dogs would lick up Ahab's blood where they had licked Naboth's blood, and that Ahab's house would be judged."
+                },
+                500: {
+                    q: "How was Elijah's prophecy against Ahab fulfilled, and what does Ahab's life ultimately show?",
+                    a: "Ahab was killed in battle, his blood was washed from the chariot, and dogs licked it up just as Elijah said. His life shows that outward success cannot hide greed, compromise, or the certainty of God's word."
+                }
+            },
+            "Judgment on Israel": {
+                100: {
+                    q: "What positive reforms did Jehu bring to Israel?",
+                    a: "He destroyed the house of Ahab, wiped out Baal worship, and tore down Baal's temple."
+                },
+                200: {
+                    q: "What failure kept Jehu's reform from being complete?",
+                    a: "He refused to remove Jeroboam's golden calves at Bethel and Dan."
+                },
+                300: {
+                    q: "According to 2 Kings 17, why did God allow the Assyrians to destroy Israel?",
+                    a: "Because Israel worshiped other gods, followed pagan practices, rejected God's covenant, and refused to listen to the prophets God kept sending."
+                },
+                400: {
+                    q: "Which kingdom fell first, Israel or Judah?",
+                    a: "Israel, the Northern Kingdom, fell first."
+                },
+                500: {
+                    q: "How did God show even in judgment that he was not finished with his covenant people?",
+                    a: "He kept sending prophets, preserved Judah and David's line, and brought a remnant of Israelites back to worship him."
+                }
+            },
+            "Judah's First 150 Years": {
+                100: {
+                    q: "How does Chronicles primarily judge each king of Judah?",
+                    a: "By his relationship to God: whether he sought the Lord, obeyed God's law, upheld true worship, and honored God's covenant with David."
+                },
+                200: {
+                    q: "What reforms did Asa carry out early in his reign?",
+                    a: "He removed idols and foreign altars, commanded Judah to seek the Lord, and led covenant renewal."
+                },
+                300: {
+                    q: "What broke down at the end of Asa's life?",
+                    a: "He stopped depending on God, relied on political alliances, reacted badly to prophetic correction, and in sickness did not seek the Lord as he should have."
+                },
+                400: {
+                    q: "Why does Chronicles keep emphasizing that God preserved David's line?",
+                    a: "Because God had made a covenant with David that his line would continue even through unfaithful kings."
+                },
+                500: {
+                    q: "To whom does the preserved line of David ultimately point?",
+                    a: "It points forward to the coming Messiah, the true Son of David."
+                }
+            },
+            "Hezekiah": {
+                100: {
+                    q: "What major religious reforms did Hezekiah implement?",
+                    a: "He reopened and cleansed the temple, consecrated the Levites, restored sacrifices, renewed covenant worship, and led the people in celebrating Passover."
+                },
+                200: {
+                    q: "How did Hezekiah respond when Isaiah told him he would die?",
+                    a: "He prayed, wept, and cried out to God."
+                },
+                300: {
+                    q: "How did God respond to Hezekiah's prayer, and what sign confirmed it?",
+                    a: "God granted him fifteen more years of life and confirmed the promise by causing the shadow to move backward."
+                },
+                400: {
+                    q: "Why did the Babylonians visit Hezekiah, and what did he foolishly show them?",
+                    a: "They visited after hearing about his illness and recovery, likely with political interest, and Hezekiah showed them all his treasures, storehouses, and military resources."
+                },
+                500: {
+                    q: "What was Isaiah's prophetic response after Hezekiah showed everything to Babylon?",
+                    a: "Isaiah prophesied that Babylon would one day carry away all those treasures and that some of Hezekiah's descendants would be taken into exile."
+                }
+            }
+        };
+
+        let usedQuestions = new Set();
+        let blueScore = 0;
+        let goldScore = 0;
+        let currentQuestionValue = 0;
+
+        function updateScoreboard() {
+            document.getElementById('blueScore').textContent = blueScore;
+            document.getElementById('goldScore').textContent = goldScore;
+        }
+
+        function addPointsToBlue() {
+            blueScore += currentQuestionValue;
+            updateScoreboard();
+            closeModal();
+        }
+
+        function addPointsToGold() {
+            goldScore += currentQuestionValue;
+            updateScoreboard();
+            closeModal();
+        }
+
+        function noPoints() {
+            closeModal();
+        }
+
+        function initializeBoard() {
+            const board = document.getElementById('board');
+            board.innerHTML = '';
+
+            categories.forEach((category) => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'category';
+                categoryDiv.textContent = category;
+                board.appendChild(categoryDiv);
+            });
+
+            const values = [100, 200, 300, 400, 500];
+            values.forEach((value) => {
+                categories.forEach((category) => {
+                    const tile = document.createElement('div');
+                    tile.className = 'question-tile';
+                    tile.textContent = '$' + value;
+                    tile.dataset.category = category;
+                    tile.dataset.value = value;
+
+                    const questionId = `${category}-${value}`;
+                    if (usedQuestions.has(questionId)) {
+                        tile.classList.add('used');
+                    } else {
+                        tile.onclick = () => openQuestion(category, value);
+                    }
+
+                    board.appendChild(tile);
+                });
+            });
+        }
+
+        function openQuestion(category, value) {
+            const questionId = `${category}-${value}`;
+            if (usedQuestions.has(questionId)) return;
+
+            const question = questions[category][value];
+            currentQuestionValue = value;
+
+            document.getElementById('pointValue').textContent = '$' + value;
+            document.getElementById('questionText').textContent = question.q;
+            document.getElementById('answerText').textContent = question.a;
+            document.getElementById('answerText').style.display = 'none';
+            document.getElementById('teamButtons').style.display = 'none';
+
+            document.getElementById('modal').style.display = 'block';
+
+            usedQuestions.add(questionId);
+            initializeBoard();
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function showAnswer() {
+            document.getElementById('answerText').style.display = 'block';
+            document.getElementById('teamButtons').style.display = 'flex';
+        }
+
+        function resetGame() {
+            if (confirm('Are you sure you want to reset the game? All progress and scores will be lost.')) {
+                usedQuestions.clear();
+                blueScore = 0;
+                goldScore = 0;
+                updateScoreboard();
+                initializeBoard();
+                closeModal();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('closeBtn').addEventListener('click', closeModal);
+            document.getElementById('showAnswerBtn').addEventListener('click', showAnswer);
+            document.getElementById('resetBtn').addEventListener('click', resetGame);
+            document.getElementById('blueBtn').addEventListener('click', addPointsToBlue);
+            document.getElementById('goldBtn').addEventListener('click', addPointsToGold);
+            document.getElementById('noPointBtn').addEventListener('click', noPoints);
+
+            window.onclick = function(event) {
+                const modal = document.getElementById('modal');
+                if (event.target === modal) {
+                    closeModal();
+                }
+            };
+
+            initializeBoard();
+            updateScoreboard();
+        });
+    </script>
+</body>
+</html>
