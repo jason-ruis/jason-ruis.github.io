@@ -559,10 +559,9 @@
         "2026-08-13": [{ title: "Kick-off Bonfire (6:30-8:00)", cat: "activity" }],
         "2026-08-30": [{ title: "Fight Hunger Food Drive", cat: "activity" }],
         "2026-09-14": [{ title: "Alto Chase & Bonfire", cat: "activity" }],
+        "2026-09-18": [{ title: "Worship & Small Group Night", cat: "event" }], // Oct 18
         "2026-08-23": [{ title: "SWaT Kick-off", cat: "swat" }], // Sept 23
-        "2026-09-18": [{ title: "Kick off Sub Sales", cat: "activity" }], // Oct 18
-        "2026-09-28": [{ title: "Activity Night", cat: "activity" }], // Oct 28
-        "2026-10-11": [{ title: "Sub Sandwich Assembly (3-7pm)", cat: "activity" }],
+        "2026-09-28": [{ title: "Fundraiser Fiesta Supper", cat: "activity" }], // Oct 28
         "2026-11-06": [{ title: "Caroling & Christmas Party", cat: "event" }],
         "2026-11-20": [{ title: "Candlelight Service", cat: "event" }],
         "2027-00-03": [{ title: "Alumni Supper", cat: "activity" }],
@@ -570,7 +569,6 @@
         "2027-00-09": [{ title: "Winter Retreat", cat: "activity" }],
         "2027-00-10": [{ title: "Winter Retreat", cat: "activity" }],
         "2027-00-24": [{ title: "10:24 Small Groups", cat: "1024" }], // Jan 24th
-        "2027-01-03": [{ title: "Fundraiser Fiesta Supper", cat: "activity" }], // Feb 3rd
         "2027-01-21": [{ title: "Guys/Girls Night", cat: "activity" }],
         "2027-01-28": [{ title: "Spaghetti Supper Fundraiser", cat: "activity" }], // Feb 28th
         "2027-03-10": [{ title: "FunNight: VB & Bake Sale", cat: "activity" }],
@@ -702,7 +700,7 @@
             }
             if (sundays[2] && i === sundays[2].getDate()) {
                 const isMarch21_2027 = (isMarch && i === 21);
-                if (!isDecember && !isJanuary && !isFebruary && !isMay && !isMarch21_2027) {
+                if (!isOctober && !isDecember && !isJanuary && !isFebruary && !isMay && !isMarch21_2027) {
                     dayContent += tag1024Html(dateKey);
                 }
             }
