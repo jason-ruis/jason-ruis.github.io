@@ -463,7 +463,7 @@
     <p class="series-intro">10:24 Small Groups walk through nine principles of spiritual warfare this season, one per gathering.</p>
     <div class="series-grid">
       <div class="series-item"><span class="series-num">1</span><div><div class="series-item-title">The Mission</div><div class="series-item-date">Sep 20, 2026</div></div></div>
-      <div class="series-item"><span class="series-num">2</span><div><div class="series-item-title">Fighting</div><div class="series-item-date">Oct 4, 2026</div></div></div>
+      <div class="series-item"><span class="series-num">2</span><div><div class="series-item-title">Fighting</div><div class="series-item-date">Oct 11, 2026</div></div></div>
       <div class="series-item"><span class="series-num">3</span><div><div class="series-item-title">Focused Effort</div><div class="series-item-date">Oct 18, 2026</div></div></div>
       <div class="series-item"><span class="series-num">4</span><div><div class="series-item-title">Stay Agile</div><div class="series-item-date">Nov 1, 2026</div></div></div>
       <div class="series-item"><span class="series-num">5</span><div><div class="series-item-title">Guard Yourself</div><div class="series-item-date">Nov 15, 2026</div></div></div>
@@ -558,6 +558,7 @@
     const specificDates = {
         "2026-08-13": [{ title: "Kick-off Bonfire (6:30-8:00)", cat: "activity" }],
         "2026-08-30": [{ title: "Fight Hunger Food Drive", cat: "activity" }],
+        "2026-09-11": [{ title: "10:24 Small Groups", cat: "1024" }], // Oct 11
         "2026-09-14": [{ title: "Alto Chase & Bonfire", cat: "activity" }],
         "2026-09-18": [{ title: "Joint Worship Night (6:30pm): Contemporary Praise + Small Groups", cat: "event" }], // Oct 18
         "2026-08-23": [{ title: "SWaT Kick-off", cat: "swat" }], // Sept 23
@@ -586,7 +587,7 @@
     // One principle per 10:24 Small Groups night, in order.
     const seriesTheme = {
         "2026-08-20": { num: 1, title: "The Mission" },
-        "2026-09-04": { num: 2, title: "Fighting" },
+        "2026-09-11": { num: 2, title: "Fighting" },
         "2026-09-18": { num: 3, title: "Focused Effort" },
         "2026-10-01": { num: 4, title: "Stay Agile" },
         "2026-10-15": { num: 5, title: "Guard Yourself" },
@@ -694,7 +695,7 @@
 
             // 10:24 Sunday Logic
             if (sundays[0] && i === sundays[0].getDate()) {
-                if (!isSeptember && !isDecember && !isJanuary && !isApril && !isMay) {
+                if (!isSeptember && !isOctober && !isDecember && !isJanuary && !isApril && !isMay) {
                     dayContent += tag1024Html(dateKey);
                 }
             }
